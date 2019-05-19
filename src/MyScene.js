@@ -11,6 +11,7 @@ import {Configuration, TIME_OF_THE_DAY} from "./Configuration.js";
 import {MyHouse} from "./compound-objects/MyHouse.js";
 import {MyUnitCubeQuad} from "./primitives/MyUnitCubeQuad.js";
 import {MyLightsource} from "./compound-objects/MyLightsource.js";
+import MyBird from "./compound-objects/MyBird.js";
 
 export class MyScene extends CGFscene {
     constructor() {
@@ -37,6 +38,7 @@ export class MyScene extends CGFscene {
 
         this.initDevObjects();
         this.initSceneObjects();
+        this.setUpdatePeriod(50);
     }
 
     initSceneObjects() {
@@ -49,7 +51,7 @@ export class MyScene extends CGFscene {
     }
 
     initDevObjects() {
-        this.obj = new MyUnitCubeQuad(this);
+        this.obj = new MyBird(this);
         this.setLights();
     }
 
@@ -285,7 +287,16 @@ export class MyScene extends CGFscene {
         return this.configuration.getCamera(cameraId);
     }
 
-    update(t) {
+    update(currTime) {
+        let deltaTime;
+
+        this.lastTime = this.lastTime || currTime;
+
+        deltaTime = currTime - this.lastTime;
+
+        this.lastTime = currTime;
+
+        this.obj.update(deltaTime);
 
     }
 }
