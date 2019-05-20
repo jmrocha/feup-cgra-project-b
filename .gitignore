@@ -1,6 +1,8 @@
 dist/*
 !dist/index.html
 !dist/img
+!dist/webcgf.min.js
+!dist/CGF
 
 
 # Created by https://www.gitignore.io/api/node
