@@ -3,7 +3,7 @@ import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 import Utils from "../Utils.js";
 
 class MyBird extends CGFobject {
-    constructor(scene, orientation = 'y', velocity = 0, position = [0, 0, 0]) {
+    constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
         super(scene);
         this.orientation = orientation;
         this.velocity = velocity;
@@ -86,7 +86,7 @@ class MyBird extends CGFobject {
     }
 
     accelerate(velocity) {
-
+        
     }
 }
 
