@@ -1,4 +1,4 @@
-import {MyUnitCubeQuad} from "../primitives/MyUnitCubeQuad.js";
+import MyUnitCubeQuad from "../primitives/MyUnitCubeQuad.js";
 import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 import Utils from "../Utils.js";
 

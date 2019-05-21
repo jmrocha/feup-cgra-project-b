@@ -2,7 +2,7 @@ import Utils from "../Utils.js";
 
 const VERTICES_PER_SLICE = 4;
 
-export class MyPrism extends CGFobject {
+class MyPrism extends CGFobject {
     constructor(scene, slices = 6, texturePath = null) {
         super(scene);
         this.slices = slices;
@@ -72,3 +72,5 @@ export class MyPrism extends CGFobject {
         super.display();
     }
 }
+
+export default MyPrism;

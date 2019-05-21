@@ -3,12 +3,12 @@
  * @constructor
  */
 
-import {MyCubeMap} from "./compound-objects/MyCubeMap.js";
-import {Configuration} from "./Configuration.js";
-import {MyHouse} from "./compound-objects/MyHouse.js";
+import MyCubeMap from "./compound-objects/MyCubeMap.js";
+import Configuration from "./Configuration.js";
+import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 
-export class MyScene extends CGFscene {
+class MyScene extends CGFscene {
     constructor() {
         super();
     }

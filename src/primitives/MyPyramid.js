@@ -4,7 +4,7 @@
  */
 import {IMAGE_PATH} from "../Configuration.js";
 
-export class MyPyramid extends CGFobject {
+class MyPyramid extends CGFobject {
     constructor(scene, slices = 6) {
         super(scene);
         this.slices = slices;
@@ -84,5 +84,7 @@ export class MyPyramid extends CGFobject {
         super.display();
     }
 }
+
+export default MyPyramid;
 
 

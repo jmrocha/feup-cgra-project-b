@@ -1,8 +1,6 @@
-import Utils from "../Utils.js";
-
 const VERTICES_PER_SLICE = 2;
 
-export class MyCylinder extends CGFobject {
+class MyCylinder extends CGFobject {
     constructor(scene, slices = 6, texturePath = null) {
         super(scene);
         this.slices = slices;
@@ -91,3 +89,5 @@ export class MyCylinder extends CGFobject {
         super.display();
     }
 }
+
+export default MyCylinder;

@@ -1,12 +1,12 @@
-import {MyUnitCubeQuad} from "../primitives/MyUnitCubeQuad.js";
-import {MyPrism} from "../primitives/MyPrism.js";
-import {MyPyramid} from "../primitives/MyPyramid.js";
+import MyUnitCubeQuad from "../primitives/MyUnitCubeQuad.js";
+import MyPrism from "../primitives/MyPrism.js";
+import MyPyramid from "../primitives/MyPyramid.js";
 import Utils from "../Utils.js";
 
 const PILLAR_POS = 0.75;
 const PILLAR_SCALE = [0.1, 1, 0.1];
 
-export class MyHouse {
+class MyHouse {
     constructor(scene) {
         this.scene = scene;
         this.walls = new MyUnitCubeQuad(scene);
@@ -92,3 +92,5 @@ export class MyHouse {
         this.scene.popMatrix();
     }
 }
+
+export default MyHouse;

@@ -2,7 +2,7 @@
  * MyInterface
  * @constructor
  */
-import {Configuration} from "./Configuration.js";
+import Configuration from "./Configuration.js";
 
 class MyInterface extends CGFinterface {
     constructor() {

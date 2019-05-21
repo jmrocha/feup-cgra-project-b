@@ -3,11 +3,10 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-import {MyQuad} from "./MyQuad.js";
-import {Configuration} from "../Configuration.js";
+import MyQuad from "./MyQuad.js";
 import Utils from "../Utils.js";
 
-export class MyUnitCubeQuad extends CGFobject {
+class MyUnitCubeQuad extends CGFobject {
 	constructor(scene, sidesTexture, topTexture, bottomTexture) {
 		super(scene);
 		this.face = new MyQuad(scene);
@@ -128,3 +127,4 @@ export class MyUnitCubeQuad extends CGFobject {
 	}
 }
 
+export default MyUnitCubeQuad;

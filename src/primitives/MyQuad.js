@@ -3,7 +3,7 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-export class MyQuad extends CGFobject {
+class MyQuad extends CGFobject {
 	constructor(scene, coords) {
 		super(scene);
 		this.initBuffers();
@@ -64,3 +64,4 @@ export class MyQuad extends CGFobject {
 	}
 }
 
+export default MyQuad;

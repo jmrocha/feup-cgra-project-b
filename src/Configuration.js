@@ -89,7 +89,7 @@ let config = {
 
 let instance;
 
-export class Configuration {
+class Configuration {
     static getInstance() {
         if (!instance)
             instance = new Configuration();
@@ -164,3 +164,5 @@ export class Configuration {
         return config['default_appearance'];
     }
 }
+
+export default Configuration;

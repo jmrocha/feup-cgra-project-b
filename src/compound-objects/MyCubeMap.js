@@ -5,12 +5,12 @@
  */
 
 import Utils from "../Utils.js";
-import {MyQuad} from "../primitives/MyQuad.js";
-import {Configuration} from "../Configuration.js";
+import MyQuad from "../primitives/MyQuad.js";
+import Configuration from "../Configuration.js";
 
 const TEXTURE_WRAP = 'CLAMP_TO_EDGE';
 
-export class MyCubeMap extends CGFobject {
+class MyCubeMap extends CGFobject {
     constructor(scene) {
         super(scene);
         this.face = new MyQuad(scene);
@@ -134,3 +134,4 @@ export class MyCubeMap extends CGFobject {
     }
 }
 
+export default MyCubeMap;
