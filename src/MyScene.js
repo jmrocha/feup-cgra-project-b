@@ -8,6 +8,7 @@ import Configuration from "./Configuration.js";
 import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
+import {config} from './Configuration.js';
 
 class MyScene extends CGFscene {
     constructor() {
@@ -41,9 +42,9 @@ class MyScene extends CGFscene {
 
         this.setLights();
 
-        this.flutterVelocity = 1;
-        this.birdVelocity = 1 / 500;
-        this.birdRotation = 15;
+        this.flutterVelocity = config['bird']['flutter_velocity'];
+        this.birdVelocity = config['bird']['velocity'];
+        this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
     }
 

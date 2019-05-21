@@ -1,7 +1,7 @@
 export const IMAGE_PATH = 'img';
 const OBJECTS_SCENE_SIZE_RATIO = 0.07;
 
-let config = {
+export let config = {
     cameras: {
         'Skybox Camera': {
             fov: 1.4,
@@ -84,7 +84,12 @@ let config = {
             bottom: IMAGE_PATH + '/unit-cube/bottom.png'
         }
     },
-    default_global_ambient_light: [0.1, 0.1, 0.1, 1.0]
+    default_global_ambient_light: [0.1, 0.1, 0.1, 1.0],
+    bird: {
+        flutter_velocity: 1,
+        velocity: 1 / 500,
+        rotation: 15
+    }
 };
 
 let instance;
