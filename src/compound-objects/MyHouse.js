@@ -13,7 +13,6 @@ export class MyHouse {
         this.roof = new MyPyramid(scene, 4, 1);
         this.pillar = new MyPrism(scene);
         this.roofMaterial = new CGFappearance(scene);
-        // 178,34,34)
         this.roofMaterial.setAmbient(178 / 255, 34 / 255, 34 / 255, 1);
         this.roofMaterial.setSpecular(178 / 255, 34 / 255, 34 / 255, 1);
         this.roofMaterial.setShininess(10);

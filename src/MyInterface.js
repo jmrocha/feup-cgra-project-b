@@ -2,7 +2,7 @@
  * MyInterface
  * @constructor
  */
-import {Configuration, TIME_OF_THE_DAY} from "./Configuration.js";
+import {Configuration} from "./Configuration.js";
 
 class MyInterface extends CGFinterface {
     constructor() {
@@ -12,7 +12,6 @@ class MyInterface extends CGFinterface {
 
         this.obj = {
             enable_textures: true,
-            day_of_the_time: Configuration.getDefaultTimeOfTheDay(),
             enableDev: Configuration.isDevObjectsEnabled(),
             camera: Configuration.getDefaultCameraId(),
             axis_enabled: Configuration.isAxisEnabled()
@@ -28,16 +27,6 @@ class MyInterface extends CGFinterface {
         this.gui = new dat.GUI();
 
         this.gui.remember(this.obj);
-
-        this.enableTextures = this.gui
-            .add(this.obj, 'enable_textures')
-            .name('Enable Textures')
-            .onChange(this.scene.enableTextures.bind(this.scene));
-
-        this.dayOfTheTime = this.gui
-            .add(this.obj, 'day_of_the_time', [TIME_OF_THE_DAY.day, TIME_OF_THE_DAY.night])
-            .name('Time of the day')
-            .onChange(this.setTimeOfTheDay.bind(this));
 
         this.developmentEnabled = this.gui
             .add(this.obj, 'enableDev')
@@ -55,8 +44,6 @@ class MyInterface extends CGFinterface {
             .name('Axis')
             .onChange(this.enableAxis.bind(this));
 
-        this.scene.enableTextures(this.enableTextures.getValue());
-        this.setTimeOfTheDay(this.dayOfTheTime.getValue());
         this.enableAxis(this.axisEnabled.getValue());
         this.enableDev(this.developmentEnabled.getValue());
         this.setCamera(this.camera.getValue());
@@ -66,11 +53,6 @@ class MyInterface extends CGFinterface {
 
     enableAxis(enable) {
         this.scene.enableAxis(enable);
-    }
-    
-    setTimeOfTheDay(timeOfTheDay) {
-        this.configuration.setTimeOfTheDay(timeOfTheDay);
-        this.scene.setTimeOfTheDay(timeOfTheDay);
     }
 
     enableDev(enable) {

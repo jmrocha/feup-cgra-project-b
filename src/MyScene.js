@@ -3,14 +3,9 @@
  * @constructor
  */
 
-import {MyVoxelHill} from "./compound-objects/MyVoxelHill.js";
-import {MyTreeGroupPatch} from "./compound-objects/MyTreeGroupPatch.js";
-import {MyTreeRowPatch} from "./compound-objects/MyTreeRowPatch.js";
 import {MyCubeMap} from "./compound-objects/MyCubeMap.js";
-import {Configuration, TIME_OF_THE_DAY} from "./Configuration.js";
+import {Configuration} from "./Configuration.js";
 import {MyHouse} from "./compound-objects/MyHouse.js";
-import {MyUnitCubeQuad} from "./primitives/MyUnitCubeQuad.js";
-import {MyLightsource} from "./compound-objects/MyLightsource.js";
 import MyBird from "./compound-objects/MyBird.js";
 
 export class MyScene extends CGFscene {
@@ -35,23 +30,11 @@ export class MyScene extends CGFscene {
         this.displayAxis = Configuration.isAxisEnabled();
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
-
-        this.initDevObjects();
-        this.initSceneObjects();
-        this.setUpdatePeriod(50);
-    }
-
-    initSceneObjects() {
         this.house = new MyHouse(this);
-        this.hill1 = new MyVoxelHill(this);
-        this.hill2 = new MyVoxelHill(this);
-        this.grove1 = new MyTreeGroupPatch(this);
-        this.grove2 = new MyTreeRowPatch(this);
-        this.lamp = new MyLightsource(this);
-    }
+        this.devObj = new MyBird(this);
 
-    initDevObjects() {
-        this.obj = new MyBird(this);
+        this.setUpdatePeriod(5);
+
         this.setLights();
     }
 
@@ -125,7 +108,7 @@ export class MyScene extends CGFscene {
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         if (Configuration.isDevObjectsEnabled()) {
-            this.obj.display();
+            this.devObj.display();
         } else {
             this.displayScene();
         }
@@ -135,10 +118,7 @@ export class MyScene extends CGFscene {
 
     displayScene() {
         this.displaySkybox();
-        this.displayHouse();
-        this.displayHills();
-        this.displayGroves();
-        this.displayLamp();
+        this.house.display();
     }
 
     displaySkybox() {
@@ -163,118 +143,11 @@ export class MyScene extends CGFscene {
             z * scale);
     }
 
-    displayHouse() {
-        this.pushMatrix();
-        {
-            let scale = Configuration.getObjectsScale();
-            this.translate2(0.25, 0, 0.45);
-            this.scale(scale, scale, scale);
-            this.house.display();
-        }
-        this.popMatrix();
-    }
-
-    displayHills() {
-        this.displayHill1();
-        this.displayHill2();
-    }
-
-    displayHill1() {
-        this.pushMatrix();
-        {
-            this.hill1.setLevels(Configuration.getHillsLevels()[0]);
-            this.translate2(0.80, 0, 0.3);
-            this.scale(1.7, 1.7, 1.7);
-            this.hill1.display();
-        }
-        this.popMatrix();
-    }
-
-    displayHill2() {
-        this.pushMatrix();
-        {
-            this.hill2.setLevels(Configuration.getHillsLevels()[1]);
-            let scale = Configuration.getObjectsScale();
-            this.translate2(0.70, 0, 0.5);
-            this.scale(1.7, 1.7, 1.7);
-            this.hill2.display();
-        }
-        this.popMatrix();
-    }
-
-    displayGroves() {
-        this.displayGrove1();
-        this.displayGrove2();
-    }
-
-    displayGrove1() {
-        this.pushMatrix();
-        {
-            let scale = Configuration.getObjectsScale();
-            //this.translate2(-0.3, 0, -0.2);
-            this.translate2(0.3, 0, 0.3);
-            this.scale(scale, scale, scale);
-
-            this.grove1.display();
-        }
-        this.popMatrix();
-    }
-
-    displayGrove2() {
-        this.pushMatrix();
-        {
-            let scale = Configuration.getObjectsScale();
-            //this.translate2(-0.5, 0, -0.2);
-            this.scale(scale, scale, scale);
-            this.grove2.display();
-        }
-        this.popMatrix();
-    }
-
-    displayLamp() {
-        let scale = 3;
-        this.pushMatrix();
-        {
-            this.translate2(0.3, 0, 0.6);
-            this.scale(scale, scale, scale);
-            this.lamp.display();
-        }
-        this.popMatrix();
-    }
-
-    setDay() {
-        this.configuration.setDay();
-        this.skybox.setDay();
-        this.setLights();
-    }
-
-    setNight() {
-        this.configuration.setNight();
-        this.skybox.setNight();
-        this.setLights();
-    }
-
-    setTimeOfTheDay(timeOfTheDay) {
-        switch (timeOfTheDay) {
-            case TIME_OF_THE_DAY.day:
-                this.setDay();
-                break;
-            case TIME_OF_THE_DAY.night:
-                this.setNight();
-                break;
-            default:
-                console.assert(true, 'Invalid option');
-                break;
-        }
-    }
-
     enableDev(enable) {
         if (enable) {
             Configuration.enableDevObjects();
-            this.initDevObjects();
         } else {
             Configuration.disableDevObjects();
-            this.initSceneObjects();
         }
     }
 
@@ -282,21 +155,14 @@ export class MyScene extends CGFscene {
         this.camera = camera;
     }
 
-    getCamera(cameraId) {
-        // todo: make configuration class singleton
-        return this.configuration.getCamera(cameraId);
-    }
-
     update(currTime) {
         let deltaTime;
 
         this.lastTime = this.lastTime || currTime;
-
         deltaTime = currTime - this.lastTime;
-
         this.lastTime = currTime;
 
-        this.obj.update(deltaTime);
+        this.devObj.update(deltaTime);
 
     }
 }
