@@ -106,6 +106,10 @@ class MyBird extends CGFobject {
         this.position = [0, 0, 0];
         this.orientation = 0;
     }
+
+    takeBough() {
+        console.log('Taking bough');
+    }
 }
 
 export default MyBird;

@@ -219,7 +219,7 @@ class MyScene extends CGFscene {
     }
 
     handleKeyPDown() {
-        console.log('key p down');
+        this.bird.takeBough();
     }
 
     handleKeyLUp() {
