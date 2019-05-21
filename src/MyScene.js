@@ -33,7 +33,7 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this);
-        this.devObj = new MyBird(this);
+        this.devObj = this.bird;
 
         this.setUpdatePeriod(5);
 
@@ -235,7 +235,7 @@ class MyScene extends CGFscene {
     }
 
     handleScaleOnChange(value) {
-        console.log('scale: ' + value);
+        this.bird.scale(value);
     }
 
     addObserver(obj) {

@@ -13,11 +13,13 @@ class MyBird extends CGFobject {
         this.elapsedTime = 0;
         this.flapYDisplacement = 0;
         scene.addObserver(this);
+        this.scaleFactor = 1;
     }
 
     display() {
         this.scene.pushMatrix();
         {
+            this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             this.flap();
             this.displayBody();
             this.displayWings();
@@ -86,7 +88,11 @@ class MyBird extends CGFobject {
     }
 
     accelerate(velocity) {
-        
+
+    }
+
+    scale(value) {
+        this.scaleFactor = value;
     }
 }
 
