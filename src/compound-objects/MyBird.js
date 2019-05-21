@@ -12,6 +12,7 @@ class MyBird extends CGFobject {
         this.wing = new MyTriangleSmall(scene);
         this.elapsedTime = 0;
         this.flapYDisplacement = 0;
+        scene.addObserver(this);
     }
 
     display() {

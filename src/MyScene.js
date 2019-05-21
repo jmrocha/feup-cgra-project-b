@@ -11,6 +11,7 @@ import MyBird from "./compound-objects/MyBird.js";
 class MyScene extends CGFscene {
     constructor() {
         super();
+        this.updateObservers = [];
     }
 
     init(application) {
@@ -163,7 +164,9 @@ class MyScene extends CGFscene {
         deltaTime = currTime - this.lastTime;
         this.lastTime = currTime;
 
-        this.devObj.update(deltaTime);
+        this.updateObservers.forEach(subscriber => {
+            subscriber.update(deltaTime);
+        });
     }
 
     handleKeyWUp() {
@@ -233,6 +236,10 @@ class MyScene extends CGFscene {
 
     handleScaleOnChange(value) {
         console.log('scale: ' + value);
+    }
+
+    addObserver(obj) {
+        this.updateObservers.push(obj);
     }
 }
 
