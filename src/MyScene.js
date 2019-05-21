@@ -171,11 +171,12 @@ class MyScene extends CGFscene {
 
     handleKeyWUp() {
         console.log('key w up');
+        this.bird.accelerate(-1);
     }
 
     handleKeyWDown() {
         console.log('key w down');
-        this.bird.accelerate(1 / 1000);
+        this.bird.accelerate(1 / 500);
     }
 
     handleKeySUp() {
@@ -184,7 +185,7 @@ class MyScene extends CGFscene {
 
     handleKeySDown() {
         console.log('key s down');
-        this.bird.accelerate(0);
+        this.bird.accelerate(-1/ 500);
     }
 
     handleKeyAUp() {
@@ -193,7 +194,7 @@ class MyScene extends CGFscene {
 
     handleKeyADown() {
         console.log('key a down');
-        this.bird.turn(25);
+        this.bird.turn(-15);
     }
 
     handleKeyDUp() {
@@ -202,7 +203,7 @@ class MyScene extends CGFscene {
 
     handleKeyDDown() {
         console.log('key d down');
-        this.bird.turn(-25);
+        this.bird.turn(15);
     }
 
     handleKeyRUp() {
