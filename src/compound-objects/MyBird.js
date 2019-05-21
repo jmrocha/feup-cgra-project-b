@@ -5,7 +5,7 @@ import Utils from "../Utils.js";
 class MyBird extends CGFobject {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
         super(scene);
-        this.orientation = orientation;
+        this.orientation = Utils.degToRad(orientation);
         this.velocity = velocity;
         this.position = position;
         this.body = new MyUnitCubeQuad(scene);
@@ -83,7 +83,7 @@ class MyBird extends CGFobject {
         return amplitude * Math.sin(angle);
     }
 
-    turn(velocity) {
+    turn(degrees) {
 
     }
 
