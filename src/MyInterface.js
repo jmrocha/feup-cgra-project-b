@@ -12,10 +12,18 @@ class MyInterface extends CGFinterface {
 
         this.obj = {
             enable_textures: true,
-            enableDev: Configuration.isDevObjectsEnabled(),
+            enable_dev: Configuration.isDevObjectsEnabled(),
             camera: Configuration.getDefaultCameraId(),
-            axis_enabled: Configuration.isAxisEnabled()
+            axis_enabled: Configuration.isAxisEnabled(),
+            speed_factor: 1,
+            scale_factor: 1,
         };
+
+        this.handleDevOnChange = this.handleDevOnChange.bind(this);
+        this.handleCameraOnChange = this.handleCameraOnChange.bind(this);
+        this.handleAxisOnChange = this.handleAxisOnChange.bind(this);
+        this.handleSpeedOnChange = this.handleSpeedOnChange.bind(this);
+        this.handleScaleOnChange = this.handleScaleOnChange.bind(this);
     }
 
     init(application) {
@@ -28,34 +36,56 @@ class MyInterface extends CGFinterface {
 
         this.gui.remember(this.obj);
 
+        this.speedFactor = this.gui
+            .add(this.obj, 'speed_factor', 0.1, 3)
+            .name('Speed Factor')
+            .onChange(this.handleSpeedOnChange);
+
+        this.scaleFactor = this.gui
+            .add(this.obj, 'scale_factor', 0.5, 3)
+            .name('Scale Factor')
+            .onChange(this.handleScaleOnChange);
+
         this.developmentEnabled = this.gui
-            .add(this.obj, 'enableDev')
+            .add(this.obj, 'enable_dev')
             .name('Development')
-            .onChange(this.enableDev.bind(this));
+            .onChange(this.handleDevOnChange);
 
         this.camera = this.gui
             .add(this.obj, 'camera', Configuration.getCamerasIds())
             .name('Camera')
-            .onChange(this.setCamera.bind(this))
+            .onChange(this.handleCameraOnChange)
             .listen();
 
         this.axisEnabled = this.gui
             .add(this.obj, 'axis_enabled')
             .name('Axis')
-            .onChange(this.enableAxis.bind(this));
+            .onChange(this.handleAxisOnChange);
 
-        this.enableAxis(this.axisEnabled.getValue());
-        this.enableDev(this.developmentEnabled.getValue());
-        this.setCamera(this.camera.getValue());
+        this.handleAxisOnChange(this.axisEnabled.getValue());
+        this.handleDevOnChange(this.developmentEnabled.getValue());
+        this.handleCameraOnChange(this.camera.getValue());
+        this.handleSpeedOnChange(this.speedFactor.getValue());
+        this.handleScaleOnChange(this.scaleFactor.getValue());
+
+        this.initKeys();
 
         return true;
     }
 
-    enableAxis(enable) {
+    handleSpeedOnChange(value) {
+        this.scene.handleSpeedOnChange(value);
+    }
+
+    handleScaleOnChange(value) {
+        this.scene.handleScaleOnChange(value);
+    }
+
+    handleAxisOnChange(enable) {
         this.scene.enableAxis(enable);
     }
 
-    enableDev(enable) {
+    handleDevOnChange(enable) {
         /*if (enable) {
             //this.camera.setValue('Primitive Camera');
             this.setCamera('Primitive Camera');
@@ -67,12 +97,83 @@ class MyInterface extends CGFinterface {
         this.scene.enableDev(enable);
     }
 
-    setCamera(cameraId) {
+    handleCameraOnChange(cameraId) {
         let camera = this.configuration.getCamera(cameraId);
 
         this.setActiveCamera(camera);
         this.scene.setCamera(camera);
     }
+
+    initKeys() {
+        // create reference from the scene to the GUI
+        this.scene.gui = this;
+        // disable the processKeyboard function
+        this.processKeyboard = function () {
+        };
+        // create a named array to store which keys are being pressed
+        this.activeKeys = {};
+    }
+
+    processKeyDown(event) {
+        switch (event.key) {
+            case 's':
+                this.scene.handleKeySDown();
+                break;
+            case 'w':
+                this.scene.handleKeyWDown();
+                break;
+            case 'a':
+                this.scene.handleKeyADown();
+                break;
+            case 'd':
+                this.scene.handleKeyDDown();
+                break;
+            case 'r':
+                this.scene.handleKeyRDown();
+                break;
+            case 'p':
+                this.scene.handleKeyPDown();
+                break;
+            case 'l':
+                this.scene.handleKeyLDown();
+                break;
+            default:
+                break;
+        }
+        // called when a key is pressed down
+        // mark it as active in the array
+        this.activeKeys[event.code] = true;
+    };
+
+    processKeyUp(event) {
+        switch (event.key) {
+            case 's':
+                this.scene.handleKeySUp();
+                break;
+            case 'w':
+                this.scene.handleKeyWUp();
+                break;
+            case 'a':
+                this.scene.handleKeyAUp();
+                break;
+            case 'd':
+                this.scene.handleKeyDUp();
+                break;
+            case 'r':
+                this.scene.handleKeyRUp();
+                break;
+            case 'p':
+                this.scene.handleKeyPUp();
+                break;
+            case 'l':
+                this.scene.handleKeyLUp();
+                break;
+            default:
+                break;
+        }
+        // called when a key is released, mark it as inactive in the array
+        this.activeKeys[event.code] = false;
+    };
 }
 
 export default MyInterface;

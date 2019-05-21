@@ -31,6 +31,7 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
+        this.bird = new MyBird(this);
         this.devObj = new MyBird(this);
 
         this.setUpdatePeriod(5);
@@ -163,7 +164,75 @@ export class MyScene extends CGFscene {
         this.lastTime = currTime;
 
         this.devObj.update(deltaTime);
+    }
 
+    handleKeyWUp() {
+        console.log('key w up');
+    }
+
+    handleKeyWDown() {
+        console.log('key w down');
+        this.bird.accelerate(1/1000);
+    }
+
+    handleKeySUp() {
+        console.log('key s up');
+    }
+
+    handleKeySDown() {
+        console.log('key s down');
+        this.bird.accelerate(-1/1000);
+    }
+
+    handleKeyAUp() {
+        console.log('key a up');
+    }
+
+    handleKeyADown() {
+        console.log('key a down');
+        this.bird.turn(25);
+    }
+
+    handleKeyDUp() {
+        console.log('key d up');
+    }
+
+    handleKeyDDown() {
+        console.log('key d down');
+        this.bird.turn(-25);
+    }
+
+    handleKeyRUp() {
+        console.log('key r up');
+    }
+
+    handleKeyRDown() {
+        console.log('key r down');
+        this.bird.accelerate(0);
+    }
+
+    handleKeyPUp() {
+        console.log('key p up');
+    }
+
+    handleKeyPDown() {
+        console.log('key p down');
+    }
+
+    handleKeyLUp() {
+        console.log('key l up');
+    }
+
+    handleKeyLDown() {
+        console.log('key l down');
+    }
+
+    handleSpeedOnChange(value) {
+        console.log('speed: ' + value);
+    }
+
+    handleScaleOnChange(value) {
+        console.log('scale: ' + value);
     }
 }
 
