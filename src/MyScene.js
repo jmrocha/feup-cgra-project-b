@@ -211,8 +211,7 @@ class MyScene extends CGFscene {
     }
 
     handleKeyRDown() {
-        console.log('key r down');
-        this.bird.accelerate(0);
+        this.bird.reset();
     }
 
     handleKeyPUp() {

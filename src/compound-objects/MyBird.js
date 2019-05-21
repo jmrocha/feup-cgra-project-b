@@ -100,6 +100,12 @@ class MyBird extends CGFobject {
     scale(value) {
         this.scaleFactor = value;
     }
+
+    reset() {
+        this.velocity = 0;
+        this.position = [0, 0, 0];
+        this.orientation = 0;
+    }
 }
 
 export default MyBird;
