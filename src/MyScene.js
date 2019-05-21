@@ -40,6 +40,11 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(5);
 
         this.setLights();
+
+        this.flutterVelocity = 1;
+        this.birdVelocity = 1 / 500;
+        this.birdRotation = 15;
+        this.speedFactor = 1;
     }
 
     setLights() {
@@ -178,7 +183,7 @@ class MyScene extends CGFscene {
 
     handleKeyWDown() {
         console.log('key w down');
-        this.bird.accelerate(1 / 500);
+        this.bird.accelerate(this.birdVelocity * this.speedFactor);
     }
 
     handleKeySUp() {
@@ -187,7 +192,7 @@ class MyScene extends CGFscene {
 
     handleKeySDown() {
         console.log('key s down');
-        this.bird.accelerate(-1/ 500);
+        this.bird.accelerate(-this.birdVelocity * this.speedFactor);
     }
 
     handleKeyAUp() {
@@ -196,7 +201,7 @@ class MyScene extends CGFscene {
 
     handleKeyADown() {
         console.log('key a down');
-        this.bird.turn(-15);
+        this.bird.turn(-this.birdRotation * this.speedFactor);
     }
 
     handleKeyDUp() {
@@ -205,7 +210,7 @@ class MyScene extends CGFscene {
 
     handleKeyDDown() {
         console.log('key d down');
-        this.bird.turn(15);
+        this.bird.turn(this.birdRotation * this.speedFactor);
     }
 
     handleKeyRUp() {
@@ -233,7 +238,8 @@ class MyScene extends CGFscene {
     }
 
     handleSpeedOnChange(value) {
-        console.log('speed: ' + value);
+        this.speedFactor = value;
+        this.bird.setFlutterVelocity(this.flutterVelocity * value);
     }
 
     handleScaleOnChange(value) {

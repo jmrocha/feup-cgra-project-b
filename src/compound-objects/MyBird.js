@@ -14,6 +14,7 @@ class MyBird extends CGFobject {
         this.flapYDisplacement = 0;
         scene.addObserver(this);
         this.scaleFactor = 1;
+        this.flutterVelocity = 1;
     }
 
     display() {
@@ -109,6 +110,10 @@ class MyBird extends CGFobject {
 
     takeBough() {
         console.log('Taking bough');
+    }
+
+    setFlutterVelocity(value) {
+        this.flutterVelocity = value;
     }
 }
 
