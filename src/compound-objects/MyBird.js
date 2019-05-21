@@ -21,6 +21,7 @@ class MyBird extends CGFobject {
         {
             this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             this.scene.translate(...this.position);
+            this.scene.rotate(this.orientation, 0, 1, 0);
             this.flap();
             this.displayBody();
             this.displayWings();
@@ -76,8 +77,8 @@ class MyBird extends CGFobject {
 
     updateDisplacement() {
         this.flapYDisplacement += this.getFlapYDisplacement(this.elapsedTime);
-        this.position[0] += this.velocity * this.deltaTime;
-        this.position[2] += this.velocity * this.deltaTime;
+        this.position[0] += this.velocity * this.deltaTime * Math.cos(this.orientation);
+        this.position[2] += this.velocity * this.deltaTime * Math.sin(this.orientation);
     }
 
     getFlapYDisplacement(t) {
@@ -88,7 +89,7 @@ class MyBird extends CGFobject {
     }
 
     turn(degrees) {
-
+        this.orientation += Utils.degToRad(degrees);
     }
 
     accelerate(velocity) {
