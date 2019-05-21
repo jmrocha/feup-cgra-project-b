@@ -1,9 +1,4 @@
-dist/*
-!dist/index.html
-!dist/img
-!dist/webcgf.min.js
-!dist/CGF
-
+dist/main.js
 
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
