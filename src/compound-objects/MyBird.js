@@ -93,7 +93,8 @@ class MyBird extends CGFobject {
     }
 
     accelerate(velocity) {
-        this.velocity = velocity;
+        this.velocity += velocity;
+        if (this.velocity < 0) this.velocity = 0;
     }
 
     scale(value) {
