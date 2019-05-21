@@ -1,5 +1,3 @@
-import Utils from "../Utils.js";
-
 const VERTICES_PER_SLICE = 4;
 
 class MyPrism extends CGFobject {

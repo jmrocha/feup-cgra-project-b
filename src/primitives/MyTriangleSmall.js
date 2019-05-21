@@ -4,6 +4,7 @@ class MyTriangleSmall extends CGFobject {
         this.texCoords = texCoords;
         this.initBuffers();
     }
+
     initBuffers() {
         this.vertices = [
             -1, 0, 0,	//0

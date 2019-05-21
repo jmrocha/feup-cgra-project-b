@@ -1,6 +1,6 @@
-class MyLSPlant extends MyLSystem{
+class MyLSPlant extends MyLSystem {
 
-    constructor(scene){
+    constructor(scene) {
         super(scene);
         this.scene = scene;
     }
