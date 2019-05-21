@@ -1,8 +1,8 @@
-class MyLSPlant extends MyLSystem {
+import MyLSystem from "./MyLSystem.js";
 
+class MyLSPlant extends MyLSystem {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
     }
 
     initGrammar() {
@@ -12,3 +12,5 @@ class MyLSPlant extends MyLSystem {
         }
     }
 }
+
+export default MyLSPlant;

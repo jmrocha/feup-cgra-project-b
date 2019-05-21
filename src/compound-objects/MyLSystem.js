@@ -3,6 +3,8 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
+import MyRectangle from "../primitives/MyRectangle.js";
+
 class MyLSystem extends CGFobject {
     constructor(scene) {
         super(scene);
@@ -139,3 +141,5 @@ class MyLSystem extends CGFobject {
         this.scene.popMatrix();
     }
 }
+
+export default MyLSystem;

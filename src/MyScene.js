@@ -7,6 +7,7 @@ import MyCubeMap from "./compound-objects/MyCubeMap.js";
 import Configuration from "./Configuration.js";
 import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
+import MyLightning from "./compound-objects/MyLightning.js";
 
 class MyScene extends CGFscene {
     constructor() {
@@ -33,6 +34,7 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this);
+        this.lightning = new MyLightning(this);
         this.devObj = this.bird;
 
         this.setUpdatePeriod(5);
@@ -223,11 +225,11 @@ class MyScene extends CGFscene {
     }
 
     handleKeyLUp() {
-        console.log('key l up');
+        this.lightning.stopFlash();
     }
 
     handleKeyLDown() {
-        console.log('key l down');
+        this.lightning.flash();
     }
 
     handleSpeedOnChange(value) {
