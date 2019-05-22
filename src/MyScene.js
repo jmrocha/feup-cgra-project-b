@@ -45,10 +45,17 @@ class MyScene extends CGFscene {
         this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
         this.isDevEnabled = config['enable_dev_objecs'];
+
+        this.defaultMaterial = new CGFappearance(this);
+        this.setDefaultAppearance(this.defaultMaterial);
     }
 
     setLights() {
-        let lights = config['lights']['default'];
+        let lights;
+        if (this.isDevEnabled)
+            lights = config['lights']['dev'];
+        else
+            lights = config['lights']['default'];
 
         for (let i = 0; i < this.lights.length; i++) {
             this.lights[i].disable();
@@ -91,17 +98,17 @@ class MyScene extends CGFscene {
         this.displayAxis = enable;
     }
 
-    setDefaultAppearance() {
+    setDefaultAppearance(material) {
         let settings = config['default_appearance'];
 
         if (settings['ambient'])
-            this.setAmbient(...settings['ambient']);
+            material.setAmbient(...settings['ambient']);
         if (settings['diffuse'])
-            this.setDiffuse(...settings['diffuse']);
+            material.setDiffuse(...settings['diffuse']);
         if (settings['specular'])
-            this.setSpecular(...settings['specular']);
+            material.setSpecular(...settings['specular']);
         if (settings['shininess'])
-            this.setAmbient(settings['shininess']);
+            material.setAmbient(settings['shininess']);
     }
 
     display() {
@@ -119,7 +126,6 @@ class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
 
@@ -172,6 +178,8 @@ class MyScene extends CGFscene {
         } else {
             this.isDevEnabled = false;
         }
+
+        this.setLights();
     }
 
     setCamera(camera) {

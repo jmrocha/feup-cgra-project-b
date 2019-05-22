@@ -36,20 +36,27 @@ let config = {
     lights: {
         default: [
             {
-                position: [15, 2, 5],
+                position: [15, 2, 5, 1],
                 ambient: [0.8, 0.8, 0.8, 0.5],
                 diffuse: [0.5, 0.5, 0.5, 1],
                 specular: [0.2, 0.2, 0.2, 1],
                 enabled: false
             },
             {
-                position: [50, 100, 0],
+                position: [50, 100, 0, 1],
                 ambient: [1, 1, 204 / 255, 1],
                 diffuse: [1, 1, 204 / 255, 1],
                 specular: [0.2, 0.2, 0.2, 1],
                 enabled: true
             }
-        ]
+        ],
+        dev: [
+            {
+                position: [15, 2, 5, 1],
+                diffuse: [1, 1, 1, 1],
+                enabled: true
+            }
+]
     },
     skybox: {
         texture: {
@@ -74,7 +81,9 @@ let config = {
     enable_dev_objects: false,
     axis_enabled: true,
     default_appearance: {
-        ambient: [0.7, 0.7, 0.7, 1.0],
+        ambient: [0.2, 0.4, 0.8, 1.0],
+        diffuse: [0.2, 0.4, 0.8, 1.0],
+        specular: [0.2, 0.4, 0.8, 1.0],
         shininess: 10.0
     },
     unit_cube_quad: {
