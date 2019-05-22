@@ -36,7 +36,7 @@ class MyScene extends CGFscene {
         this.lightning = new MyLightning(this);
         this.devObj = this.bird;
 
-        this.setUpdatePeriod(5);
+        this.setUpdatePeriod(20);
 
         this.setLights();
 
