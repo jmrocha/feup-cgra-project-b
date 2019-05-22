@@ -2,19 +2,17 @@
  * MyInterface
  * @constructor
  */
-import Configuration from "./Configuration.js";
+import config from './Configuration.js';
 
 class MyInterface extends CGFinterface {
     constructor() {
         super();
 
-        this.configuration = Configuration.getInstance();
-
         this.obj = {
             enable_textures: true,
-            enable_dev: Configuration.isDevObjectsEnabled(),
-            camera: Configuration.getDefaultCameraId(),
-            axis_enabled: Configuration.isAxisEnabled(),
+            enable_dev: config['enable_dev_objects'],
+            camera: config['default_camera'],
+            axis_enabled: config['axis_enabled'],
             speed_factor: 1,
             scale_factor: 1,
         };
@@ -52,7 +50,7 @@ class MyInterface extends CGFinterface {
             .onChange(this.handleDevOnChange);
 
         this.camera = this.gui
-            .add(this.obj, 'camera', Configuration.getCamerasIds())
+            .add(this.obj, 'camera', Object.keys(config['cameras']))
             .name('Camera')
             .onChange(this.handleCameraOnChange)
             .listen();
@@ -98,7 +96,7 @@ class MyInterface extends CGFinterface {
     }
 
     handleCameraOnChange(cameraId) {
-        let camera = this.configuration.getCamera(cameraId);
+        let camera = this.scene.getCamera(cameraId);
 
         this.setActiveCamera(camera);
         this.scene.setCamera(camera);

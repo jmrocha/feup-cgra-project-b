@@ -4,11 +4,10 @@
  */
 
 import MyCubeMap from "./compound-objects/MyCubeMap.js";
-import Configuration from "./Configuration.js";
 import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
-import {config} from './Configuration.js';
+import config from './Configuration.js';
 
 class MyScene extends CGFscene {
     constructor() {
@@ -18,7 +17,6 @@ class MyScene extends CGFscene {
 
     init(application) {
         super.init(application);
-        this.configuration = Configuration.getInstance();
         this.initCameras();
 
         //Background color
@@ -30,7 +28,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        this.displayAxis = Configuration.isAxisEnabled();
+        this.displayAxis = config['axis_enabled'];
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
@@ -46,10 +44,11 @@ class MyScene extends CGFscene {
         this.birdVelocity = config['bird']['velocity'];
         this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
+        this.isDevEnabled = config['enable_dev_objecs'];
     }
 
     setLights() {
-        let lights = this.configuration.getLights();
+        let lights = config['lights']['default'];
 
         for (let i = 0; i < this.lights.length; i++) {
             this.lights[i].disable();
@@ -71,7 +70,21 @@ class MyScene extends CGFscene {
     }
 
     initCameras() {
-        this.camera = this.configuration.getDefaultCamera();
+        this.camera = this.getCamera(config['default_camera']);
+    }
+
+    getCamera(cameraId) {
+        // todo: cache cameras
+        let cameraSettings = config['cameras'][cameraId];
+        let from = vec3.fromValues(...cameraSettings['from']);
+        let to = vec3.fromValues(...cameraSettings['to']);
+
+        return new CGFcamera(
+            cameraSettings['fov'],
+            cameraSettings['near'],
+            cameraSettings['far'],
+            from,
+            to);
     }
 
     enableAxis(enable) {
@@ -79,7 +92,7 @@ class MyScene extends CGFscene {
     }
 
     setDefaultAppearance() {
-        let settings = Configuration.getDefaultAppearance();
+        let settings = config['default_appearance'];
 
         if (settings['ambient'])
             this.setAmbient(...settings['ambient']);
@@ -117,7 +130,7 @@ class MyScene extends CGFscene {
 
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        if (Configuration.isDevObjectsEnabled()) {
+        if (this.isDevEnabled) {
             this.devObj.display();
         } else {
             this.displayScene();
@@ -133,7 +146,7 @@ class MyScene extends CGFscene {
 
     displaySkybox() {
         this.setGlobalAmbientLight(1, 1, 1, 1);
-        let scale = Configuration.getSkyboxScale();
+        let scale = config['skybox']['scale'];
 
         this.pushMatrix();
         {
@@ -142,11 +155,11 @@ class MyScene extends CGFscene {
             this.skybox.display();
         }
         this.popMatrix();
-        this.setGlobalAmbientLight(...Configuration.getDefaultGlobalAmbient());
+        this.setGlobalAmbientLight(...config['default_global_ambient_light']);
     }
 
     translate2(x, y, z) {
-        let scale = Configuration.getSkyboxScale();
+        let scale = config['skybox']['scale'];
         super.translate(
             x * scale,
             y * scale,
@@ -155,9 +168,9 @@ class MyScene extends CGFscene {
 
     enableDev(enable) {
         if (enable) {
-            Configuration.enableDevObjects();
+            this.isDevEnabled = true;
         } else {
-            Configuration.disableDevObjects();
+            this.isDevEnabled = false;
         }
     }
 
@@ -179,7 +192,7 @@ class MyScene extends CGFscene {
 
     handleKeyWUp() {
         console.log('key w up');
-        this.bird.accelerate(-1);
+        //this.bird.accelerate(-1);
     }
 
     handleKeyWDown() {

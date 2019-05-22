@@ -6,7 +6,7 @@
 
 import Utils from "../Utils.js";
 import MyQuad from "../primitives/MyQuad.js";
-import Configuration from "../Configuration.js";
+import config from "../Configuration.js";
 
 const TEXTURE_WRAP = 'CLAMP_TO_EDGE';
 
@@ -22,16 +22,17 @@ class MyCubeMap extends CGFobject {
     }
 
     setTextures() {
-        this.topTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['top']);
-        this.bottomTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['bottom']);
-        this.leftTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['left']);
-        this.rightTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['right']);
-        this.frontTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['front']);
-        this.backTexture = new CGFtexture(this.scene, Configuration.getSkyBoxDayTexture()['back']);
+        let texture = config['skybox']['texture'];
+        this.topTexture = new CGFtexture(this.scene, texture['top']);
+        this.bottomTexture = new CGFtexture(this.scene, texture['bottom']);
+        this.leftTexture = new CGFtexture(this.scene, texture['left']);
+        this.rightTexture = new CGFtexture(this.scene, texture['right']);
+        this.frontTexture = new CGFtexture(this.scene, texture['front']);
+        this.backTexture = new CGFtexture(this.scene, texture['back']);
     }
 
     setMaterial() {
-        let skybox = Configuration.getSkyboxConfig()['material'];
+        let skybox = config['skybox']['material'];
 
         if (skybox['ambient'])
             this.faceMaterial.setAmbient(...skybox['ambient']);

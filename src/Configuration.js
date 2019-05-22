@@ -1,7 +1,7 @@
 export const IMAGE_PATH = 'img';
 const OBJECTS_SCENE_SIZE_RATIO = 0.07;
 
-export let config = {
+let config = {
     cameras: {
         'Skybox Camera': {
             fov: 1.4,
@@ -92,82 +92,4 @@ export let config = {
     }
 };
 
-let instance;
-
-class Configuration {
-    static getInstance() {
-        if (!instance)
-            instance = new Configuration();
-        return instance
-    }
-
-    static getDefaultGlobalAmbient() {
-        return config['default_global_ambient_light'];
-    }
-
-    static getCamerasIds() {
-        return Object.keys(config['cameras']);
-    }
-
-    static getDefaultCameraId() {
-        return config['default_camera'];
-    }
-
-    getDefaultCamera() {
-        let id = config['default_camera'];
-
-        return this.getCamera(id);
-    }
-
-    getLights() {
-        return config['lights']['default'];
-    }
-
-    static getSkyboxConfig() {
-        return config['skybox'];
-    }
-
-    static getSkyboxScale() {
-        return config['skybox']['scale'];
-    }
-
-    static getSkyBoxDayTexture() {
-        return config['skybox']['texture'];
-    }
-
-    static enableDevObjects() {
-        config['enable_dev_objects'] = true;
-    }
-
-    static disableDevObjects() {
-        config['enable_dev_objects'] = false;
-    }
-
-    getCamera(cameraId) {
-        // todo: cache cameras
-        let cameraSettings = config['cameras'][cameraId];
-        let from = vec3.fromValues(...cameraSettings['from']);
-        let to = vec3.fromValues(...cameraSettings['to']);
-
-        return new CGFcamera(
-            cameraSettings['fov'],
-            cameraSettings['near'],
-            cameraSettings['far'],
-            from,
-            to);
-    }
-
-    static isDevObjectsEnabled() {
-        return config['enable_dev_objects'] === true;
-    }
-
-    static isAxisEnabled() {
-        return config['axis_enabled'] === true;
-    }
-
-    static getDefaultAppearance() {
-        return config['default_appearance'];
-    }
-}
-
-export default Configuration;
+export default config;
