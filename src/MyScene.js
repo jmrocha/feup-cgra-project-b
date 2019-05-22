@@ -7,7 +7,9 @@ import MyCubeMap from "./compound-objects/MyCubeMap.js";
 import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
+import Plane from "./Plane";
 import config from './Configuration.js';
+import Utils from "./Utils";
 
 class MyScene extends CGFscene {
     constructor() {
@@ -29,12 +31,13 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.displayAxis = config['axis_enabled'];
+        this.terrain = new Plane(this, 32);
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this);
         this.lightning = new MyLightning(this);
-        this.devObj = this.bird;
+        this.devObj = this.terrain;
 
         this.setUpdatePeriod(5);
 
@@ -45,6 +48,10 @@ class MyScene extends CGFscene {
         this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
         this.isDevEnabled = config['enable_dev_objecs'];
+
+        this.heightmap = new CGFtexture(this, config['terrain']['texture']['height_map']);
+        this.terrainShader = new CGFshader(this.gl ,config['shader']['vert'], config['shader']['frag']);
+        this.terrainShader.setUniformsValues({Usampler2: 1});
     }
 
     setLights() {
@@ -131,12 +138,23 @@ class MyScene extends CGFscene {
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         if (this.isDevEnabled) {
-            this.devObj.display();
+            this.pushMatrix();
+            {
+
+                this.setActiveShader(this.terrainShader);
+                this.heightmap.bind(1);
+                this.devObj.display();
+            }
+            this.popMatrix();
         } else {
             this.displayScene();
         }
 
         // ---- END Primitive drawing section
+    }
+
+    displayTerrain(){
+
     }
 
     displayScene() {

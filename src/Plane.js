@@ -1,7 +1,11 @@
+import config from "./Configuration";
+import Utils from "./Utils";
+
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject {
     constructor(scene, nrDivs, minS, maxS, minT, maxT) {
         super(scene);
+        this.scene = scene;
         // nrDivs = 1 if not provided
         nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
         this.nrDivs = nrDivs;
@@ -13,6 +17,11 @@ class Plane extends CGFobject {
         this.q = (this.maxS - this.minS) / this.nrDivs;
         this.w = (this.maxT - this.minT) / this.nrDivs;
         this.initBuffers();
+        this.terrainMat = new CGFappearance(this.scene);
+        console.log(config['terrain']['texture']['terrain']);
+        this.terrainTex =  new CGFtexture(this.scene, config['terrain']['texture']['terrain']);
+        this.terrainMat.setTexture(this.terrainTex);
+
     }
 
     initBuffers() {
@@ -57,6 +66,18 @@ class Plane extends CGFobject {
     setLineMode() {
         this.primitiveType = this.scene.gl.LINES;
     };
+
+    display(){
+        this.terrainMat.apply();
+
+        this.scene.pushMatrix();
+        {
+            this.scene.rotate(Utils.degToRad(-90),1,0,0);
+            this.scene.scale(100,100,1);
+            super.display();
+        }
+        this.scene.popMatrix();
+    }
 
 }
 

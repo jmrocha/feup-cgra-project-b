@@ -1,4 +1,5 @@
 export const IMAGE_PATH = 'img';
+export const SHADER_PATH = 'glsl';
 const OBJECTS_SCENE_SIZE_RATIO = 0.07;
 
 let config = {
@@ -50,6 +51,17 @@ let config = {
                 enabled: true
             }
         ]
+    },
+    shader:{
+       vert: SHADER_PATH + '/terrain.vert',
+       frag: SHADER_PATH + '/terrain.frag'
+    },
+    terrain:{
+        texture:{
+            terrain: IMAGE_PATH + '/terrain.jpg',
+            height_map: IMAGE_PATH + '/heightmap.jpg',
+            altimetry: IMAGE_PATH + '/altimetry.png'
+        }
     },
     skybox: {
         texture: {
