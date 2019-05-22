@@ -19,7 +19,7 @@ class Plane extends CGFobject {
         this.initBuffers();
         this.terrainMat = new CGFappearance(this.scene);
         console.log(config['terrain']['texture']['terrain']);
-        this.terrainTex =  new CGFtexture(this.scene, config['terrain']['texture']['terrain']);
+
         this.terrainMat.setTexture(this.terrainTex);
 
     }
@@ -68,7 +68,6 @@ class Plane extends CGFobject {
     };
 
     display(){
-        this.terrainMat.apply();
 
         this.scene.pushMatrix();
         {

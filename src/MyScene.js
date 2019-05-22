@@ -50,8 +50,10 @@ class MyScene extends CGFscene {
         this.isDevEnabled = config['enable_dev_objecs'];
 
         this.heightmap = new CGFtexture(this, config['terrain']['texture']['height_map']);
+        this.terrainTex =  new CGFtexture(this, config['terrain']['texture']['terrain']);
         this.terrainShader = new CGFshader(this.gl ,config['shader']['vert'], config['shader']['frag']);
-        this.terrainShader.setUniformsValues({Usampler2: 1});
+        this.terrainShader.setUniformsValues({uSampler: 0});
+        this.terrainShader.setUniformsValues({uSampler2: 1});
     }
 
     setLights() {
@@ -142,6 +144,7 @@ class MyScene extends CGFscene {
             {
 
                 this.setActiveShader(this.terrainShader);
+                this.terrainTex.bind(0);
                 this.heightmap.bind(1);
                 this.devObj.display();
             }
