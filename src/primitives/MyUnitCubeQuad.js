@@ -12,9 +12,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.face = new MyQuad(scene);
 
         this.material = new CGFappearance(scene);
-        this.material.setAmbient(0.4, 0.4, 0.4, 1);
-        this.material.setDiffuse(1, 1, 1, 1);
-        this.material.setSpecular(0.4, 0.4, 0.4, 1);
+        //this.scene.setDefaultAppearance(this.material);
 
         if (sidesTexture)
             this.sidesTexture = new CGFtexture(scene, sidesTexture);
@@ -45,6 +43,7 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     setTexture(tex) {
+        if (!this.material) return;
         this.material.setTexture(tex);
         this.material.apply();
         if (this.isInterpolationEnabled)
