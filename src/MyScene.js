@@ -193,58 +193,31 @@ class MyScene extends CGFscene {
         deltaTime = currTime - this.lastTime;
         this.lastTime = currTime;
 
+        this.checkKeys();
+
         this.updateObservers.forEach(subscriber => {
             subscriber.update(deltaTime);
         });
     }
 
-    handleKeyWUp() {
-        console.log('key w up');
-        //this.bird.accelerate(-1);
-    }
-
     handleKeyWDown() {
-        console.log('key w down');
         this.bird.accelerate(this.birdVelocity * this.speedFactor);
     }
 
-    handleKeySUp() {
-        console.log('key s up');
-    }
-
     handleKeySDown() {
-        console.log('key s down');
         this.bird.accelerate(-this.birdVelocity * this.speedFactor);
     }
 
-    handleKeyAUp() {
-        console.log('key a up');
-    }
-
     handleKeyADown() {
-        console.log('key a down');
         this.bird.turn(-this.birdRotation * this.speedFactor);
     }
 
-    handleKeyDUp() {
-        console.log('key d up');
-    }
-
     handleKeyDDown() {
-        console.log('key d down');
         this.bird.turn(this.birdRotation * this.speedFactor);
-    }
-
-    handleKeyRUp() {
-        console.log('key r up');
     }
 
     handleKeyRDown() {
         this.bird.reset();
-    }
-
-    handleKeyPUp() {
-        console.log('key p up');
     }
 
     handleKeyPDown() {
@@ -270,6 +243,37 @@ class MyScene extends CGFscene {
 
     addObserver(obj) {
         this.updateObservers.push(obj);
+    }
+
+    checkKeys() {
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.handleKeyWDown();
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.handleKeySDown();
+        }
+
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.handleKeyADown();
+        }
+
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.handleKeyDDown();
+        }
+
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.handleKeyPDown();
+        }
+
+        if (this.gui.isKeyPressed("KeyL")) {
+            this.handleKeyLDown();
+        }
+
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.handleKeyRDown();
+        }
     }
 }
 

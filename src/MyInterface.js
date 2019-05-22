@@ -113,65 +113,23 @@ class MyInterface extends CGFinterface {
     }
 
     processKeyDown(event) {
-        switch (event.key) {
-            case 's':
-                this.scene.handleKeySDown();
-                break;
-            case 'w':
-                this.scene.handleKeyWDown();
-                break;
-            case 'a':
-                this.scene.handleKeyADown();
-                break;
-            case 'd':
-                this.scene.handleKeyDDown();
-                break;
-            case 'r':
-                this.scene.handleKeyRDown();
-                break;
-            case 'p':
-                this.scene.handleKeyPDown();
-                break;
-            case 'l':
-                this.scene.handleKeyLDown();
-                break;
-            default:
-                break;
-        }
         // called when a key is pressed down
         // mark it as active in the array
         this.activeKeys[event.code] = true;
     };
 
     processKeyUp(event) {
-        switch (event.key) {
-            case 's':
-                this.scene.handleKeySUp();
-                break;
-            case 'w':
-                this.scene.handleKeyWUp();
-                break;
-            case 'a':
-                this.scene.handleKeyAUp();
-                break;
-            case 'd':
-                this.scene.handleKeyDUp();
-                break;
-            case 'r':
-                this.scene.handleKeyRUp();
-                break;
-            case 'p':
-                this.scene.handleKeyPUp();
-                break;
-            case 'l':
-                this.scene.handleKeyLUp();
-                break;
-            default:
-                break;
+        if (event.code === 'KeyL') {
+            this.scene.handleKeyLUp();
         }
         // called when a key is released, mark it as inactive in the array
         this.activeKeys[event.code] = false;
     };
+
+    isKeyPressed(keyCode) {
+        // returns true if a key is marked as pressed, false otherwise
+        return this.activeKeys[keyCode] || false;
+    }
 }
 
 export default MyInterface;
