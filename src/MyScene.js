@@ -200,6 +200,10 @@ class MyScene extends CGFscene {
         });
     }
 
+    lightningFlash(){
+        
+    }
+
     handleKeyWDown() {
         this.bird.accelerate(this.birdVelocity * this.speedFactor);
     }
