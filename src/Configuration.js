@@ -36,13 +36,6 @@ let config = {
     lights: {
         default: [
             {
-                position: [15, 2, 5, 1],
-                ambient: [0.8, 0.8, 0.8, 0.5],
-                diffuse: [0.5, 0.5, 0.5, 1],
-                specular: [0.2, 0.2, 0.2, 1],
-                enabled: false
-            },
-            {
                 position: [50, 100, 0, 1],
                 ambient: [1, 1, 204 / 255, 1],
                 diffuse: [1, 1, 204 / 255, 1],
@@ -53,10 +46,10 @@ let config = {
         dev: [
             {
                 position: [15, 2, 5, 1],
-                diffuse: [1, 1, 1, 1],
+                diffuse: [1.0, 1.0, 1.0, 1.0],
                 enabled: true
             }
-]
+        ]
     },
     skybox: {
         texture: {
