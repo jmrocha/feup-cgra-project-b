@@ -31,7 +31,7 @@ class MyBird extends CGFobject {
             this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             this.scene.translate(...this.position);
             this.scene.rotate(-this.orientation, 0, 1, 0);
-            //this.flap();
+            this.flap();
             this.displayHead();
             this.displayWings();
         }
@@ -120,7 +120,7 @@ class MyBird extends CGFobject {
             this.position[1] -= displacement;
         else {
             this.position[1] = 0;
-            this.state = 'ground';
+            this.state = 'flying-up';
         }
     }
 
