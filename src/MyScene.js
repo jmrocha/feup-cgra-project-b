@@ -36,6 +36,9 @@ class MyScene extends CGFscene {
         this.lightning = new MyLightning(this);
         this.devObj = this.bird;
 
+        this.setLSystems();
+
+
         this.setUpdatePeriod(20);
 
         this.setLights();
@@ -49,6 +52,32 @@ class MyScene extends CGFscene {
         this.defaultMaterial = new CGFappearance(this);
         this.setDefaultAppearance(this.defaultMaterial);
     }
+
+    setLSystems(){
+        this.axiom = "X";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 0.5;
+        this.lSystem = new MyLightning(this);
+
+        this.doGenerate = function () {
+            this.lSystem.generate(
+                this.axiom,
+                {
+                    "F": [ "FF" ],
+                    "X": ["F[-X][X]F[-X]+FX" ]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        this.doGenerate();
+    }
+
+
+
 
     setLights() {
         let lights;
@@ -137,7 +166,8 @@ class MyScene extends CGFscene {
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         if (this.isDevEnabled) {
-            this.devObj.display();
+            //this.devObj.display();
+            this.lSystem.display();
         } else {
             this.displayScene();
         }
@@ -201,7 +231,7 @@ class MyScene extends CGFscene {
     }
 
     lightningFlash(){
-        
+        this.lSystem.display();
     }
 
     handleKeyWDown() {

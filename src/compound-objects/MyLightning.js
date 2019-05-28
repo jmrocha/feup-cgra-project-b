@@ -1,17 +1,20 @@
-import MyLSystem from "../primitives/MyCylinder.js";
 import MyLSystem from "./MyLSystem.js";
-import MyCylinder from "../primitives/MyCylinder";
+import MyLightningBranch from "./MyLightningBranch";
+
 
 class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
         this.scene.addObserver(this);
+        //this.deltaTime = 0:
+        //this.elapsedTime = 0;
+        //this.depth = 0;
     }
 
     initGrammar() {
         this.grammar = {
-            "F": new MyCylinder(this.scene),
-            "X": new MyLeaf(this.scene)
+            "F": new MyLightningBranch(this.scene),
+            "X": new MyLightningBranch(this.scene)
         }
     }
 
@@ -23,8 +26,14 @@ class MyLightning extends MyLSystem {
         console.log('flashing was stoppped');
     }
 
-    update(t) {
-        
+    update(deltaTime) {
+        //this.deltaTime = deltaTime;
+        //this.elapsedTime += this.deltaTime;
+    }
+
+    startAnimation(){
+        //super.iterate();
+        //this.depth++;
     }
 }
 
