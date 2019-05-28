@@ -13,11 +13,18 @@ class MyScene extends CGFscene {
     constructor() {
         super();
         this.updateObservers = [];
+        this.isDevEnabled = config['enable_dev_objects'];
+        this.displayAxis = config['axis_enabled'];
+        this.flutterVelocity = config['bird']['flutter_velocity'];
+        this.birdVelocity = config['bird']['velocity'];
+        this.birdRotation = config['bird']['rotation'];
+        this.speedFactor = 1;
     }
 
     init(application) {
         super.init(application);
         this.initCameras();
+        this.initLights();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -28,7 +35,6 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        this.displayAxis = config['axis_enabled'];
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
@@ -38,42 +44,48 @@ class MyScene extends CGFscene {
 
         this.setUpdatePeriod(20);
 
-        this.setLights();
-
-        this.flutterVelocity = config['bird']['flutter_velocity'];
-        this.birdVelocity = config['bird']['velocity'];
-        this.birdRotation = config['bird']['rotation'];
-        this.speedFactor = 1;
-        this.isDevEnabled = config['enable_dev_objecs'];
-
         this.defaultMaterial = new CGFappearance(this);
         this.setDefaultAppearance(this.defaultMaterial);
     }
 
+    addLights(lightsConfig) {
+        let lights = new Array(8);
+
+        for (let i = 0; i < 8; i++) {
+            lights[i] = new CGFlight(this, i);
+        }
+
+        for (let i = 0; i < lightsConfig.length; i++) {
+            lights[i] = new CGFlight(this, i);
+            lights[i].setPosition(...lightsConfig[i]['position']);
+            if (lightsConfig[i]['ambient'])
+                lights[i].setAmbient(...lightsConfig[i]['ambient']);
+            if (lightsConfig[i]['diffuse'])
+                lights[i].setDiffuse(...lightsConfig[i]['diffuse']);
+            if (lightsConfig[i]['specular'])
+                lights[i].setSpecular(...lightsConfig[i]['specular']);
+            if (lightsConfig[i]['enabled'])
+                lights[i].enable();
+            lights[i].update();
+        }
+
+        return lights;
+    }
+
     setLights() {
-        let lights;
-        if (this.isDevEnabled)
-            lights = config['lights']['dev'];
-        else
-            lights = config['lights']['default'];
-
-        for (let i = 0; i < this.lights.length; i++) {
-            this.lights[i].disable();
-            this.lights[i].update();
+        if (this.isDevEnabled) {
+            this.lights = this.devLights;
+        } else {
+            this.lights = this.defaultLights;
         }
+    }
 
-        for (let i = 0; i < lights.length; i++) {
-            this.lights[i].setPosition(...lights[i]['position']);
-            if (lights[i]['ambient'])
-                this.lights[i].setAmbient(...lights[i]['ambient']);
-            if (lights[i]['diffuse'])
-                this.lights[i].setDiffuse(...lights[i]['diffuse']);
-            if (lights[i]['specular'])
-                this.lights[i].setSpecular(...lights[i]['specular']);
-            if (lights[i]['enabled'] === true)
-                this.lights[i].enable();
-            this.lights[i].update();
-        }
+    initLights() {
+        let defaultLightsConfig = config['lights']['default'];
+        let devLightsConfig = config['lights']['dev'];
+
+        this.defaultLights = this.addLights(defaultLightsConfig);
+        this.devLights = this.addLights(devLightsConfig);
     }
 
     initCameras() {
@@ -98,6 +110,13 @@ class MyScene extends CGFscene {
         this.displayAxis = enable;
     }
 
+    setSceneDefaultAppearance() {
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
+    }
+
     setDefaultAppearance(material) {
         let settings = config['default_appearance'];
 
@@ -109,6 +128,10 @@ class MyScene extends CGFscene {
             material.setSpecular(...settings['specular']);
         if (settings['shininess'])
             material.setAmbient(settings['shininess']);
+    }
+
+    resetAmbientLight() {
+        this.setGlobalAmbientLight(...config['default_global_ambient_light']);
     }
 
     display() {
@@ -123,8 +146,11 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        if (this.displayAxis)
-            this.axis.display();
+        if (this.displayAxis) {
+            this.displayAxisObj();
+        }
+
+        this.setSceneDefaultAppearance();
 
 
         // ---- BEGIN Primitive drawing section
@@ -137,12 +163,26 @@ class MyScene extends CGFscene {
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         if (this.isDevEnabled) {
-            this.devObj.display();
+            this.displayDev();
         } else {
             this.displayScene();
         }
 
         // ---- END Primitive drawing section
+    }
+
+    setMaxAmbientLight() {
+        this.setGlobalAmbientLight(1, 1, 1, 1);
+    }
+
+    displayAxisObj() {
+        this.resetAmbientLight();
+        this.axis.display();
+    }
+
+    displayDev() {
+        this.setMaxAmbientLight();
+        this.devObj.display();
     }
 
     displayScene() {
@@ -151,9 +191,9 @@ class MyScene extends CGFscene {
     }
 
     displaySkybox() {
-        this.setGlobalAmbientLight(1, 1, 1, 1);
         let scale = config['skybox']['scale'];
 
+        this.setMaxAmbientLight();
         this.pushMatrix();
         {
             this.scale(scale, scale, scale);
@@ -161,7 +201,7 @@ class MyScene extends CGFscene {
             this.skybox.display();
         }
         this.popMatrix();
-        this.setGlobalAmbientLight(...config['default_global_ambient_light']);
+        this.resetAmbientLight();
     }
 
     translate2(x, y, z) {
@@ -173,12 +213,7 @@ class MyScene extends CGFscene {
     }
 
     enableDev(enable) {
-        if (enable) {
-            this.isDevEnabled = true;
-        } else {
-            this.isDevEnabled = false;
-        }
-
+        this.isDevEnabled = enable;
         this.setLights();
     }
 
