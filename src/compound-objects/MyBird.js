@@ -25,7 +25,7 @@ class MyBird extends CGFobject {
             this.scene.translate(...this.position);
             this.scene.rotate(-this.orientation, 0, 1, 0);
             this.flap();
-            this.displayBody();
+            this.displayHead();
             this.displayWings();
         }
         this.scene.popMatrix();
@@ -48,7 +48,7 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
 
-    displayBody() {
+    displayHead() {
         this.scene.pushMatrix();
         {
             this.body.display();
