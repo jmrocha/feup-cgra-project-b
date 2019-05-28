@@ -6,16 +6,23 @@ import MyPyramid from "../primitives/MyPyramid.js";
 class MyBird extends CGFobject {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
         super(scene);
+        this.defaultValues = {
+            position: [...position],
+            velocity: velocity,
+            orientation: orientation
+        };
+        this.position = position;
+        this.flutterPosition = [0, 0, 0];
         this.orientation = Utils.degToRad(orientation);
         this.velocity = velocity;
-        this.position = position;
-        this.body = new MyUnitCubeQuad(scene);
-        this.wing = new MyTriangleSmall(scene);
-        this.nose = new MyPyramid(scene);
         this.elapsedTime = 0;
         scene.addObserver(this);
         this.scaleFactor = 1;
         this.flutterVelocity = 1;
+        this.state = 'flying';
+        this.body = new MyUnitCubeQuad(scene);
+        this.wing = new MyTriangleSmall(scene);
+        this.nose = new MyPyramid(scene);
     }
 
     display() {
@@ -24,7 +31,7 @@ class MyBird extends CGFobject {
             this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             this.scene.translate(...this.position);
             this.scene.rotate(-this.orientation, 0, 1, 0);
-            this.flap();
+            //this.flap();
             this.displayHead();
             this.displayWings();
         }
@@ -32,7 +39,7 @@ class MyBird extends CGFobject {
     }
 
     flap() {
-        this.scene.translate(0, this.position[1], 0);
+        this.scene.translate(0, this.flutterPosition[1], 0);
     }
 
     displayNose() {
@@ -88,13 +95,47 @@ class MyBird extends CGFobject {
     update(deltaTime) {
         this.deltaTime = deltaTime;
         this.elapsedTime += deltaTime;
+
         this.updateDisplacement();
+
+        if (this.state === 'flying-down')
+            this.goDown();
+        else if (this.state === 'flying-up')
+            this.goUp();
     }
 
     updateDisplacement() {
         this.position[0] += this.velocity * this.deltaTime * Math.cos(this.orientation);
-        this.position[1] += this.getFlapYDisplacement(this.elapsedTime);
+        this.flutterPosition[1] += this.getFlapYDisplacement(this.elapsedTime);
         this.position[2] += this.velocity * this.deltaTime * Math.sin(this.orientation);
+    }
+
+    goDown() {
+        let distance = this.defaultValues['position'][1];
+        let velocity = distance / 1000;
+        let displacement = velocity * this.deltaTime;
+        let dx = this.position[1] - displacement;
+
+        if (dx > 0)
+            this.position[1] -= displacement;
+        else {
+            this.position[1] = 0;
+            this.state = 'ground';
+        }
+    }
+
+    goUp() {
+        let distance = this.defaultValues['position'][1];
+        let velocity = distance / 1000;
+        let displacement = velocity * this.deltaTime;
+        let dx = this.position[1] + displacement;
+
+        if (dx < this.defaultValues['position'][1])
+            this.position[1] += displacement;
+        else {
+            this.position[1] = this.defaultValues['position'][1];
+            this.state = 'flying';
+        }
     }
 
     getFlapYDisplacement(t) {
@@ -118,13 +159,18 @@ class MyBird extends CGFobject {
     }
 
     reset() {
-        this.velocity = 0;
-        this.position = [0, 0, 0];
-        this.orientation = 0;
+        this.velocity = this.defaultValues['velocity'];
+        this.position = [...this.defaultValues['position']];
+        this.orientation = this.defaultValues['orientation'];
+        this.state = 'flying';
     }
 
     takeBough() {
-        console.log('Taking bough');
+        if (this.state === 'flying') {
+            this.state = 'flying-down';
+        } else if (this.state === 'ground') {
+            this.state = 'flying-up'
+        }
     }
 
     setFlutterVelocity(value) {
