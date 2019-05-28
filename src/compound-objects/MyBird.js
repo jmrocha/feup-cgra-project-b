@@ -1,4 +1,4 @@
-import MyUnitCubeQuad from "../primitives/MyUnitCubeQuad.js";
+import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
 import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 import Utils from "../Utils.js";
 import MyPyramid from "../primitives/MyPyramid.js";
@@ -20,7 +20,7 @@ class MyBird extends CGFobject {
         this.scaleFactor = 1;
         this.flutterVelocity = 1;
         this.state = 'flying';
-        this.body = new MyUnitCubeQuad(scene);
+        this.head = new MyUnitCubeQuad(scene);
         this.wing = new MyTriangleSmall(scene);
         this.nose = new MyPyramid(scene);
     }
@@ -58,7 +58,7 @@ class MyBird extends CGFobject {
     displayHead() {
         this.scene.pushMatrix();
         {
-            this.body.display();
+            this.head.display();
             this.displayNose();
         }
         this.scene.popMatrix();
