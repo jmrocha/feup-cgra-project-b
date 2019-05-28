@@ -9,6 +9,7 @@ class MyCylinder extends CGFobject {
         this.initBuffers();
 
         this.isInterpolationEnabled = false;
+        this.dimension = [1, 2, 1];
     }
 
     interpolation(enable) {
@@ -65,6 +66,10 @@ class MyCylinder extends CGFobject {
         if (this.isInterpolationEnabled)
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         super.display();
+    }
+
+    getDimension() {
+        return this.dimension;
     }
 }
 
