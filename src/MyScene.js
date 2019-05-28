@@ -43,9 +43,6 @@ class MyScene extends CGFscene {
         this.devObj = this.bird;
 
         this.setUpdatePeriod(20);
-
-        this.defaultMaterial = new CGFappearance(this);
-        this.setDefaultAppearance(this.defaultMaterial);
     }
 
     addLights(lightsConfig) {
@@ -110,24 +107,11 @@ class MyScene extends CGFscene {
         this.displayAxis = enable;
     }
 
-    setSceneDefaultAppearance() {
+    setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
-    }
-
-    setDefaultAppearance(material) {
-        let settings = config['default_appearance'];
-
-        if (settings['ambient'])
-            material.setAmbient(...settings['ambient']);
-        if (settings['diffuse'])
-            material.setDiffuse(...settings['diffuse']);
-        if (settings['specular'])
-            material.setSpecular(...settings['specular']);
-        if (settings['shininess'])
-            material.setAmbient(settings['shininess']);
     }
 
     resetAmbientLight() {
@@ -150,7 +134,7 @@ class MyScene extends CGFscene {
             this.displayAxisObj();
         }
 
-        this.setSceneDefaultAppearance();
+        this.setDefaultAppearance();
 
 
         // ---- BEGIN Primitive drawing section
