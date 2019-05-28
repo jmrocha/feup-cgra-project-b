@@ -51,7 +51,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayFrontFace() {
-        this.setTexture(this.sidesTexture);
+        if (this.sidesTexture)
+            this.setTexture(this.sidesTexture);
         this.scene.pushMatrix();
         {
             this.scene.translate(0, 0, 0.5);
@@ -61,7 +62,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayBackFace() {
-        this.setTexture(this.sidesTexture);
+        if (this.sidesTexture)
+            this.setTexture(this.sidesTexture);
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(180);
@@ -74,7 +76,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayLeftFace() {
-        this.setTexture(this.sidesTexture);
+        if (this.sidesTexture)
+            this.setTexture(this.sidesTexture);
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(-90);
@@ -87,7 +90,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayRightFace() {
-        this.setTexture(this.sidesTexture);
+        if (this.sidesTexture)
+            this.setTexture(this.sidesTexture);
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(90);
@@ -100,7 +104,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayTopFace() {
-        this.setTexture(this.topTexture);
+        if (this.topTexture)
+            this.setTexture(this.topTexture);
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(-90);
@@ -113,7 +118,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayBottomFace() {
-        this.setTexture(this.bottomTexture);
+        if (this.bottomTexture)
+            this.setTexture(this.bottomTexture);
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(90);
