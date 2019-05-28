@@ -8,6 +8,11 @@ import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
 import config from './Configuration.js';
+import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
+import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
+import MyNest from "./compound-objects/MyNest.js";
+
+const NUMBER_OF_TREE_BRANCHES = 10;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -38,11 +43,24 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this);
+        this.bird = new MyBird(this, 0, 0, [0, 2, 0]);
         this.lightning = new MyLightning(this);
-        this.devObj = this.bird;
+        this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
+        this.devObj = this.branch;
+        this.treeBranches = this.getRandomTreeBranches();
+        this.nest = new MyNest(this);
 
         this.setUpdatePeriod(20);
+    }
+
+    getRandomTreeBranches() {
+        let randomTreeBranches = [];
+
+        for (let i = 0; i < NUMBER_OF_TREE_BRANCHES; i++) {
+            randomTreeBranches.push(new MyRandomTreeBranch(this));
+        }
+
+        return randomTreeBranches;
     }
 
     addLights(lightsConfig) {
@@ -166,7 +184,10 @@ class MyScene extends CGFscene {
 
     displayDev() {
         this.setMaxAmbientLight();
-        this.devObj.display();
+        //this.devObj.display();
+        this.bird.display();
+        //this.treeBranches.forEach(b => b.display());
+        //this.nest.display();
     }
 
     displayScene() {
@@ -280,14 +301,6 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyD")) {
             this.handleKeyDDown();
-        }
-
-        if (this.gui.isKeyPressed("KeyP")) {
-            this.handleKeyPDown();
-        }
-
-        if (this.gui.isKeyPressed("KeyL")) {
-            this.handleKeyLDown();
         }
 
         if (this.gui.isKeyPressed("KeyR")) {
