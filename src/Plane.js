@@ -72,7 +72,7 @@ class Plane extends CGFobject {
         this.scene.pushMatrix();
         {
             this.scene.rotate(Utils.degToRad(-90),1,0,0);
-            this.scene.scale(100,100,1);
+            this.scene.scale(20,20,1);
             super.display();
         }
         this.scene.popMatrix();

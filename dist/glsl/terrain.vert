@@ -17,7 +17,7 @@ void main() {
 
     vTextureCoord = aTextureCoord;
     vec4 gray = texture2D(uSampler2,aTextureCoord);
-    vec3 height = vec3(0,0,12.0 *gray.r);
+    vec3 height = vec3(0,0,3.0 *gray.r);
 
     gl_Position = uPMatrix * uMVMatrix * vec4 (aVertexPosition+height,1.0);
 }
