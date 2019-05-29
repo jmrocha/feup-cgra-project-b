@@ -29,11 +29,11 @@ let config = {
             fov: 0.7,
             near: 0.1,
             far: 500,
-            from: [200, 200, 200],
+            from: [25, 25, 25],
             to: [0, 0, 0]
         }
     },
-    default_camera: 'Skybox Camera 2',
+    default_camera: 'God Camera',
     lights: {
         default: [
             {
