@@ -28,8 +28,8 @@ class MyTreeBranch extends CGFobject {
         this.scene.pushMatrix();
         {
             this.scene.rotate(this.orientation, 0, 1, 0);
-            this.setDefaultPosition();
             this.scene.translate(this.position[0], this.position[1], this.position[2]);
+            this.setDefaultPosition();
             this.branch.display();
         }
         this.scene.popMatrix();
