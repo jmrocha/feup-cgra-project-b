@@ -186,6 +186,7 @@ class MyScene extends CGFscene {
         this.setMaxAmbientLight();
         //this.devObj.display();
         this.bird.display();
+        this.branch.display();
         //this.treeBranches.forEach(b => b.display());
         //this.nest.display();
     }
@@ -306,6 +307,16 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.handleKeyRDown();
         }
+    }
+
+    takeBough(bough) {
+        let b = bough;
+        bough = null;
+        this.bird.takeBough(b);
+    }
+
+    dropBough() {
+        this.treeBranches.push(this.bird.dropBough());
     }
 }
 
