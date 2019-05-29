@@ -54,26 +54,7 @@ class MyScene extends CGFscene {
     }
 
     setLSystems(){
-        this.axiom = "X";
-        this.angle = 25.0;
-        this.iterations = 3;
-        this.scaleFactor = 0.5;
-        this.lSystem = new MyLightning(this);
 
-        this.doGenerate = function () {
-            this.lSystem.generate(
-                this.axiom,
-                {
-                    "F": [ "FF" ],
-                    "X": ["F[-X][X]F[-X]+FX" ]
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-        }
-
-        this.doGenerate();
     }
 
 
@@ -167,7 +148,8 @@ class MyScene extends CGFscene {
 
         if (this.isDevEnabled) {
             //this.devObj.display();
-            this.lSystem.display();
+            this.lightning.display();
+
         } else {
             this.displayScene();
         }
@@ -230,9 +212,6 @@ class MyScene extends CGFscene {
         });
     }
 
-    lightningFlash(){
-        this.lSystem.display();
-    }
 
     handleKeyWDown() {
         this.bird.accelerate(this.birdVelocity * this.speedFactor);

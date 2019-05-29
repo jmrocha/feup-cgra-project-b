@@ -15,7 +15,7 @@ class MyLightningBranch extends MyCylinder {
         this.lightingMaterial.apply();
         this.scene.pushMatrix();
         {
-            this.scene.scale(0.5, 1, 0.5);
+            this.scene.scale(0.1, 1, 0.1);
             super.display();
         }
         this.scene.popMatrix();
