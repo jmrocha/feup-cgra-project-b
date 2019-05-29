@@ -12,14 +12,14 @@ class MyRandomTreeBranch extends MyTreeBranch {
 
     getRandomPosition() {
         let randomX = Utils.getRand(0, 3);
-        let randomY = Utils.getRand(0, 3);
+        let randomY = 0;
         let randomZ = Utils.getRand(0, 3);
 
         return [randomX, randomY, randomZ];
     }
 
     getRandomOrientation() {
-        return Utils.getRand(0, 360);
+        return Utils.getRand(0, 359);
     }
 }
 
