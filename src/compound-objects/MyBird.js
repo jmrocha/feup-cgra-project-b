@@ -2,6 +2,7 @@ import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
 import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 import Utils from "../Utils.js";
 import MyPyramid from "../primitives/MyPyramid.js";
+import MyTreeBranch from "./MyTreeBranch.js";
 
 class MyBird extends CGFobject {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
@@ -23,9 +24,15 @@ class MyBird extends CGFobject {
         this.head = new MyUnitCubeQuad(scene);
         this.wing = new MyTriangleSmall(scene);
         this.nose = new MyPyramid(scene);
+        //this.bough = new MyTreeBranch(scene, position);
+        this.bough = null;
     }
 
-    display() {
+    displayBough() {
+        this.bough.display();
+    }
+
+    displayBird() {
         this.scene.pushMatrix();
         {
             this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
@@ -36,6 +43,12 @@ class MyBird extends CGFobject {
             this.displayWings();
         }
         this.scene.popMatrix();
+    }
+
+    display() {
+        this.displayBird();
+        if (this.bough)
+            this.displayBough();
     }
 
     flap() {
@@ -102,6 +115,11 @@ class MyBird extends CGFobject {
             this.goDown();
         else if (this.state === 'flying-up')
             this.goUp();
+
+        if (this.bough) {
+            this.bough.position = [...this.position];
+            this.bough.position[1] += this.flutterPosition[1];
+        }
     }
 
     updateDisplacement() {
@@ -175,6 +193,16 @@ class MyBird extends CGFobject {
 
     setFlutterVelocity(value) {
         this.flutterVelocity = value;
+    }
+
+    pickBough(bough) {
+        this.bough = bough;
+    }
+
+    dropBough() {
+        let bough = this.bough;
+        this.bough = null;
+        return bough;
     }
 }
 
