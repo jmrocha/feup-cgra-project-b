@@ -184,16 +184,13 @@ class MyScene extends CGFscene {
 
     displayDev() {
         this.setMaxAmbientLight();
-        //this.devObj.display();
         this.bird.display();
         this.branch.display();
-        //this.treeBranches.forEach(b => b.display());
-        //this.nest.display();
     }
 
     displayScene() {
-        this.displaySkybox();
-        this.house.display();
+        this.bird.display();
+        this.treeBranches.forEach(b => b.display());
     }
 
     displaySkybox() {

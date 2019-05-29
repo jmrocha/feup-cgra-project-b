@@ -32,7 +32,7 @@ let config = {
             to: [0, 0, 0]
         }
     },
-    default_camera: 'Skybox Camera 2',
+    default_camera: 'Primitive Camera',
     lights: {
         default: [
             {
