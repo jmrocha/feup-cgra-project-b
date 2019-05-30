@@ -4,6 +4,8 @@ import Utils from "../Utils.js";
 import MyPyramid from "../primitives/MyPyramid.js";
 import MyTreeBranch from "./MyTreeBranch.js";
 
+const TIME_TO_PICK_BOUGH = 400; // time in ms
+
 class MyBird extends CGFobject {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
         super(scene);
@@ -130,21 +132,22 @@ class MyBird extends CGFobject {
 
     goDown() {
         let distance = this.defaultValues['position'][1];
-        let velocity = distance / 1000;
+        let velocity = distance / TIME_TO_PICK_BOUGH;
         let displacement = velocity * this.deltaTime;
         let dx = this.position[1] - displacement;
 
-        if (dx > 0)
+        if (dx > 0) {
             this.position[1] -= displacement;
+        }
         else {
             this.position[1] = 0;
-            this.state = 'flying-up';
+            this.setState('flying-up');
         }
     }
 
     goUp() {
         let distance = this.defaultValues['position'][1];
-        let velocity = distance / 1000;
+        let velocity = distance / TIME_TO_PICK_BOUGH;
         let displacement = velocity * this.deltaTime;
         let dx = this.position[1] + displacement;
 
@@ -152,8 +155,29 @@ class MyBird extends CGFobject {
             this.position[1] += displacement;
         else {
             this.position[1] = this.defaultValues['position'][1];
-            this.state = 'flying';
+            this.setState('flying');
         }
+    }
+
+    setState(state) {
+        switch (state) {
+            case 'flying':
+                if (this.state !== 'flying')
+                    this.scene.flying();
+                break;
+            case 'flying-up':
+                if (this.state !== 'flying-up')
+                    this.scene.flyingUp();
+                break;
+            case 'flying-down':
+                if (this.state !== 'flying-down')
+                    this.scene.flyingDown();
+                break;
+            default:
+                break;
+        }
+
+        this.state = state;
     }
 
     getFlapYDisplacement(t) {
@@ -185,9 +209,9 @@ class MyBird extends CGFobject {
 
     takeBough() {
         if (this.state === 'flying') {
-            this.state = 'flying-down';
+            this.setState('flying-down');
         } else if (this.state === 'ground') {
-            this.state = 'flying-up'
+            this.setState('flying-up');
         }
     }
 
@@ -200,9 +224,9 @@ class MyBird extends CGFobject {
     }
 
     dropBough() {
-        let bough = this.bough;
+        this.bough.pickable = false;
+        this.scene.addBough(this.bough);
         this.bough = null;
-        return bough;
     }
 }
 

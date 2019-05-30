@@ -11,6 +11,7 @@ import config from './Configuration.js';
 import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
 import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
 import MyNest from "./compound-objects/MyNest.js";
+import Utils from "./Utils.js";
 
 const NUMBER_OF_TREE_BRANCHES = 10;
 
@@ -24,6 +25,8 @@ class MyScene extends CGFscene {
         this.birdVelocity = config['bird']['velocity'];
         this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
+        this.state = 'no-bough';
+        this.collisionDetection = false;
     }
 
     init(application) {
@@ -48,7 +51,7 @@ class MyScene extends CGFscene {
         this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
-        this.nest = new MyNest(this);
+        this.nest = new MyNest(this, [0, 0, 0]);
 
         this.setUpdatePeriod(20);
     }
@@ -164,13 +167,63 @@ class MyScene extends CGFscene {
 
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
+        if (this.collisionDetection)
+            this.detectCollisions();
+
         if (this.isDevEnabled) {
             this.displayDev();
         } else {
             this.displayScene();
         }
 
+        //console.log(this.state);
         // ---- END Primitive drawing section
+    }
+
+    detectCollisions() {
+        if (this.state === 'no-bough') {
+            this.detectBoughCollision();
+        } else if (this.state === 'bough') {
+            this.detectNestCollision();
+        }
+    }
+
+    detectBoughCollision() {
+        for (let i = 0; i < this.treeBranches.length; i++) {
+            let treeBranch = this.treeBranches[i];
+            if (treeBranch.pickable && this.collide(treeBranch, this.bird)) {
+                this.pickBough(treeBranch);
+                break;
+            }
+        }
+    }
+
+    addBough(bough) {
+        this.treeBranches.push(bough);
+        bough.position[1] = 0;
+    }
+
+    dropBough() {
+        this.bird.dropBough();
+        this.state = 'no-bough';
+    }
+
+    detectNestCollision() {
+        if (this.collide(this.nest, this.bird)) {
+            this.dropBough();
+        }
+    }
+
+    pickBough(bough) {
+        this.bird.pickBough(bough);
+        this.treeBranches = this.treeBranches.filter(b => b !== bough);
+        this.state = 'bough';
+        // if bough is near the nest, avoid instantaneous collision between bough and nest
+        this.disableCollisionDetection();
+    }
+
+    collide(obj1, obj2) {
+        return Utils.distance(obj1.position, obj2.position) <= 1.9;
     }
 
     setMaxAmbientLight() {
@@ -185,12 +238,19 @@ class MyScene extends CGFscene {
     displayDev() {
         this.setMaxAmbientLight();
         this.bird.display();
-        this.branch.display();
+        this.nest.display();
+        this.displayBranches();
+    }
+
+    displayBranches() {
+        this.treeBranches.forEach(b => b.display());
     }
 
     displayScene() {
         this.bird.display();
-        this.treeBranches.forEach(b => b.display());
+        this.displayBranches();
+        this.bird.display();
+        this.nest.display();
     }
 
     displaySkybox() {
@@ -259,6 +319,7 @@ class MyScene extends CGFscene {
     }
 
     handleKeyPDown() {
+        this.collisionDetection = true;
         this.bird.takeBough();
     }
 
@@ -306,14 +367,24 @@ class MyScene extends CGFscene {
         }
     }
 
-    takeBough(bough) {
-        let b = bough;
-        bough = null;
-        this.bird.takeBough(b);
+    flying() {
+        this.disableCollisionDetection();
     }
 
-    dropBough() {
-        this.treeBranches.push(this.bird.dropBough());
+    flyingUp() {
+        this.disableCollisionDetection();
+    }
+
+    flyingDown() {
+        this.enableCollisionDection();
+    }
+
+    enableCollisionDection() {
+        this.collisionDetection = true;
+    }
+
+    disableCollisionDetection() {
+        this.collisionDetection = false;
     }
 }
 
