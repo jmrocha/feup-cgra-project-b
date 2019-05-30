@@ -39,6 +39,8 @@ class MyWing extends CGFobject {
 
     setSpeedFactor(value) {
         this.speedFactor = value;
+        this.wingBody.setSpeedFactor(value);
+        this.wingTip.setSpeedFactor(value);
     }
 }
 
@@ -49,6 +51,7 @@ class MyWingBody extends CGFobject {
         this.wingBody = new MyQuad(scene);
         this.elapsedTime = 0;
         this.currentOrientation = 0;
+        this.speedFactor = 1;
     }
 
     display() {
@@ -64,7 +67,7 @@ class MyWingBody extends CGFobject {
     }
 
     getOrientation(time) {
-        let y = Utils.sinCurve(1, PERIOD, time);
+        let y = Utils.sinCurve(1, PERIOD / this.speedFactor, time);
         return this.maxOrientation * y;
     }
 
@@ -95,6 +98,10 @@ class MyWingBody extends CGFobject {
 
     update(deltaTime) {
         this.elapsedTime += deltaTime;
+    }
+
+    setSpeedFactor(value) {
+        this.speedFactor = value;
     }
 }
 
