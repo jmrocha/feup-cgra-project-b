@@ -3,12 +3,14 @@ import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 import Utils from "../Utils.js";
 import MyPyramid from "../primitives/MyPyramid.js";
 import MyTreeBranch from "./MyTreeBranch.js";
+import MyWing from "./MyWing.js";
 
 const TIME_TO_PICK_BOUGH = 400; // time in ms
 
 class MyBird extends CGFobject {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
         super(scene);
+
         this.defaultValues = {
             position: [...position],
             velocity: velocity,
@@ -19,15 +21,15 @@ class MyBird extends CGFobject {
         this.orientation = Utils.degToRad(orientation);
         this.velocity = velocity;
         this.elapsedTime = 0;
-        scene.addObserver(this);
         this.scaleFactor = 1;
         this.flutterVelocity = 1;
         this.state = 'flying';
         this.head = new MyUnitCubeQuad(scene);
-        this.wing = new MyTriangleSmall(scene);
+        this.wing = new MyWing(scene);
         this.nose = new MyPyramid(scene);
-        //this.bough = new MyTreeBranch(scene, position);
         this.bough = null;
+
+        scene.addObserver(this);
     }
 
     displayBough() {
@@ -80,16 +82,21 @@ class MyBird extends CGFobject {
     }
 
     displayWings() {
-        this.displayWingLeft();
-        this.displayWingRight();
+        this.scene.pushMatrix();
+        {
+            //this.scene.scale(0.7, 0.7, 0.7);
+            this.displayWingLeft();
+            this.displayWingRight();
+        }
+        this.scene.popMatrix();
     }
 
     displayWingLeft() {
         this.scene.pushMatrix();
         {
-            let angle = Utils.degToRad(90);
-            this.scene.rotate(angle, 1, 0, 0);
-            this.scene.rotate(angle, 0, 0, 1);
+            let angle = Utils.degToRad(180);
+            this.scene.translate(0, 0, 0.5);
+            this.scene.rotate(angle, 0, 1, 0);
             this.wing.display();
         }
         this.scene.popMatrix();
@@ -98,16 +105,14 @@ class MyBird extends CGFobject {
     displayWingRight() {
         this.scene.pushMatrix();
         {
-            let alpha = Utils.degToRad(90);
-            let beta = Utils.degToRad(-90);
-            this.scene.rotate(alpha, 1, 0, 0);
-            this.scene.rotate(beta, 0, 0, 1);
+            this.scene.translate(0, 0, -0.5);
             this.wing.display();
         }
         this.scene.popMatrix();
     }
 
     update(deltaTime) {
+        this.wing.update(deltaTime);
         this.deltaTime = deltaTime;
         this.elapsedTime += deltaTime;
 
