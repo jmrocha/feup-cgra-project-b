@@ -13,6 +13,7 @@ import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
 import MyNest from "./compound-objects/MyNest.js";
 import Utils from "./Utils.js";
 import MyWing from "./compound-objects/MyWing.js";
+import MyBirdTail from "./compound-objects/MyBirdTail.js";
 
 const NUMBER_OF_TREE_BRANCHES = 10;
 
@@ -54,6 +55,7 @@ class MyScene extends CGFscene {
         this.treeBranches = this.getRandomTreeBranches();
         this.nest = new MyNest(this, [0, 0, 0]);
         this.wing = new MyWing(this);
+        this.tail = new MyBirdTail(this);
 
         this.setUpdatePeriod(20);
     }
@@ -241,6 +243,7 @@ class MyScene extends CGFscene {
         this.setMaxAmbientLight();
         //this.wing.display();
         this.bird.display();
+        //this.tail.display();
     }
 
     displayBranches() {
@@ -334,7 +337,6 @@ class MyScene extends CGFscene {
 
     handleSpeedOnChange(value) {
         this.bird.setSpeedFactor(value);
-        this.bird.setFlutterVelocity(this.flutterVelocity * value);
     }
 
     handleScaleOnChange(value) {

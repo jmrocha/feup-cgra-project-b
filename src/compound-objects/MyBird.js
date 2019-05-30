@@ -4,6 +4,9 @@ import Utils from "../Utils.js";
 import MyPyramid from "../primitives/MyPyramid.js";
 import MyTreeBranch from "./MyTreeBranch.js";
 import MyWing from "./MyWing.js";
+import MyBirdEye from "./MyBirdEye.js";
+import MyBirdNose from "./MyBirdNose.js";
+import MyBirdTail from "./MyBirdTail.js";
 
 const TIME_TO_PICK_BOUGH = 400; // time in ms
 
@@ -22,14 +25,17 @@ class MyBird extends CGFobject {
         this.velocity = velocity;
         this.elapsedTime = 0;
         this.scaleFactor = 1;
-        this.flutterVelocity = 1;
         this.state = 'flying';
         this.head = new MyUnitCubeQuad(scene);
+        this.body = new MyUnitCubeQuad(scene);
         this.wing = new MyWing(scene);
-        this.nose = new MyPyramid(scene);
+        this.nose = new MyBirdNose(scene);
+        this.tail = new MyBirdTail(scene);
         this.bough = null;
         this.speedFactor = 1;
+        this.eye = new MyBirdEye(scene);
 
+        // register to receive scene updates
         scene.addObserver(this);
     }
 
@@ -37,27 +43,55 @@ class MyBird extends CGFobject {
         this.bough.display();
     }
 
-    displayBird() {
-        this.scene.pushMatrix();
-        {
-            this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-            this.scene.translate(...this.position);
-            this.scene.rotate(-this.orientation, 0, 1, 0);
-            this.flap();
-            this.displayHead();
-            this.displayWings();
-        }
-        this.scene.popMatrix();
-    }
-
     display() {
         this.displayBird();
+        // if bird has a bough, display it
         if (this.bough)
             this.displayBough();
     }
 
-    flap() {
-        this.scene.translate(0, this.flutterPosition[1], 0);
+    displayBird() {
+        this.scene.pushMatrix();
+        {
+            this.positionBird();
+            this.flap();
+            this.displayHead();
+            this.displayBody();
+            this.displayWings();
+            this.displayTail();
+        }
+        this.scene.popMatrix();
+    }
+
+    displayTail() {
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(-1, -0.5, 0);
+            this.scene.scale(0.8, 0.8, 0.8);
+            this.tail.display();
+        }
+        this.scene.popMatrix();
+    }
+
+    /**
+     * Make transformations to position the bird, taking into account the following variables:
+     *  - scale
+     *  - position
+     *  - orientation
+     */
+    positionBird() {
+        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+        this.scene.translate(...this.position);
+        this.scene.rotate(-this.orientation, 0, 1, 0);
+    }
+
+    displayBody() {
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(-0.5, -0.5, 0);
+            this.body.display();
+        }
+        this.scene.popMatrix();
     }
 
     displayNose() {
@@ -76,8 +110,40 @@ class MyBird extends CGFobject {
     displayHead() {
         this.scene.pushMatrix();
         {
+            this.scene.translate(0, 0.5, 0);
             this.head.display();
+            this.displayEyes();
             this.displayNose();
+        }
+        this.scene.popMatrix();
+    }
+
+    displayEyes() {
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(0.3, 0, 0);
+            this.displayLeftEye();
+            this.displayRightEye();
+        }
+        this.scene.popMatrix();
+    }
+
+    displayLeftEye() {
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(0, 0.1, 0.5);
+            this.scene.scale(0.2, 0.2, 0.2);
+            this.eye.display();
+        }
+        this.scene.popMatrix();
+    }
+
+    displayRightEye() {
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(0, 0.1, -0.5);
+            this.scene.scale(0.2, 0.2, 0.2);
+            this.eye.display();
         }
         this.scene.popMatrix();
     }
@@ -136,6 +202,13 @@ class MyBird extends CGFobject {
         this.position[2] += this.velocity * this.deltaTime * Math.sin(this.orientation);
     }
 
+    /**
+     * Applies a translation in the 'y' axis to make the bird flap. This function uses the flutterPosition variable.
+     */
+    flap() {
+        this.scene.translate(0, this.flutterPosition[1], 0);
+    }
+
     goDown() {
         let distance = this.defaultValues['position'][1];
         let velocity = distance / TIME_TO_PICK_BOUGH;
@@ -165,6 +238,10 @@ class MyBird extends CGFobject {
         }
     }
 
+    /**
+     * Sets the state of the bird and notifies the scene about it.
+     * @param state - the state of the bird
+     */
     setState(state) {
         switch (state) {
             case 'flying':
@@ -219,10 +296,6 @@ class MyBird extends CGFobject {
         } else if (this.state === 'ground') {
             this.setState('flying-up');
         }
-    }
-
-    setFlutterVelocity(value) {
-        this.flutterVelocity = value;
     }
 
     pickBough(bough) {
