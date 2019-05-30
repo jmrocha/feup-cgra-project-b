@@ -10,7 +10,6 @@ class MyPyramid extends CGFobject {
         this.slices = slices;
         this.initBuffers();
         this.material = new CGFappearance(scene);
-        this.material.loadTexture(IMAGE_PATH + '/pattern3.jpg');
     }
 
     initBuffers() {
