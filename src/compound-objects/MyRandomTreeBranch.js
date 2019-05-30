@@ -11,9 +11,9 @@ class MyRandomTreeBranch extends MyTreeBranch {
     }
 
     getRandomPosition() {
-        let randomX = Utils.getRand(0, 3);
+        let randomX = Utils.getRand(0, 10);
         let randomY = 0;
-        let randomZ = Utils.getRand(0, 3);
+        let randomZ = Utils.getRand(0, 10);
 
         return [randomX, randomY, randomZ];
     }
