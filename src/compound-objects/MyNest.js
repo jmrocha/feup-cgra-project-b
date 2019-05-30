@@ -6,9 +6,11 @@ class MyNest extends CGFobject {
         super(scene);
         this.position = position;
         this.nest = new Plane(scene);
+        this.material = new CGFappearance(scene);
     }
 
     display() {
+        this.material.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(-90);
