@@ -8,6 +8,14 @@ import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
 import config from './Configuration.js';
+import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
+import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
+import MyNest from "./compound-objects/MyNest.js";
+import Utils from "./Utils.js";
+import MyWing from "./compound-objects/MyWing.js";
+import MyBirdTail from "./compound-objects/MyBirdTail.js";
+
+const NUMBER_OF_TREE_BRANCHES = 10;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -19,6 +27,8 @@ class MyScene extends CGFscene {
         this.birdVelocity = config['bird']['velocity'];
         this.birdRotation = config['bird']['rotation'];
         this.speedFactor = 1;
+        this.state = 'no-bough';
+        this.collisionDetection = false;
     }
 
     init(application) {
@@ -38,11 +48,27 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this);
+        this.bird = new MyBird(this, 0, 0, [0, 2, 0]);
         this.lightning = new MyLightning(this);
-        this.devObj = this.bird;
+        this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
+        this.devObj = this.branch;
+        this.treeBranches = this.getRandomTreeBranches();
+        this.nest = new MyNest(this, [0, 0, 0]);
+        this.wing = new MyWing(this);
+        this.tail = new MyBirdTail(this);
+        this.material = new CGFappearance(this);
 
         this.setUpdatePeriod(20);
+    }
+
+    getRandomTreeBranches() {
+        let randomTreeBranches = [];
+
+        for (let i = 0; i < NUMBER_OF_TREE_BRANCHES; i++) {
+            randomTreeBranches.push(new MyRandomTreeBranch(this));
+        }
+
+        return randomTreeBranches;
     }
 
     addLights(lightsConfig) {
@@ -63,6 +89,8 @@ class MyScene extends CGFscene {
                 lights[i].setSpecular(...lightsConfig[i]['specular']);
             if (lightsConfig[i]['enabled'])
                 lights[i].enable();
+            if (lightsConfig[i]['visible'])
+                lights[i].setVisible(true);
             lights[i].update();
         }
 
@@ -119,6 +147,7 @@ class MyScene extends CGFscene {
     }
 
     display() {
+        this.material.apply();
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -146,13 +175,63 @@ class MyScene extends CGFscene {
 
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
+        if (this.collisionDetection)
+            this.detectCollisions();
+
         if (this.isDevEnabled) {
             this.displayDev();
         } else {
             this.displayScene();
         }
 
+        //console.log(this.state);
         // ---- END Primitive drawing section
+    }
+
+    detectCollisions() {
+        if (this.state === 'no-bough') {
+            this.detectBoughCollision();
+        } else if (this.state === 'bough') {
+            this.detectNestCollision();
+        }
+    }
+
+    detectBoughCollision() {
+        for (let i = 0; i < this.treeBranches.length; i++) {
+            let treeBranch = this.treeBranches[i];
+            if (treeBranch.pickable && this.collide(treeBranch, this.bird)) {
+                this.pickBough(treeBranch);
+                break;
+            }
+        }
+    }
+
+    addBough(bough) {
+        this.treeBranches.push(bough);
+        bough.position[1] = 0;
+    }
+
+    dropBough() {
+        this.bird.dropBough();
+        this.state = 'no-bough';
+    }
+
+    detectNestCollision() {
+        if (this.collide(this.nest, this.bird)) {
+            this.dropBough();
+        }
+    }
+
+    pickBough(bough) {
+        this.bird.pickBough(bough);
+        this.treeBranches = this.treeBranches.filter(b => b !== bough);
+        this.state = 'bough';
+        // if bough is near the nest, avoid instantaneous collision between bough and nest
+        this.disableCollisionDetection();
+    }
+
+    collide(obj1, obj2) {
+        return Utils.distance(obj1.position, obj2.position) <= 1.9;
     }
 
     setMaxAmbientLight() {
@@ -166,12 +245,20 @@ class MyScene extends CGFscene {
 
     displayDev() {
         this.setMaxAmbientLight();
-        this.devObj.display();
+        //this.wing.display();
+        this.bird.display();
+        //this.tail.display();
+    }
+
+    displayBranches() {
+        this.treeBranches.forEach(b => b.display());
     }
 
     displayScene() {
-        this.displaySkybox();
-        this.house.display();
+        this.bird.display();
+        this.displayBranches();
+        this.bird.display();
+        this.nest.display();
     }
 
     displaySkybox() {
@@ -220,19 +307,19 @@ class MyScene extends CGFscene {
     }
 
     handleKeyWDown() {
-        this.bird.accelerate(this.birdVelocity * this.speedFactor);
+        this.bird.accelerate(this.birdVelocity);
     }
 
     handleKeySDown() {
-        this.bird.accelerate(-this.birdVelocity * this.speedFactor);
+        this.bird.accelerate(-this.birdVelocity);
     }
 
     handleKeyADown() {
-        this.bird.turn(-this.birdRotation * this.speedFactor);
+        this.bird.turn(-this.birdRotation);
     }
 
     handleKeyDDown() {
-        this.bird.turn(this.birdRotation * this.speedFactor);
+        this.bird.turn(this.birdRotation);
     }
 
     handleKeyRDown() {
@@ -240,6 +327,7 @@ class MyScene extends CGFscene {
     }
 
     handleKeyPDown() {
+        this.collisionDetection = true;
         this.bird.takeBough();
     }
 
@@ -252,8 +340,7 @@ class MyScene extends CGFscene {
     }
 
     handleSpeedOnChange(value) {
-        this.speedFactor = value;
-        this.bird.setFlutterVelocity(this.flutterVelocity * value);
+        this.bird.setSpeedFactor(value);
     }
 
     handleScaleOnChange(value) {
@@ -282,17 +369,29 @@ class MyScene extends CGFscene {
             this.handleKeyDDown();
         }
 
-        if (this.gui.isKeyPressed("KeyP")) {
-            this.handleKeyPDown();
-        }
-
-        if (this.gui.isKeyPressed("KeyL")) {
-            this.handleKeyLDown();
-        }
-
         if (this.gui.isKeyPressed("KeyR")) {
             this.handleKeyRDown();
         }
+    }
+
+    flying() {
+        this.disableCollisionDetection();
+    }
+
+    flyingUp() {
+        this.disableCollisionDetection();
+    }
+
+    flyingDown() {
+        this.enableCollisionDection();
+    }
+
+    enableCollisionDection() {
+        this.collisionDetection = true;
+    }
+
+    disableCollisionDetection() {
+        this.collisionDetection = false;
     }
 }
 

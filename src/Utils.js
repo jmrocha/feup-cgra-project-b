@@ -20,6 +20,20 @@ class Utils {
             console.log(`${v1}, ${v2}, ${v3}`);
         }
     }
+
+    static distance(p1, p2) {
+        let dx = Math.pow(p1[0] - p2[0], 2);
+        let dy = Math.pow(p1[1] - p2[1], 2);
+        let dz = Math.pow(p1[2] - p2[2], 2);
+
+        return Math.sqrt(dx + dy + dz);
+    }
+
+    static sinCurve(amplitude, period, time) {
+        let frequency = 1 / period;
+        let angle = 2 * Math.PI * frequency * time;
+        return amplitude * Math.sin(angle);
+    }
 }
 
 export default Utils;

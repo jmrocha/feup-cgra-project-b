@@ -3,7 +3,7 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-import MyQuad from "./MyQuad.js";
+import MyQuad from "../primitives/MyQuad.js";
 import Utils from "../Utils.js";
 
 class MyUnitCubeQuad extends CGFobject {
@@ -12,7 +12,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.face = new MyQuad(scene);
 
         this.material = new CGFappearance(scene);
-        //this.scene.setDefaultAppearance(this.material);
+
 
         if (sidesTexture)
             this.sidesTexture = new CGFtexture(scene, sidesTexture);
@@ -21,11 +21,6 @@ class MyUnitCubeQuad extends CGFobject {
         if (bottomTexture)
             this.bottomTexture = new CGFtexture(scene, bottomTexture);
 
-        //this.sidesTexture = new CGFtexture(scene, sidesTexture ? sidesTexture : Configuration.getCubeSideTexture());
-        //this.topTexture = new CGFtexture(scene, topTexture ? topTexture : Configuration.getCubeTopTexture());
-        //this.bottomTexture = new CGFtexture(scene, bottomTexture ? bottomTexture : Configuration.getCubeBottomTexture());
-
-        // todo: apply the textures provided in constructor
         this.isInterpolationEnabled = false;
     }
 
@@ -43,7 +38,6 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     setTexture(tex) {
-        if (!this.material) return;
         this.material.setTexture(tex);
         this.material.apply();
         if (this.isInterpolationEnabled)

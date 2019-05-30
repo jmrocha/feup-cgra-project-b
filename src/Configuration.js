@@ -11,11 +11,11 @@ let config = {
             to: [50, 65, 50]
         },
         'Skybox Camera 2': {
-            fov: 1.4,
-            near: 0.2,
-            far: 5000,
-            from: [50, 15, 100],
-            to: [50, 15, 50]
+            fov: 0.4,
+            near: 0.1,
+            far: 500,
+            from: [25, 25, 25],
+            to: [0, 0, 0]
         },
         'Primitive Camera': {
             fov: 0.4,
@@ -40,6 +40,12 @@ let config = {
                 ambient: [1, 1, 204 / 255, 1],
                 diffuse: [1, 1, 204 / 255, 1],
                 specular: [0.2, 0.2, 0.2, 1],
+                enabled: true
+            },
+            {
+                position: [0, 1, 0, 1],
+                diffuse: [1.0, 1.0, 1.0, 1.0],
+                visible: true,
                 enabled: true
             }
         ],

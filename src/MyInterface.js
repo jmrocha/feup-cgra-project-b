@@ -113,6 +113,11 @@ class MyInterface extends CGFinterface {
     }
 
     processKeyDown(event) {
+        if (event.code === 'KeyP')
+            this.scene.handleKeyPDown();
+        else if (event.code === 'KeyL') {
+            this.scene.handleKeyLDown();
+        }
         // called when a key is pressed down
         // mark it as active in the array
         this.activeKeys[event.code] = true;

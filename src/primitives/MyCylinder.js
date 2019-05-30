@@ -1,19 +1,15 @@
 const VERTICES_PER_SLICE = 2;
 
 class MyCylinder extends CGFobject {
-    constructor(scene, slices = 6, texturePath = null) {
+    constructor(scene, slices = 6) {
         super(scene);
         this.slices = slices;
         this.alphaAng = (Math.PI * 2) / this.slices;
-        this.material = new CGFappearance(scene);
-        this.numVertices = VERTICES_PER_SLICE * this.slices;
-
-        if (texturePath)
-            this.material.loadTexture(texturePath);
 
         this.initBuffers();
 
         this.isInterpolationEnabled = false;
+        this.dimension = [1, 2, 1];
     }
 
     interpolation(enable) {
@@ -66,27 +62,14 @@ class MyCylinder extends CGFobject {
         super.initGLBuffers();
     }
 
-    /*
-    0:
-        0
-        1
-    1:
-        2
-        3
-    2:
-        4
-        5
-    3:
-        6
-        7
-
-     */
-
     display() {
-        this.material.apply();
         if (this.isInterpolationEnabled)
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         super.display();
+    }
+
+    getDimension() {
+        return this.dimension;
     }
 }
 
