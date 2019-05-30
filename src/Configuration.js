@@ -41,6 +41,12 @@ let config = {
                 diffuse: [1, 1, 204 / 255, 1],
                 specular: [0.2, 0.2, 0.2, 1],
                 enabled: true
+            },
+            {
+                position: [0, 1, 0, 1],
+                diffuse: [1.0, 1.0, 1.0, 1.0],
+                visible: true,
+                enabled: true
             }
         ],
         dev: [

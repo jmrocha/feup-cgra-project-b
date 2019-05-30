@@ -56,6 +56,7 @@ class MyScene extends CGFscene {
         this.nest = new MyNest(this, [0, 0, 0]);
         this.wing = new MyWing(this);
         this.tail = new MyBirdTail(this);
+        this.material = new CGFappearance(this);
 
         this.setUpdatePeriod(20);
     }
@@ -88,6 +89,8 @@ class MyScene extends CGFscene {
                 lights[i].setSpecular(...lightsConfig[i]['specular']);
             if (lightsConfig[i]['enabled'])
                 lights[i].enable();
+            if (lightsConfig[i]['visible'])
+                lights[i].setVisible(true);
             lights[i].update();
         }
 
@@ -144,6 +147,7 @@ class MyScene extends CGFscene {
     }
 
     display() {
+        this.material.apply();
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
