@@ -28,6 +28,12 @@ class Utils {
 
         return Math.sqrt(dx + dy + dz);
     }
+
+    static sinCurve(amplitude, period, time) {
+        let frequency = 1 / period;
+        let angle = 2 * Math.PI * frequency * time;
+        return amplitude * Math.sin(angle);
+    }
 }
 
 export default Utils;
