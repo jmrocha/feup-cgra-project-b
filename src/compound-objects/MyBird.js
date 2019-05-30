@@ -7,6 +7,8 @@ import MyWing from "./MyWing.js";
 import MyBirdEye from "./MyBirdEye.js";
 import MyBirdNose from "./MyBirdNose.js";
 import MyBirdTail from "./MyBirdTail.js";
+import MyBirdBody from "./MyBirdBody.js";
+import MyBirdHead from "./MyBirdHead.js";
 
 const TIME_TO_PICK_BOUGH = 400; // time in ms
 
@@ -26,8 +28,8 @@ class MyBird extends CGFobject {
         this.elapsedTime = 0;
         this.scaleFactor = 1;
         this.state = 'flying';
-        this.head = new MyUnitCubeQuad(scene);
-        this.body = new MyUnitCubeQuad(scene);
+        this.head = new MyBirdHead(scene);
+        this.body = new MyBirdBody(scene);
         this.wing = new MyWing(scene);
         this.nose = new MyBirdNose(scene);
         this.tail = new MyBirdTail(scene);
