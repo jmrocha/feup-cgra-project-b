@@ -11,11 +11,11 @@ let config = {
             to: [50, 65, 50]
         },
         'Skybox Camera 2': {
-            fov: 1.4,
-            near: 0.2,
-            far: 5000,
-            from: [50, 15, 100],
-            to: [50, 15, 50]
+            fov: 0.4,
+            near: 0.1,
+            far: 500,
+            from: [25, 25, 25],
+            to: [0, 0, 0]
         },
         'Primitive Camera': {
             fov: 0.4,
@@ -32,7 +32,7 @@ let config = {
             to: [0, 0, 0]
         }
     },
-    default_camera: 'Primitive Camera',
+    default_camera: 'Skybox Camera 2',
     lights: {
         default: [
             {
