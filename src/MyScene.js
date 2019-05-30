@@ -12,6 +12,7 @@ import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
 import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
 import MyNest from "./compound-objects/MyNest.js";
 import Utils from "./Utils.js";
+import MyWing from "./compound-objects/MyWing.js";
 
 const NUMBER_OF_TREE_BRANCHES = 10;
 
@@ -52,6 +53,7 @@ class MyScene extends CGFscene {
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
         this.nest = new MyNest(this, [0, 0, 0]);
+        this.wing = new MyWing(this);
 
         this.setUpdatePeriod(20);
     }
@@ -237,9 +239,8 @@ class MyScene extends CGFscene {
 
     displayDev() {
         this.setMaxAmbientLight();
+        //this.wing.display();
         this.bird.display();
-        this.nest.display();
-        this.displayBranches();
     }
 
     displayBranches() {
@@ -299,19 +300,19 @@ class MyScene extends CGFscene {
     }
 
     handleKeyWDown() {
-        this.bird.accelerate(this.birdVelocity * this.speedFactor);
+        this.bird.accelerate(this.birdVelocity);
     }
 
     handleKeySDown() {
-        this.bird.accelerate(-this.birdVelocity * this.speedFactor);
+        this.bird.accelerate(-this.birdVelocity);
     }
 
     handleKeyADown() {
-        this.bird.turn(-this.birdRotation * this.speedFactor);
+        this.bird.turn(-this.birdRotation);
     }
 
     handleKeyDDown() {
-        this.bird.turn(this.birdRotation * this.speedFactor);
+        this.bird.turn(this.birdRotation);
     }
 
     handleKeyRDown() {
@@ -332,7 +333,7 @@ class MyScene extends CGFscene {
     }
 
     handleSpeedOnChange(value) {
-        this.speedFactor = value;
+        this.bird.setSpeedFactor(value);
         this.bird.setFlutterVelocity(this.flutterVelocity * value);
     }
 

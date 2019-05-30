@@ -3,14 +3,16 @@ import Utils from "../Utils.js";
 import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
 
 const MAX_ORIENTATION = 45.0; // degrees
+const PERIOD = 1000;
 
 class MyWing extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.wingBody = new MyWingBody(scene, 25);
+        this.wingBody = new MyWingBody(scene, 60);
         this.wingTip = new MyWingTip(scene, 60);
         this.elapsedTime = 0;
         this.maxOrientation = Utils.degToRad(45);
+        this.speedFactor = 1;
     }
 
     display() {
@@ -31,8 +33,12 @@ class MyWing extends CGFobject {
     }
 
     getOrientation(time) {
-        let y = Utils.sinCurve(1, 1000, time);
+        let y = Utils.sinCurve(1, PERIOD / this.speedFactor, time);
         return this.maxOrientation * y;
+    }
+
+    setSpeedFactor(value) {
+        this.speedFactor = value;
     }
 }
 
@@ -58,7 +64,7 @@ class MyWingBody extends CGFobject {
     }
 
     getOrientation(time) {
-        let y = Utils.sinCurve(1, 1000, time);
+        let y = Utils.sinCurve(1, PERIOD, time);
         return this.maxOrientation * y;
     }
 
@@ -98,6 +104,7 @@ class MyWingTip extends CGFobject {
         this.maxOrientation = Utils.degToRad(maxOrientation);
         this.wingTip = new MyTriangleSmall(scene);
         this.elapsedTime = 0;
+        this.speedFactor = 1;
     }
 
     display() {
@@ -139,12 +146,16 @@ class MyWingTip extends CGFobject {
     }
 
     getOrientation(time) {
-        let y = Utils.sinCurve(1, 1000, time);
+        let y = Utils.sinCurve(1, PERIOD / this.speedFactor, time);
         return this.maxOrientation * y;
     }
 
     update(deltaTime) {
         this.elapsedTime += deltaTime;
+    }
+
+    setSpeedFactor(value) {
+        this.speedFactor = value;
     }
 }
 

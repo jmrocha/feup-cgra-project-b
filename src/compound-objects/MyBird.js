@@ -28,6 +28,7 @@ class MyBird extends CGFobject {
         this.wing = new MyWing(scene);
         this.nose = new MyPyramid(scene);
         this.bough = null;
+        this.speedFactor = 1;
 
         scene.addObserver(this);
     }
@@ -193,11 +194,11 @@ class MyBird extends CGFobject {
     }
 
     turn(degrees) {
-        this.orientation += Utils.degToRad(degrees);
+        this.orientation += Utils.degToRad(degrees) * this.speedFactor;
     }
 
     accelerate(velocity) {
-        this.velocity += velocity;
+        this.velocity += velocity * this.speedFactor;
         if (this.velocity < 0) this.velocity = 0;
     }
 
@@ -232,6 +233,11 @@ class MyBird extends CGFobject {
         this.bough.pickable = false;
         this.scene.addBough(this.bough);
         this.bough = null;
+    }
+
+    setSpeedFactor(value) {
+        this.speedFactor = value;
+        this.wing.setSpeedFactor(value);
     }
 }
 
