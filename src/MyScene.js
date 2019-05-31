@@ -247,9 +247,9 @@ class MyScene extends CGFscene {
     displayDev() {
         //this.setMaxAmbientLight();
         ////this.wing.display();
-        //this.bird.display();
-        //this.displayBranches();
-        //this.nest.display();
+        this.bird.display();
+        this.displayBranches();
+        this.nest.display();
         //this.terrain.display();
         ////this.tail.display();
         this.terrain.display();
@@ -261,6 +261,7 @@ class MyScene extends CGFscene {
 
     displayScene() {
         this.bird.display();
+        this.terrain.display();
         this.displayBranches();
         this.nest.display();
     }
