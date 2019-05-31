@@ -25,9 +25,6 @@ class MyLightning extends MyLSystem {
         );
 
 
-        this.deltaTime;
-        this.elapsedTime;
-        this.depth;
         this.isBeingAnimated = false;
     }
 
@@ -42,23 +39,35 @@ class MyLightning extends MyLSystem {
     update(deltaTime) {
         this.deltaTime = deltaTime;
         this.elapsedTime += this.deltaTime;
-        if (this.isBeingAnimated && this.elapsedTime <= 10000){
-            this.depth++;
+
+        this.updateDepth();
+    }
+
+    updateDepth() {
+        if (!this.isBeingAnimated) return;
+        if (this.elapsedTime >= 1000) {
+            this.isBeingAnimated = false;
+            this.depth = 0;
+            return;
         }
+
+        let v = this.axiom.length / 1000;
+
+        this.depth += v * this.deltaTime;
     }
 
     flash(){
-        if (this.isBeingAnimated == false){
+        if (this.isBeingAnimated === false){
             this.isBeingAnimated = true;
             this.startAnimation();
         }
     }
 
     stopFlash(){
-        if (this.isBeingAnimated == true){
-            this.isBeingAnimated = false;
-            this.stopAnimation();
-        }
+        //if (this.isBeingAnimated == true){
+        //    this.isBeingAnimated = false;
+        //    this.stopAnimation();
+        //}
     }
 
     startAnimation(){
