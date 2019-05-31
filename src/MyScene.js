@@ -7,13 +7,15 @@ import MyCubeMap from "./compound-objects/MyCubeMap.js";
 import MyHouse from "./compound-objects/MyHouse.js";
 import MyBird from "./compound-objects/MyBird.js";
 import MyLightning from "./compound-objects/MyLightning.js";
-import config from './Configuration.js';
+import Plane from "./Plane";
+import config, {IMAGE_PATH} from './Configuration.js';
 import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
 import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
 import MyNest from "./compound-objects/MyNest.js";
 import Utils from "./Utils.js";
 import MyWing from "./compound-objects/MyWing.js";
 import MyBirdTail from "./compound-objects/MyBirdTail.js";
+import MyTerrain from "./compound-objects/MyTerrain.js";
 
 const NUMBER_OF_TREE_BRANCHES = 10;
 
@@ -45,6 +47,8 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
+        this.displayAxis = config['axis_enabled'];
+        this.terrain = new MyTerrain(this, config['terrain']['texture']['terrain']);
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
@@ -241,12 +245,14 @@ class MyScene extends CGFscene {
     }
 
     displayDev() {
-        this.setMaxAmbientLight();
-        //this.wing.display();
-        this.bird.display();
-        this.displayBranches();
-        this.nest.display();
-        //this.tail.display();
+        //this.setMaxAmbientLight();
+        ////this.wing.display();
+        //this.bird.display();
+        //this.displayBranches();
+        //this.nest.display();
+        //this.terrain.display();
+        ////this.tail.display();
+        this.terrain.display();
     }
 
     displayBranches() {

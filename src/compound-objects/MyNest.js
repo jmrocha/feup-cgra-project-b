@@ -13,7 +13,7 @@ class MyNest extends CGFobject {
         this.material.apply();
         this.scene.pushMatrix();
         {
-            let angle = Utils.degToRad(-90);
+            let angle = Utils.degToRad(90);
             this.scene.translate(this.position[0], this.position[1], this.position[2]);
             this.scene.rotate(angle, 1, 0, 0);
             this.nest.display();
