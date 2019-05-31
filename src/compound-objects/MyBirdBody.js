@@ -1,6 +1,7 @@
 import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
 import MyCylinder from "../primitives/MyCylinder.js";
 import Utils from "../Utils.js";
+import {IMAGE_PATH} from "../Configuration.js";
 
 class MyBirdBody extends CGFobject {
     constructor(scene) {
@@ -8,6 +9,7 @@ class MyBirdBody extends CGFobject {
         this.body = new MyCylinder(scene, 5);
         this.material = new CGFappearance(scene);
         this.material.setDiffuse(0.3, 0.3, 0.3, 1);
+        this.material.loadTexture(IMAGE_PATH + '/bird-body-texture.jpg');
     }
 
     display() {
