@@ -15,7 +15,7 @@ import Utils from "./Utils.js";
 import MyWing from "./compound-objects/MyWing.js";
 import MyBirdTail from "./compound-objects/MyBirdTail.js";
 
-const NUMBER_OF_TREE_BRANCHES = 2;
+const NUMBER_OF_TREE_BRANCHES = 10;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -65,7 +65,7 @@ class MyScene extends CGFscene {
         let randomTreeBranches = [];
 
         for (let i = 0; i < NUMBER_OF_TREE_BRANCHES; i++) {
-            randomTreeBranches.push(new MyTreeBranch(this));
+            randomTreeBranches.push(new MyRandomTreeBranch(this));
         }
 
         return randomTreeBranches;
