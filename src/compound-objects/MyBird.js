@@ -279,6 +279,14 @@ class MyBird extends CGFobject {
     accelerate(velocity) {
         this.velocity += velocity * this.speedFactor;
         if (this.velocity < 0) this.velocity = 0;
+
+        this.updateWingSpeedFactor();
+    }
+
+    updateWingSpeedFactor() {
+        let wingSpeedFactor = this.velocity * 100;
+        if (wingSpeedFactor <= 1) wingSpeedFactor = 1;
+        this.wing.setSpeedFactor(wingSpeedFactor);
     }
 
     scale(value) {
