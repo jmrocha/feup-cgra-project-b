@@ -9,7 +9,6 @@ class MyPyramid extends CGFobject {
         super(scene);
         this.slices = slices;
         this.initBuffers();
-        this.material = new CGFappearance(scene);
     }
 
     initBuffers() {
@@ -76,11 +75,6 @@ class MyPyramid extends CGFobject {
         // reinitialize buffers
         this.initBuffers();
         this.initNormalVizBuffers();
-    }
-
-    display() {
-        this.material.apply();
-        super.display();
     }
 }
 
