@@ -7,7 +7,22 @@ class MyLightning extends MyLSystem {
         super(scene);
         this.scene.addObserver(this);
 
+        this.axiom = "X";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 0.5;
 
+
+        super.generate(
+            this.axiom,
+            {
+                "F": [ "FF" ],
+                "X": ["F[-X][X]F[-X]+FX" ]
+            },
+            this.angle,
+            this.iterations,
+            this.scaleFactor
+        );
 
 
         this.deltaTime;
@@ -27,7 +42,7 @@ class MyLightning extends MyLSystem {
     update(deltaTime) {
         this.deltaTime = deltaTime;
         this.elapsedTime += this.deltaTime;
-        if (this.isBeingAnimated && this.elapsedTime <= 1000){
+        if (this.isBeingAnimated && this.elapsedTime <= 10000){
             this.depth++;
         }
     }
@@ -49,7 +64,7 @@ class MyLightning extends MyLSystem {
     startAnimation(){
         this.elapsedTime = 0;
         this.depth = 0;
-        super.iterate();
+        //super.iterate();
     }
 
     stopAnimation(){

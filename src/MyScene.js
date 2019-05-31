@@ -36,7 +36,7 @@ class MyScene extends CGFscene {
         this.lightning = new MyLightning(this);
         this.devObj = this.bird;
 
-        this.setLSystems();
+        //this.setLSystems();
 
 
         this.setUpdatePeriod(20);
@@ -54,22 +54,7 @@ class MyScene extends CGFscene {
     }
 
     setLSystems(){
-        this.axiom = "X";
-        this.angle = 25.0;
-        this.iterations = 3;
-        this.scaleFactor = 0.5;
 
-
-        this.lightning.generate(
-            this.axiom,
-            {
-                "F": [ "FF" ],
-                "X": ["F[-X][X]F[-X]+FX" ]
-            },
-            this.angle,
-            this.iterations,
-            this.scaleFactor
-        );
     }
 
 
