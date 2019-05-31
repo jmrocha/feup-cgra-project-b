@@ -7,27 +7,12 @@ class MyLightning extends MyLSystem {
         super(scene);
         this.scene.addObserver(this);
 
-        this.axiom = "X";
-        this.angle = 25.0;
-        this.iterations = 3;
-        this.scaleFactor = 0.5;
 
-
-            super.generate(
-                this.axiom,
-                {
-                    "F": [ "FF" ],
-                    "X": ["F[-X][X]F[-X]+FX" ]
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
 
 
         this.deltaTime;
         this.elapsedTime;
-        this.depth = 300;
+        this.depth;
         this.isBeingAnimated = false;
     }
 
@@ -48,14 +33,14 @@ class MyLightning extends MyLSystem {
     }
 
     flash(){
-        if (!this.isBeingAnimated){
+        if (this.isBeingAnimated == false){
             this.isBeingAnimated = true;
             this.startAnimation();
         }
     }
 
     stopFlash(){
-        if (this.isBeingAnimated){
+        if (this.isBeingAnimated == true){
             this.isBeingAnimated = false;
             this.stopAnimation();
         }
@@ -63,18 +48,17 @@ class MyLightning extends MyLSystem {
 
     startAnimation(){
         this.elapsedTime = 0;
-        //this.depth = 300;
+        this.depth = 0;
         super.iterate();
     }
 
     stopAnimation(){
-        this.depth = 300;
+        this.depth = 0;
         this.elapsedTime = 0;
     }
 
     display() {
         this.scene.pushMatrix();
-        console.log(this.depth);
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;
@@ -128,9 +112,11 @@ class MyLightning extends MyLSystem {
                 default:
                     var primitive = this.grammar[this.axiom[i]];
 
-                    if (primitive && (i < this.depth)) {
-                        primitive.display();
-                        this.scene.translate(0, 1, 0);
+                    if (primitive) {
+                        if (i < this.depth){
+                            primitive.display();
+                            this.scene.translate(0, 1, 0);
+                        }
                     }
                     break;
             }

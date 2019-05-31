@@ -1,6 +1,7 @@
-import MyCylinder from "../primitives/MyCylinder";
 
-class MyLightningBranch extends MyCylinder {
+import MyQuad from "../primitives/MyQuad";
+
+class MyLightningBranch extends MyQuad {
     constructor(scene) {
         super(scene);
         this.scene = scene;

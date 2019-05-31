@@ -54,7 +54,22 @@ class MyScene extends CGFscene {
     }
 
     setLSystems(){
+        this.axiom = "X";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 0.5;
 
+
+        this.lightning.generate(
+            this.axiom,
+            {
+                "F": [ "FF" ],
+                "X": ["F[-X][X]F[-X]+FX" ]
+            },
+            this.angle,
+            this.iterations,
+            this.scaleFactor
+        );
     }
 
 
