@@ -187,10 +187,12 @@ class MyBird extends CGFobject {
 
         this.updateDisplacement();
 
-        if (this.state === 'flying-down')
+        if (this.state === 'flying-down') {
             this.goDown();
-        else if (this.state === 'flying-up')
+        }
+        else if (this.state === 'flying-up') {
             this.goUp();
+        }
 
         if (this.bough) {
             this.bough.position = [...this.position];
@@ -245,18 +247,23 @@ class MyBird extends CGFobject {
      * @param state - the state of the bird
      */
     setState(state) {
+        let wingSpeedIncrease = 3;
         switch (state) {
             case 'flying':
                 if (this.state !== 'flying')
                     this.scene.flying();
                 break;
             case 'flying-up':
-                if (this.state !== 'flying-up')
+                if (this.state !== 'flying-up') {
                     this.scene.flyingUp();
+                    this.wing.setSpeedFactor(this.wing.speedFactor / wingSpeedIncrease);
+                }
                 break;
             case 'flying-down':
-                if (this.state !== 'flying-down')
+                if (this.state !== 'flying-down') {
                     this.scene.flyingDown();
+                    this.wing.setSpeedFactor(this.wing.speedFactor * wingSpeedIncrease);
+                }
                 break;
             default:
                 break;
@@ -284,8 +291,9 @@ class MyBird extends CGFobject {
     }
 
     updateWingSpeedFactor() {
-        let wingSpeedFactor = this.velocity * 100;
+        let wingSpeedFactor = 1 + this.wing.speedFactor * (this.velocity * 50);
         if (wingSpeedFactor <= 1) wingSpeedFactor = 1;
+        if (wingSpeedFactor >= 3.66) wingSpeedFactor = 3.66;
         this.wing.setSpeedFactor(wingSpeedFactor);
     }
 
@@ -298,13 +306,12 @@ class MyBird extends CGFobject {
         this.position = [...this.defaultValues['position']];
         this.orientation = this.defaultValues['orientation'];
         this.state = 'flying';
+        this.wing.setSpeedFactor(1);
     }
 
     takeBough() {
         if (this.state === 'flying') {
             this.setState('flying-down');
-        } else if (this.state === 'ground') {
-            this.setState('flying-up');
         }
     }
 
