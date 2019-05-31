@@ -15,7 +15,7 @@ import Utils from "./Utils.js";
 import MyWing from "./compound-objects/MyWing.js";
 import MyBirdTail from "./compound-objects/MyBirdTail.js";
 
-const NUMBER_OF_TREE_BRANCHES = 10;
+const NUMBER_OF_TREE_BRANCHES = 2;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -65,7 +65,7 @@ class MyScene extends CGFscene {
         let randomTreeBranches = [];
 
         for (let i = 0; i < NUMBER_OF_TREE_BRANCHES; i++) {
-            randomTreeBranches.push(new MyRandomTreeBranch(this));
+            randomTreeBranches.push(new MyTreeBranch(this));
         }
 
         return randomTreeBranches;
@@ -175,9 +175,6 @@ class MyScene extends CGFscene {
 
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        if (this.collisionDetection)
-            this.detectCollisions();
-
         if (this.isDevEnabled) {
             this.displayDev();
         } else {
@@ -247,6 +244,8 @@ class MyScene extends CGFscene {
         this.setMaxAmbientLight();
         //this.wing.display();
         this.bird.display();
+        this.displayBranches();
+        this.nest.display();
         //this.tail.display();
     }
 
@@ -298,6 +297,9 @@ class MyScene extends CGFscene {
         this.lastTime = this.lastTime || currTime;
         deltaTime = currTime - this.lastTime;
         this.lastTime = currTime;
+
+        if (this.collisionDetection)
+            this.detectCollisions();
 
         this.checkKeys();
 
