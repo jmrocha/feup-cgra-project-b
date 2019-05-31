@@ -68,7 +68,7 @@ class MyBird extends CGFobject {
     displayTail() {
         this.scene.pushMatrix();
         {
-            this.scene.translate(-1, -0.5, 0);
+            this.scene.translate(-1.6, 0, 0);
             this.scene.scale(0.8, 0.8, 0.8);
             this.tail.display();
         }
@@ -90,6 +90,7 @@ class MyBird extends CGFobject {
     displayBody() {
         this.scene.pushMatrix();
         {
+            //this.scene.translate(-0.5, -0.5, 0);
             this.scene.translate(-0.5, -0.5, 0);
             this.body.display();
         }
@@ -99,10 +100,10 @@ class MyBird extends CGFobject {
     displayNose() {
         this.scene.pushMatrix();
         {
-            let scaleFactor = 0.5;
+            let scaleFactor = 0.3;
             let angle = Utils.degToRad(-90);
             this.scene.scale(scaleFactor, scaleFactor, scaleFactor);
-            this.scene.translate(0.3, 0, 0);
+            this.scene.translate(3.3, 1.5, 0);
             this.scene.rotate(angle, 0, 0, 1);
             this.nose.display();
         }
@@ -123,7 +124,7 @@ class MyBird extends CGFobject {
     displayEyes() {
         this.scene.pushMatrix();
         {
-            this.scene.translate(0.3, 0, 0);
+            this.scene.translate(0.3, 0.5, 0);
             this.displayLeftEye();
             this.displayRightEye();
         }

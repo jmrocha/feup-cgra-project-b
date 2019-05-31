@@ -1,6 +1,7 @@
 import MyQuad from "../primitives/MyQuad.js";
 import Utils from "../Utils.js";
 import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
+import {IMAGE_PATH} from "../Configuration.js";
 
 const MAX_ORIENTATION = 45.0; // degrees
 const PERIOD = 1000;
@@ -13,9 +14,13 @@ class MyWing extends CGFobject {
         this.elapsedTime = 0;
         this.maxOrientation = Utils.degToRad(45);
         this.speedFactor = 1;
+        this.material = new CGFappearance(scene);
+        this.material.setDiffuse(0.3, 0.3, 0.3, 1);
+        this.material.loadTexture(IMAGE_PATH + '/bird-body-texture.jpg');
     }
 
     display() {
+        this.material.apply();
         this.scene.pushMatrix();
         {
             let angle = this.getOrientation(this.elapsedTime);

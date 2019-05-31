@@ -7,19 +7,24 @@ import MyQuad from "../primitives/MyQuad.js";
 import Utils from "../Utils.js";
 
 class MyUnitCubeQuad extends CGFobject {
-    constructor(scene, sidesTexture, topTexture, bottomTexture) {
+    constructor(scene) {
         super(scene);
         this.face = new MyQuad(scene);
 
-        this.material = new CGFappearance(scene);
+        this.leftTexture = null;
+        this.rightTexture = null;
+        this.topTexture = null;
+        this.bottomTexture = null;
+        this.frontTexture = null;
+        this.backTexture = null;
 
-
-        if (sidesTexture)
-            this.sidesTexture = new CGFtexture(scene, sidesTexture);
-        if (topTexture)
-            this.topTexture = new CGFtexture(scene, topTexture);
-        if (bottomTexture)
-            this.bottomTexture = new CGFtexture(scene, bottomTexture);
+        let defaultMaterial = new CGFappearance(scene);
+        this.leftMaterial = defaultMaterial;
+        this.rightMaterial = defaultMaterial;
+        this.topMaterial = defaultMaterial;
+        this.bottomMaterial = defaultMaterial;
+        this.frontMaterial = defaultMaterial;
+        this.backMaterial = defaultMaterial;
 
         this.isInterpolationEnabled = false;
     }
@@ -45,8 +50,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayFrontFace() {
-        if (this.sidesTexture)
-            this.setTexture(this.sidesTexture);
+        this.frontMaterial.setTexture(this.frontTexture);
+        this.frontMaterial.apply();
         this.scene.pushMatrix();
         {
             this.scene.translate(0, 0, 0.5);
@@ -56,8 +61,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayBackFace() {
-        if (this.sidesTexture)
-            this.setTexture(this.sidesTexture);
+        this.backMaterial.setTexture(this.backTexture);
+        this.backMaterial.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(180);
@@ -70,8 +75,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayLeftFace() {
-        if (this.sidesTexture)
-            this.setTexture(this.sidesTexture);
+        this.leftMaterial.setTexture(this.leftTexture);
+        this.leftMaterial.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(-90);
@@ -84,8 +89,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayRightFace() {
-        if (this.sidesTexture)
-            this.setTexture(this.sidesTexture);
+        this.rightMaterial.setTexture(this.rightTexture);
+        this.rightMaterial.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(90);
@@ -98,8 +103,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayTopFace() {
-        if (this.topTexture)
-            this.setTexture(this.topTexture);
+        this.topMaterial.setTexture(this.topTexture);
+        this.topMaterial.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(-90);
@@ -112,8 +117,8 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     displayBottomFace() {
-        if (this.bottomTexture)
-            this.setTexture(this.bottomTexture);
+        this.bottomMaterial.setTexture(this.bottomTexture);
+        this.bottomMaterial.apply();
         this.scene.pushMatrix();
         {
             let angle = Utils.degToRad(90);
@@ -123,6 +128,54 @@ class MyUnitCubeQuad extends CGFobject {
             this.face.display();
         }
         this.scene.popMatrix();
+    }
+
+    setFrontTexture(texture) {
+        this.frontTexture = texture;
+    }
+
+    setBackTexture(texture) {
+        this.backTexture = texture;
+    }
+
+    setLeftTexture(texture) {
+        this.leftTexture = texture;
+    }
+
+    setRightTexture(texture) {
+        this.rightTexture = texture;
+    }
+
+    setTopTexture(texture) {
+        this.topTexture = texture;
+    }
+
+    setBottomTexture(texture) {
+        this.bottomTexture = texture;
+    }
+
+    setFrontMaterial(material) {
+        this.frontMaterial = material;
+    }
+
+    setBackMaterial(material) {
+        this.backMaterial = material;
+    }
+
+    setLeftMaterial(material) {
+        this.leftMaterial = material;
+    }
+
+    setRightMaterial(material) {
+        this.rightMaterial = material;
+    }
+
+    setTopMaterial(material) {
+        this.topMaterial = material;
+    }
+
+    setBottomMaterial(material) {
+        this.bottomMaterial = material;
     }
 }
 
