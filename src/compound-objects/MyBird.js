@@ -68,7 +68,7 @@ class MyBird extends CGFobject {
     displayTail() {
         this.scene.pushMatrix();
         {
-            this.scene.translate(-1, 0, 0);
+            this.scene.translate(-1.6, 0, 0);
             this.scene.scale(0.8, 0.8, 0.8);
             this.tail.display();
         }
