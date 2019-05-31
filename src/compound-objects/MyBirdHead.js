@@ -1,9 +1,10 @@
 import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
+import MyCylinder from "../primitives/MyCylinder.js";
 
 class MyBirdHead extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.eye = new MyUnitCubeQuad(scene);
+        this.eye = new MyCylinder(scene, 3);
         this.material = new CGFappearance(scene);
         this.material.setDiffuse(0.3, 0.3, 0.3, 1);
     }
