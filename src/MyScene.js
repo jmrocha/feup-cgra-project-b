@@ -256,7 +256,6 @@ class MyScene extends CGFscene {
     displayScene() {
         this.bird.display();
         this.displayBranches();
-        this.bird.display();
         this.nest.display();
     }
 
