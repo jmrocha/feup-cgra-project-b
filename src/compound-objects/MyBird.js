@@ -42,7 +42,12 @@ class MyBird extends CGFobject {
     }
 
     displayBough() {
-        this.bough.display();
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(0, -0.5, 0);
+            this.bough.display();
+        }
+        this.scene.popMatrix();
     }
 
     display() {
@@ -82,8 +87,8 @@ class MyBird extends CGFobject {
      *  - orientation
      */
     positionBird() {
-        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scene.translate(...this.position);
+        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scene.rotate(-this.orientation, 0, 1, 0);
     }
 
