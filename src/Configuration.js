@@ -32,7 +32,7 @@ let config = {
             to: [0, 0, 0]
         }
     },
-    default_camera: 'Skybox Camera 2',
+    default_camera: 'Primitive Camera',
     lights: {
         default: [
             {
@@ -78,7 +78,7 @@ let config = {
         trunk_texture: IMAGE_PATH + '/unit-cube/bottom.png',
         tree_top_texture: IMAGE_PATH + '/unit-cube/top.png'
     },
-    enable_dev_objects: false,
+    enable_dev_objects: true,
     axis_enabled: true,
     default_appearance: {
         ambient: [0.2, 0.4, 0.8, 1.0],
