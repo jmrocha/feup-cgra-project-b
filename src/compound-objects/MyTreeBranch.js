@@ -1,5 +1,6 @@
 import MyCylinder from "../primitives/MyCylinder.js";
 import Utils from "../Utils.js";
+import {IMAGE_PATH} from "../Configuration.js";
 
 const BRANCH_SLICES = 50;
 
@@ -13,12 +14,9 @@ class MyTreeBranch extends CGFobject {
         this.orientation = Utils.degToRad(orientation);
 
         this.material = new CGFappearance(scene);
-        this.material.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.material.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.material.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.material.setShininess(10.0);
+        this.material.loadTexture(IMAGE_PATH + '/bough-texture.png');
 
-        this.scale = [0.1, 0.1, 3];
+        this.scale = [0.1, 0.1, 2];
         this.branchDimension = this.branch.getDimension();
         this.branchTY = this.branchDimension[1] / 2;
     }
