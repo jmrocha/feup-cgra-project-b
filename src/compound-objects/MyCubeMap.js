@@ -48,7 +48,9 @@ class MyCubeMap extends CGFobject {
         this.scene.pushMatrix();
         {
             this.scene.scale(SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-            this.scene.translate(0, 0.499, 0);
+            //this.scene.translate(0, 0.499, 0);
+            let angle = Utils.degToRad(90);
+            this.scene.rotate(angle, 0, 1,0 );
             this.displayFrontFace();
             this.displayBackFace();
             this.displayLeftFace();
