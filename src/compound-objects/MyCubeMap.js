@@ -9,6 +9,7 @@ import MyQuad from "../primitives/MyQuad.js";
 import config from "../Configuration.js";
 
 const TEXTURE_WRAP = 'CLAMP_TO_EDGE';
+const SCALE_FACTOR = config['skybox']['scale'];
 
 class MyCubeMap extends CGFobject {
     constructor(scene) {
@@ -43,12 +44,20 @@ class MyCubeMap extends CGFobject {
     }
 
     display() {
-        this.displayFrontFace();
-        this.displayBackFace();
-        this.displayLeftFace();
-        this.displayRightFace();
-        this.displayTopFace();
-        this.displayBottomFace();
+        this.scene.setMaxAmbientLight();
+        this.scene.pushMatrix();
+        {
+            this.scene.scale(SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+            this.scene.translate(0, 0.499, 0);
+            this.displayFrontFace();
+            this.displayBackFace();
+            this.displayLeftFace();
+            this.displayRightFace();
+            this.displayTopFace();
+            this.displayBottomFace();
+        }
+        this.scene.popMatrix();
+        this.scene.resetAmbientLight();
     }
 
     displayFrontFace() {
