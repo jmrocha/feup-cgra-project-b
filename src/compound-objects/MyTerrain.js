@@ -3,8 +3,9 @@ import config from "../Configuration.js";
 import Utils from "../Utils.js";
 
 class MyTerrain extends CGFobject {
-    constructor(scene, texturePath) {
+    constructor(scene, texturePath, dimension = 20) {
         super(scene);
+        this.dimension = dimension;
 
         this.terrain = new Plane(scene, 32);
         this.material = new CGFappearance(scene);
@@ -28,7 +29,7 @@ class MyTerrain extends CGFobject {
         this.scene.pushMatrix();
         {
             this.scene.rotate(Utils.degToRad(-90), 1, 0, 0);
-            this.scene.scale(20, 20, 1);
+            this.scene.scale(this.dimension, this.dimension, 1);
             this.terrain.display();
         }
         this.scene.popMatrix();
