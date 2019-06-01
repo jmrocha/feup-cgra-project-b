@@ -1,10 +1,11 @@
 import MyLSystem from "./MyLSystem.js";
 import MyLightningBranch from "./MyLightningBranch";
+import Utils from "../Utils.js";
 
 const ANIMATION_DURATION = 1000; // in ms
 
 class MyLightning extends MyLSystem {
-    constructor(scene) {
+    constructor(scene, position = [0, 0, 0], orientation = 0) {
         super(scene);
         this.scene.addObserver(this);
 
@@ -12,6 +13,8 @@ class MyLightning extends MyLSystem {
         this.angle = 25.0;
         this.iterations = 3;
         this.scaleFactor = 0.5;
+        this.position = position;
+        this.orientation = Utils.degToRad(orientation);
 
 
         super.generate(
@@ -84,6 +87,8 @@ class MyLightning extends MyLSystem {
 
     display() {
         this.scene.pushMatrix();
+        this.scene.rotate(this.orientation, 0, 1, 0);
+        this.scene.translate(this.position[0], this.position[1], this.position[2]);
         this.scene.scale(this.scale, this.scale, this.scale);
         this.scene.rotate(160,0,0,1);
 
