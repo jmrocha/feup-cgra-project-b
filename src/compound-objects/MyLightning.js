@@ -1,6 +1,7 @@
 import MyLSystem from "./MyLSystem.js";
 import MyLightningBranch from "./MyLightningBranch";
 
+const ANIMATION_DURATION = 1000; // in ms
 
 class MyLightning extends MyLSystem {
     constructor(scene) {
@@ -45,13 +46,13 @@ class MyLightning extends MyLSystem {
 
     updateDepth() {
         if (!this.isBeingAnimated) return;
-        if (this.elapsedTime >= 1000) {
+        if (this.elapsedTime >= ANIMATION_DURATION) {
             this.isBeingAnimated = false;
             this.depth = 0;
             return;
         }
 
-        let v = this.axiom.length / 1000;
+        let v = this.axiom.length / ANIMATION_DURATION;
 
         this.depth += v * this.deltaTime;
     }
