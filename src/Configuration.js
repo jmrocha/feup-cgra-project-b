@@ -5,11 +5,11 @@ const OBJECTS_SCENE_SIZE_RATIO = 0.07;
 let config = {
     cameras: {
         'Skybox Camera': {
-            fov: 1.4,
+            fov: 0.8,
             near: 0.2,
             far: 5000,
-            from: [50, 65, 100],
-            to: [50, 65, 50]
+            from: [25, 8, -1],
+            to: [0, 0, 0]
         },
         'Skybox Camera 2': {
             fov: 0.4,
@@ -65,8 +65,8 @@ let config = {
     terrain:{
         texture:{
             terrain: IMAGE_PATH + '/terrain.jpg',
-            height_map: IMAGE_PATH + '/heightmap.jpg',
-            altimetry: IMAGE_PATH + '/altimetry.png'
+            height_map: IMAGE_PATH + '/heightmap2.jpg',
+            altimetry: IMAGE_PATH + '/altimetry2.png'
         }
     },
     skybox: {
@@ -83,7 +83,7 @@ let config = {
             diffuse: [0.4, 0.4, 0.4, 1],
             specular: [0.2, 0.2, 0.2, 1]
         },
-        scale: 100
+        scale: 35
     },
     tree: {
         trunk_texture: IMAGE_PATH + '/unit-cube/bottom.png',
