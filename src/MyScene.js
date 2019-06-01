@@ -53,7 +53,7 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, [0, 5, 0]);
-        this.lightning = new MyLightning(this);
+        this.lightning = new MyLightning(this, [-10, 11, -10], 90);
         this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
@@ -264,12 +264,12 @@ class MyScene extends CGFscene {
     }
 
     displayScene() {
-        //this.bird.display();
-        //this.terrain.display();
-        //this.displayBranches();
-        //this.nest.display();
-        //this.skybox.display();
-        //this.house.display();
+        this.bird.display();
+        this.terrain.display();
+        this.displayBranches();
+        this.nest.display();
+        this.skybox.display();
+        this.house.display();
         this.lightning.display();
     }
 
