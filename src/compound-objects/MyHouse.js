@@ -7,7 +7,7 @@ const PILLAR_POS = 0.75;
 const PILLAR_SCALE = [0.1, 1, 0.1];
 
 class MyHouse {
-    constructor(scene) {
+    constructor(scene, position = [0, 0, 0]) {
         this.scene = scene;
         this.walls = new MyUnitCubeQuad(scene);
         this.roof = new MyPyramid(scene, 4, 1);
@@ -16,12 +16,18 @@ class MyHouse {
         this.roofMaterial.setAmbient(178 / 255, 34 / 255, 34 / 255, 1);
         this.roofMaterial.setSpecular(178 / 255, 34 / 255, 34 / 255, 1);
         this.roofMaterial.setShininess(10);
+        this.position = position;
     }
 
     display() {
-        this.displayPillars();
-        this.displayWalls();
-        this.displayRoof();
+        this.scene.pushMatrix();
+        {
+            this.scene.translate(this.position[0], this.position[1], this.position[2]);
+            this.displayPillars();
+            this.displayWalls();
+            this.displayRoof();
+        }
+        this.scene.popMatrix();
     }
 
     displayWalls() {
