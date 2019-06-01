@@ -33,7 +33,7 @@ let config = {
             to: [0, 0, 0]
         }
     },
-    default_camera: 'God Camera',
+    default_camera: 'Skybox Camera',
     lights: {
         default: [
             {
