@@ -63,6 +63,9 @@ class MyScene extends CGFscene {
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
 
+        //this.setLSystems();
+
+
         this.setUpdatePeriod(20);
     }
 
@@ -261,12 +264,13 @@ class MyScene extends CGFscene {
     }
 
     displayScene() {
-        this.bird.display();
-        this.terrain.display();
-        this.displayBranches();
-        this.nest.display();
-        this.skybox.display();
-        this.house.display();
+        //this.bird.display();
+        //this.terrain.display();
+        //this.displayBranches();
+        //this.nest.display();
+        //this.skybox.display();
+        //this.house.display();
+        this.lightning.display();
     }
 
     translate2(x, y, z) {
@@ -302,6 +306,7 @@ class MyScene extends CGFscene {
             subscriber.update(deltaTime);
         });
     }
+
 
     handleKeyWDown() {
         this.bird.accelerate(this.birdVelocity);
