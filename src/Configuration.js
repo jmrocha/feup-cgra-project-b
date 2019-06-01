@@ -71,12 +71,12 @@ let config = {
     },
     skybox: {
         texture: {
-            top: IMAGE_PATH + '/skybox/day/top.jpg',
-            bottom: IMAGE_PATH + '/skybox/day/bottom.jpg',
-            left: IMAGE_PATH + '/skybox/day/left.jpg',
-            right: IMAGE_PATH + '/skybox/day/right.jpg',
-            front: IMAGE_PATH + '/skybox/day/front.jpg',
-            back: IMAGE_PATH + '/skybox/day/back.jpg'
+            top: IMAGE_PATH + '/skybox/night/top.jpg',
+            bottom: IMAGE_PATH + '/skybox/night/bottom.jpg',
+            left: IMAGE_PATH + '/skybox/night/left.jpg',
+            right: IMAGE_PATH + '/skybox/night/right.jpg',
+            front: IMAGE_PATH + '/skybox/night/front.jpg',
+            back: IMAGE_PATH + '/skybox/night/back.jpg'
         },
         material: {
             ambient: [0.9, 0.9, 0.9, 1],
@@ -90,7 +90,7 @@ let config = {
         tree_top_texture: IMAGE_PATH + '/unit-cube/top.png'
     },
     enable_dev_objects: true,
-    axis_enabled: true,
+    axis_enabled: false,
     default_appearance: {
         ambient: [0.2, 0.4, 0.8, 1.0],
         diffuse: [0.2, 0.4, 0.8, 1.0],
