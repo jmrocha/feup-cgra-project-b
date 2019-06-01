@@ -17,7 +17,7 @@ import MyWing from "./compound-objects/MyWing.js";
 import MyBirdTail from "./compound-objects/MyBirdTail.js";
 import MyTerrain from "./compound-objects/MyTerrain.js";
 
-const NUMBER_OF_TREE_BRANCHES = 10;
+const NUMBER_OF_TREE_BRANCHES = 50;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -48,19 +48,20 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.displayAxis = config['axis_enabled'];
-        this.terrain = new MyTerrain(this, config['terrain']['texture']['terrain']);
+        this.terrain = new MyTerrain(this, config['terrain']['texture']['terrain'], config['skybox']['scale']);
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this, 0, 0, [0, 2, 0]);
+        this.bird = new MyBird(this, 0, 0, [0, 5, 0]);
         this.lightning = new MyLightning(this);
         this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
-        this.nest = new MyNest(this, [0, 0, 0]);
+        this.nest = new MyNest(this, [-5, 0.5, 5]);
         this.wing = new MyWing(this);
         this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
+        this.house = new MyHouse(this, [5, 2, -10]);
 
         this.setUpdatePeriod(20);
     }
@@ -252,7 +253,7 @@ class MyScene extends CGFscene {
         this.nest.display();
         //this.terrain.display();
         ////this.tail.display();
-        this.terrain.display();
+        //this.displayTerrain();
     }
 
     displayBranches() {
@@ -264,20 +265,8 @@ class MyScene extends CGFscene {
         this.terrain.display();
         this.displayBranches();
         this.nest.display();
-    }
-
-    displaySkybox() {
-        let scale = config['skybox']['scale'];
-
-        this.setMaxAmbientLight();
-        this.pushMatrix();
-        {
-            this.scale(scale, scale, scale);
-            this.translate(0.5, 0.5, 0.5);
-            this.skybox.display();
-        }
-        this.popMatrix();
-        this.resetAmbientLight();
+        this.skybox.display();
+        this.house.display();
     }
 
     translate2(x, y, z) {
