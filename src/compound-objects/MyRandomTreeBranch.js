@@ -1,8 +1,6 @@
 import Utils from "../Utils.js";
 import MyTreeBranch from "./MyTreeBranch.js";
 
-const BRANCH_SLICES = 50;
-
 class MyRandomTreeBranch extends MyTreeBranch {
     constructor(scene) {
         super(scene);
