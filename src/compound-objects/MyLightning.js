@@ -85,6 +85,7 @@ class MyLightning extends MyLSystem {
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.scale, this.scale, this.scale);
+        this.scene.rotate(160,0,0,1);
 
         var i;
 
