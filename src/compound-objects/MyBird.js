@@ -44,7 +44,7 @@ class MyBird extends CGFobject {
     displayBough() {
         this.scene.pushMatrix();
         {
-            this.scene.translate(0, -0.5, 0);
+            this.scene.translate(0, -0.9, 0);
             this.bough.display();
         }
         this.scene.popMatrix();
@@ -207,9 +207,9 @@ class MyBird extends CGFobject {
     }
 
     updateDisplacement() {
-        this.position[0] += this.velocity * this.deltaTime * Math.cos(this.orientation);
+        this.position[0] += this.velocity * this.deltaTime * Math.cos(this.orientation) * this.speedFactor;
         this.flutterPosition[1] += this.getFlapYDisplacement(this.elapsedTime);
-        this.position[2] += this.velocity * this.deltaTime * Math.sin(this.orientation);
+        this.position[2] += this.velocity * this.deltaTime * Math.sin(this.orientation) * this.speedFactor;
     }
 
     /**
