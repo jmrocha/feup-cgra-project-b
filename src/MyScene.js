@@ -37,6 +37,16 @@ class MyScene extends CGFscene {
         this.updateScore(0);
         this.updateBoughsLeft(NUMBER_OF_TREE_BRANCHES);
         this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
+
+        this.thunderSound = new Audio('music/thunder.wav');
+        this.dropBoughSound = new Audio('music/drop-bough-sound.wav');
+        this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
+        this.backgroundSound = new Audio('music/background-sound.wav');
+        this.backgroundSound.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+        this.backgroundSound.play();
     }
 
     init(application) {
@@ -252,6 +262,7 @@ class MyScene extends CGFscene {
         this.updateBoughsLeft(--this.treeBranchesLeft);
         this.score += this.bird.velocity * SCORE_MULTIPLIER;
         this.updateScore(this.score);
+        this.dropBoughSound.play();
     }
 
     detectNestCollision() {
@@ -268,6 +279,7 @@ class MyScene extends CGFscene {
         this.disableCollisionDetection();
         this.updateBoughStatus(WITH_BOUGH_STATUS);
         this.score += this.bird.velocity * SCORE_MULTIPLIER;
+        this.pickBoughSound.play();
     }
 
     collide(obj1, obj2) {
@@ -353,6 +365,7 @@ class MyScene extends CGFscene {
 
     handleKeyLDown() {
         this.lightning.flash();
+        this.playThunder();
     }
 
     handleSpeedOnChange(value) {
@@ -408,6 +421,26 @@ class MyScene extends CGFscene {
 
     disableCollisionDetection() {
         this.collisionDetection = false;
+    }
+
+    playThunder() {
+        this.thunderSound.play();
+    }
+
+    playBird() {
+        this.dropBoughSound.play();
+    }
+
+    playBackgroundMusic() {
+        this.backgroundSound.play();
+    }
+
+    speedUpBackgroundMusic() {
+
+    }
+
+    slowBackgroundMusic() {
+
     }
 }
 
