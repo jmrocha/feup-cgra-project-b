@@ -45,7 +45,7 @@ class MyScene extends CGFscene {
         this.backgroundSound.autoplay = true;
         this.backgroundSound.loop = true;
         this.backgroundSound.playbackRate = 1;
-        this.backgroundSound.volume = 0.25;
+        this.backgroundSound.volume = 0.5;
     }
 
     init(application) {
@@ -294,10 +294,7 @@ class MyScene extends CGFscene {
         this.axis.display();
     }
 
-    displayDev() {
-        //this.lig.display();
-        this.lightning.display();
-    }
+    displayDev() {}
 
     displayScene() {
         this.bird.display();
