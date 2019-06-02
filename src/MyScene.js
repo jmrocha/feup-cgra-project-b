@@ -27,10 +27,8 @@ class MyScene extends CGFscene {
         this.updateObservers = [];
         this.isDevEnabled = config['enable_dev_objects'];
         this.displayAxis = config['axis_enabled'];
-        this.flutterVelocity = config['bird']['flutter_velocity'];
         this.birdVelocity = config['bird']['velocity'];
         this.birdRotation = config['bird']['rotation'];
-        this.speedFactor = 1;
         this.state = 'no-bough';
         this.collisionDetection = false;
     }
@@ -55,23 +53,16 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this);
         this.bird = new MyBird(this, 0, 0, [0, 5, 0]);
         this.lightning = new MyLightning(this, [-10, 11, -10], 90);
-        this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
-        this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
         this.nest = new MyNest(this, [-5, 0.1, 9], 1);
-        this.wing = new MyBirdWing(this);
-        this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
-        //this.house = new MyHouse(this);
         this.trees = [
             new MyTreePatch(this, [-10, 2, -12], 25),
             new MyTreePatch(this, [-5, 2, -12], 25),
             new MyTreePatch(this, [0, 2, -12], 10),
             new MyTreePatch(this, [5, 2, -13], 10),
         ];
-
-        //this.setLSystems();
 
         this.setUpdatePeriod(20);
     }
@@ -256,16 +247,7 @@ class MyScene extends CGFscene {
     }
 
     displayDev() {
-        //this.setMaxAmbientLight();
-        ////this.wing.display();
-        //this.bird.display();
-        //this.displayBranches();
-        //this.nest.display();
-        //this.terrain.display();
-        ////this.tail.display();
-        //this.displayTerrain();
-        //this.trees.display();
-        this.house.display();
+        this.bird.display();
     }
 
     displayBranches() {
