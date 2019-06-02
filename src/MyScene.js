@@ -370,6 +370,13 @@ class MyScene extends CGFscene {
         this.playThunder();
     }
 
+    handleKeyJDown() {
+        if (this.backgroundSound.paused)
+            this.backgroundSound.play();
+        else
+            this.backgroundSound.pause();
+    }
+
     handleSpeedOnChange(value) {
         this.bird.setSpeedFactor(value);
     }
