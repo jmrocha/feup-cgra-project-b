@@ -14,6 +14,10 @@ import Utils from "./Utils.js";
 import MyTerrain from "./primitives/MyTerrain.js";
 import MyTreePatch from "./primitives/tree/MyTreePatch.js";
 
+const WITHOUT_BOUGH_STATUS = 0;
+const WITH_BOUGH_STATUS = 1;
+const SCORE_MULTIPLIER = 1000;
+
 class MyScene extends CGFscene {
     constructor() {
         super();
@@ -24,6 +28,15 @@ class MyScene extends CGFscene {
         this.birdRotation = config['bird']['rotation'];
         this.state = 'no-bough';
         this.collisionDetection = false;
+        this.treeBranchesLeft = NUMBER_OF_TREE_BRANCHES;
+        this.score = 0;
+        this.scoreElement = document.getElementById('score');
+        this.boughStatusElement = document.getElementById('bough-status');
+        this.boughsLeftElement = document.getElementById('boughs-left');
+
+        this.updateScore(0);
+        this.updateBoughsLeft(NUMBER_OF_TREE_BRANCHES);
+        this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
     }
 
     init(application) {
@@ -56,9 +69,33 @@ class MyScene extends CGFscene {
             new MyTreePatch(this, [0, 2, -12], 10),
             new MyTreePatch(this, [5, 2, -13], 10),
         ];
-        this.lig = new MyLightning(this, [0, 0, 0], 45);
 
         this.setUpdatePeriod(20);
+    }
+
+    updateScore(value) {
+        value = Math.ceil(value);
+        this.scoreElement.innerHTML = `Score: ${value}`;
+    }
+
+    updateBoughStatus(value) {
+        let attribute;
+        let message;
+
+        if (value === WITH_BOUGH_STATUS) {
+            attribute = 'with-bough';
+            message = 'with tree branch';
+        } else {
+            attribute = 'without-bough';
+            message = 'without tree branch'
+        }
+
+        this.boughStatusElement.innerHTML = `Bird: ${message}`;
+        this.boughStatusElement.setAttribute("class", attribute);
+    }
+
+    updateBoughsLeft(value) {
+        this.boughsLeftElement.innerHTML = `Tree branches left: ${value}`;
     }
 
     getRandomTreeBranches() {
@@ -211,6 +248,10 @@ class MyScene extends CGFscene {
     dropBough() {
         this.bird.dropBough();
         this.state = 'no-bough';
+        this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
+        this.updateBoughsLeft(--this.treeBranchesLeft);
+        this.score += this.bird.velocity * SCORE_MULTIPLIER;
+        this.updateScore(this.score);
     }
 
     detectNestCollision() {
@@ -225,6 +266,8 @@ class MyScene extends CGFscene {
         this.state = 'bough';
         // if bough is near the nest, avoid instantaneous collision between bough and nest
         this.disableCollisionDetection();
+        this.updateBoughStatus(WITH_BOUGH_STATUS);
+        this.score += this.bird.velocity * SCORE_MULTIPLIER;
     }
 
     collide(obj1, obj2) {
@@ -241,7 +284,8 @@ class MyScene extends CGFscene {
     }
 
     displayDev() {
-        this.lig.display();
+        //this.lig.display();
+        this.lightning.display();
     }
 
     displayScene() {
