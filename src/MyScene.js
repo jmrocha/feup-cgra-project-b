@@ -43,8 +43,8 @@ class MyScene extends CGFscene {
         this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
         this.backgroundSound = new Audio('music/background-sound.wav');
         this.backgroundSound.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
+            this.backgroundSound.currentTime = 0;
+            this.backgroundSound.play();
         }, false);
         this.backgroundSound.play();
     }
