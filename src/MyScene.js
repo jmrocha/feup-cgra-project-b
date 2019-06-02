@@ -44,7 +44,8 @@ class MyScene extends CGFscene {
         this.backgroundSound = new Audio('music/background-sound.mp3');
         this.backgroundSound.autoplay = true;
         this.backgroundSound.loop = true;
-        this.backgroundSound.playbackRate = 1.1;
+        this.backgroundSound.playbackRate = 1;
+        this.backgroundSound.volume = 0.25;
     }
 
     init(application) {
