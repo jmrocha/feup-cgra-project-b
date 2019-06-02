@@ -38,15 +38,13 @@ class MyScene extends CGFscene {
         this.updateBoughsLeft(NUMBER_OF_TREE_BRANCHES);
         this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
 
-        this.thunderSound = new Audio('music/thunder.wav');
+        this.thunderSound = new Audio('music/thunder-sound.mp3');
         this.dropBoughSound = new Audio('music/drop-bough-sound.wav');
-        this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
-        this.backgroundSound = new Audio('music/background-sound.wav');
-        this.backgroundSound.addEventListener('ended', function() {
-            this.backgroundSound.currentTime = 0;
-            this.backgroundSound.play();
-        }, false);
-        this.backgroundSound.play();
+        //this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
+        this.backgroundSound = new Audio('music/background-sound.mp3');
+        this.backgroundSound.autoplay = true;
+        this.backgroundSound.loop = true;
+        this.backgroundSound.playbackRate = 1.1;
     }
 
     init(application) {
@@ -279,7 +277,7 @@ class MyScene extends CGFscene {
         this.disableCollisionDetection();
         this.updateBoughStatus(WITH_BOUGH_STATUS);
         this.score += this.bird.velocity * SCORE_MULTIPLIER;
-        this.pickBoughSound.play();
+        //this.pickBoughSound.play();
     }
 
     collide(obj1, obj2) {
@@ -340,10 +338,13 @@ class MyScene extends CGFscene {
 
     handleKeyWDown() {
         this.bird.accelerate(this.birdVelocity);
+        this.backgroundSound.playbackRate += this.birdVelocity * 10;
     }
 
     handleKeySDown() {
         this.bird.accelerate(-this.birdVelocity);
+        this.backgroundSound.playbackRate -= this.birdVelocity * 10;
+        if (this.backgroundSound.playbackRate <= 1) this.backgroundSound.playbackRate = 1;
     }
 
     handleKeyADown() {
