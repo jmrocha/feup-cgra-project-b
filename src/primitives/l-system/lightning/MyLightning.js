@@ -67,17 +67,9 @@ class MyLightning extends MyLSystem {
         }
     }
 
-    stopFlash() {
-        //if (this.isBeingAnimated == true){
-        //    this.isBeingAnimated = false;
-        //    this.stopAnimation();
-        //}
-    }
-
     startAnimation() {
         this.elapsedTime = 0;
         this.depth = 0;
-        //super.iterate();
     }
 
     stopAnimation() {
