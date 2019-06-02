@@ -5,7 +5,7 @@ import {IMAGE_PATH} from "../Configuration.js";
 const BRANCH_SLICES = 50;
 
 class MyTreeBranch extends CGFobject {
-    constructor(scene, position = [0, 0, 0], orientation = 0) {
+    constructor(scene, position = [0, 0, 0], orientation = 0, size = 1) {
         super(scene);
         this.branch = new MyCylinder(scene, BRANCH_SLICES);
         this.pickable = true;
@@ -19,6 +19,7 @@ class MyTreeBranch extends CGFobject {
         this.scale = [0.1, 0.1, 2];
         this.branchDimension = this.branch.getDimension();
         this.branchTY = this.branchDimension[1] / 2;
+        this.size = size;
     }
 
     display() {
@@ -28,6 +29,7 @@ class MyTreeBranch extends CGFobject {
         {
             this.scene.translate(this.position[0], this.position[1], this.position[2]);
             this.scene.rotate(this.orientation, 0, 1, 0);
+            this.scene.scale(this.size, this.size, this.size);
             this.setDefaultPosition();
             this.branch.display();
         }

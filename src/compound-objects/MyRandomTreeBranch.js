@@ -6,12 +6,13 @@ class MyRandomTreeBranch extends MyTreeBranch {
         super(scene);
         this.position = this.getRandomPosition();
         this.orientation = this.getRandomOrientation();
+        this.size = 1;
     }
 
     getRandomPosition() {
-        let randomX = Utils.getRand(0, 10);
+        let randomX = Utils.getRand(-5, 10);
         let randomY = 0;
-        let randomZ = Utils.getRand(0, 10);
+        let randomZ = Utils.getRand(-5, 10);
 
         return [randomX, randomY, randomZ];
     }

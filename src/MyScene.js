@@ -21,6 +21,7 @@ import MyRandomTreePatch from "./compound-objects/MyRandomTreePatch.js";
 
 const NUMBER_OF_TREE_BRANCHES = 50;
 const NUMBER_OF_TREES = 1;
+const COLLISION_ERROR = 2.5;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -60,12 +61,12 @@ class MyScene extends CGFscene {
         this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
-        this.nest = new MyNest(this, [-5, 0.5, 5]);
+        this.nest = new MyNest(this, [-5, 0.1, 0], 1);
         this.wing = new MyWing(this);
         this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
-        this.trees = [new MyTreePatch(this, [2, 2, -10], 3)];
+        this.trees = [new MyTreePatch(this, [-10, 2, -12], 5)];
 
         //this.setLSystems();
 
@@ -239,7 +240,7 @@ class MyScene extends CGFscene {
     }
 
     collide(obj1, obj2) {
-        return Utils.distance(obj1.position, obj2.position) <= 1.9;
+        return Utils.distance(obj1.position, obj2.position) <= COLLISION_ERROR;
     }
 
     setMaxAmbientLight() {
