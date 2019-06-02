@@ -1,4 +1,3 @@
-
 import MyQuad from "../../MyQuad.js";
 
 class MyLightningBranch extends MyQuad {

@@ -3,7 +3,6 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-import MyRectangle from "../MyRectangle.js";
 
 class MyLSystem extends CGFobject {
     constructor(scene) {

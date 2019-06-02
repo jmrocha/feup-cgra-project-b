@@ -20,8 +20,8 @@ class MyLightning extends MyLSystem {
         super.generate(
             this.axiom,
             {
-                "F": [ "FF" ],
-                "X": ["F[-X][X]F[-X]+FX" ]
+                "F": ["FF"],
+                "X": ["F[-X][X]F[-X]+FX"]
             },
             this.angle,
             this.iterations,
@@ -60,27 +60,27 @@ class MyLightning extends MyLSystem {
         this.depth += v * this.deltaTime;
     }
 
-    flash(){
-        if (this.isBeingAnimated === false){
+    flash() {
+        if (this.isBeingAnimated === false) {
             this.isBeingAnimated = true;
             this.startAnimation();
         }
     }
 
-    stopFlash(){
+    stopFlash() {
         //if (this.isBeingAnimated == true){
         //    this.isBeingAnimated = false;
         //    this.stopAnimation();
         //}
     }
 
-    startAnimation(){
+    startAnimation() {
         this.elapsedTime = 0;
         this.depth = 0;
         //super.iterate();
     }
 
-    stopAnimation(){
+    stopAnimation() {
         this.depth = 0;
         this.elapsedTime = 0;
     }
@@ -90,7 +90,7 @@ class MyLightning extends MyLSystem {
         this.scene.rotate(this.orientation, 0, 1, 0);
         this.scene.translate(this.position[0], this.position[1], this.position[2]);
         this.scene.scale(this.scale, this.scale, this.scale);
-        this.scene.rotate(160,0,0,1);
+        this.scene.rotate(160, 0, 0, 1);
 
         var i;
 
@@ -144,7 +144,7 @@ class MyLightning extends MyLSystem {
                     var primitive = this.grammar[this.axiom[i]];
 
                     if (primitive) {
-                        if (i < this.depth){
+                        if (i < this.depth) {
                             primitive.display();
                             this.scene.translate(0, 1, 0);
                         }

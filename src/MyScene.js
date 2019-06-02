@@ -7,8 +7,7 @@ import MyCubeMap from "./primitives/MyCubeMap.js";
 import MyHouse from "./primitives/house/MyHouse.js";
 import MyBird from "./primitives/bird/MyBird.js";
 import MyLightning from "./primitives/l-system/lightning/MyLightning.js";
-import Plane from "./primitives/Plane.js";
-import config, {IMAGE_PATH} from './Configuration.js';
+import config from './Configuration.js';
 import MyTreeBranch from "./primitives/tree-branch/MyTreeBranch.js";
 import MyRandomTreeBranch from "./primitives/tree-branch/MyRandomTreeBranch.js";
 import MyNest from "./primitives/MyNest.js";
@@ -17,7 +16,6 @@ import MyBirdWing from "./primitives/bird/MyBirdWing.js";
 import MyBirdTail from "./primitives/bird/MyBirdTail.js";
 import MyTerrain from "./primitives/MyTerrain.js";
 import MyTreePatch from "./primitives/tree/MyTreePatch.js";
-import MyRandomTreePatch from "./primitives/tree/MyRandomTreePatch.js";
 
 const NUMBER_OF_TREE_BRANCHES = 50;
 const NUMBER_OF_TREES = 1;

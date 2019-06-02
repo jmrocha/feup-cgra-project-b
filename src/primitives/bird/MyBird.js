@@ -1,8 +1,4 @@
-import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
-import MyTriangleSmall from "../MyTriangleSmall.js";
 import Utils from "../../Utils.js";
-import MyPyramid from "../MyPyramid.js";
-import MyTreeBranch from "../tree-branch/MyTreeBranch.js";
 import MyBirdWing from "./MyBirdWing.js";
 import MyBirdEye from "./MyBirdEye.js";
 import MyBirdNose from "./MyBirdNose.js";
@@ -195,8 +191,7 @@ class MyBird extends CGFobject {
 
         if (this.state === 'flying-down') {
             this.goDown();
-        }
-        else if (this.state === 'flying-up') {
+        } else if (this.state === 'flying-up') {
             this.goUp();
         }
 
@@ -227,8 +222,7 @@ class MyBird extends CGFobject {
 
         if (dx > 0) {
             this.position[1] -= displacement;
-        }
-        else {
+        } else {
             this.position[1] = 0;
             this.setState('flying-up');
         }

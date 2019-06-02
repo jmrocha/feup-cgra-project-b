@@ -1,6 +1,3 @@
-import config from "../Configuration.js";
-import Utils from "../Utils.js";
-
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject {
     constructor(scene, nrDivs, minS, maxS, minT, maxT) {

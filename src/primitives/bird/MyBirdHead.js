@@ -1,4 +1,3 @@
-import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
 import MyCylinder from "../MyCylinder.js";
 import {IMAGE_PATH} from "../../Configuration.js";
 

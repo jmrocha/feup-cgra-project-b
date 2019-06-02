@@ -12,7 +12,7 @@ class MyTerrain extends CGFobject {
         this.heightMap = new CGFtexture(scene, config['terrain']['texture']['height_map']);
         this.terrainTex = new CGFtexture(scene, texturePath);
         this.gradient = new CGFtexture(scene, config['terrain']['texture']['altimetry']);
-        this.terrainShader = new CGFshader(scene.gl ,config['shader']['vert'], config['shader']['frag']);
+        this.terrainShader = new CGFshader(scene.gl, config['shader']['vert'], config['shader']['frag']);
         this.terrainShader.setUniformsValues({uSampler: 0});
         this.terrainShader.setUniformsValues({uSampler2: 1});
         this.terrainShader.setUniformsValues({gradient: 2});

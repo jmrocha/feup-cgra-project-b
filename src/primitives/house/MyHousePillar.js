@@ -1,4 +1,3 @@
-import MyPrism from "../MyPrism.js";
 import MyCylinder from "../MyCylinder.js";
 
 class MyHousePillar {

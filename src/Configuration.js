@@ -58,12 +58,12 @@ let config = {
             }
         ]
     },
-    shader:{
-       vert: SHADER_PATH + '/terrain.vert',
-       frag: SHADER_PATH + '/terrain.frag'
+    shader: {
+        vert: SHADER_PATH + '/terrain.vert',
+        frag: SHADER_PATH + '/terrain.frag'
     },
-    terrain:{
-        texture:{
+    terrain: {
+        texture: {
             terrain: IMAGE_PATH + '/terrain.jpg',
             height_map: IMAGE_PATH + '/heightmap2.jpg',
             altimetry: IMAGE_PATH + '/altimetry2.png'
