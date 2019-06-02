@@ -8,7 +8,7 @@ class MyTreePatch {
         this.ruleF = "FF";
         this.ruleX = "F[-X][X]F[-X]+FX";
         this.angle = 30.0;
-        this.iterations = 4;
+        this.iterations = 1;
         this.scaleFactor = 0.5;
         this.treeArray = [];
         this.position = position;

@@ -66,7 +66,12 @@ class MyScene extends CGFscene {
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
         //this.house = new MyHouse(this);
-        this.trees = [new MyTreePatch(this, [-10, 2, -12], 5)];
+        this.trees = [
+            new MyTreePatch(this, [-10, 2, -12], 25),
+            new MyTreePatch(this, [-5, 2, -12], 25),
+            new MyTreePatch(this, [0, 2, -12], 10),
+            new MyTreePatch(this, [5, 2, -13], 10),
+        ];
 
         //this.setLSystems();
 
