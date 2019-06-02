@@ -4,9 +4,9 @@ import {IMAGE_PATH} from "../../Configuration.js";
 
 const BRANCH_SLICES = 50;
 
-class MyTreeBranch extends CGFobject {
+class MyTreeBranch {
     constructor(scene, position = [0, 0, 0], orientation = 0, size = 1) {
-        super(scene);
+        this.scene = scene;
         this.branch = new MyCylinder(scene, BRANCH_SLICES);
         this.pickable = true;
 

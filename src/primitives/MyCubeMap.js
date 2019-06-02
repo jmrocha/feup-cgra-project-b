@@ -11,9 +11,9 @@ import config from "../Configuration.js";
 const TEXTURE_WRAP = 'CLAMP_TO_EDGE';
 const SCALE_FACTOR = config['skybox']['scale'];
 
-class MyCubeMap extends CGFobject {
+class MyCubeMap {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.face = new MyQuad(scene);
         this.faceMaterial = new CGFappearance(scene);
         this.faceMaterial.setTextureWrap(TEXTURE_WRAP, TEXTURE_WRAP);

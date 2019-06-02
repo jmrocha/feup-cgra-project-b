@@ -4,9 +4,9 @@
  * @param scene - Reference to MyScene object
  */
 
-class MyLSystem extends CGFobject {
+class MyLSystem {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.init();
     }
 

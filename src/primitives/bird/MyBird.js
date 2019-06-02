@@ -8,10 +8,9 @@ import MyBirdHead from "./MyBirdHead.js";
 
 const TIME_TO_PICK_BOUGH = 400; // time in ms
 
-class MyBird extends CGFobject {
+class MyBird {
     constructor(scene, orientation = 0, velocity = 0, position = [0, 0, 0]) {
-        super(scene);
-
+        this.scene = scene;
         this.defaultValues = {
             position: [...position],
             velocity: velocity,

@@ -1,9 +1,9 @@
 import MyPyramid from "../MyPyramid.js";
 import {IMAGE_PATH} from "../../Configuration.js";
 
-class MyBirdTail extends CGFobject {
+class MyBirdTail {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.tail = new MyPyramid(scene);
         this.material = new CGFappearance(scene);
         let texture = new CGFtexture(scene, IMAGE_PATH + '/bird-body-texture.jpg');

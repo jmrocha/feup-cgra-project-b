@@ -2,9 +2,9 @@ import Plane from "./Plane.js";
 import config from "../Configuration.js";
 import Utils from "../Utils.js";
 
-class MyTerrain extends CGFobject {
+class MyTerrain {
     constructor(scene, texturePath, dimension = 20) {
-        super(scene);
+        this.scene = scene;
         this.dimension = dimension;
 
         this.terrain = new Plane(scene, 32);

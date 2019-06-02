@@ -1,9 +1,9 @@
 import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
 import {IMAGE_PATH} from "../../Configuration.js";
 
-class MyBirdEye extends CGFobject {
+class MyBirdEye {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         let material = new CGFappearance(scene);
         material.setDiffuse(0, 0, 0, 1);
         let texture = new CGFtexture(scene, IMAGE_PATH + '/bird-eye-texture.jpg');

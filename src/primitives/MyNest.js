@@ -4,9 +4,9 @@ import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
 import MyTreeBranch from "./tree-branch/MyTreeBranch.js";
 import {IMAGE_PATH} from "../Configuration.js";
 
-class MyNest extends CGFobject {
+class MyNest {
     constructor(scene, position = [0, 0, 0], size = 1) {
-        super(scene);
+        this.scene = scene;
         this.position = position;
         this.nest = new MyUnitCubeQuad(scene);
         this.base = new Plane(scene);

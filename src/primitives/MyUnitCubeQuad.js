@@ -6,9 +6,9 @@
 import MyQuad from "./MyQuad.js";
 import Utils from "../Utils.js";
 
-class MyUnitCubeQuad extends CGFobject {
+class MyUnitCubeQuad {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.face = new MyQuad(scene);
 
         this.leftTexture = null;

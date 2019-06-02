@@ -6,9 +6,9 @@ import {IMAGE_PATH} from "../../Configuration.js";
 const MAX_ORIENTATION = 45.0; // degrees
 const PERIOD = 1000;
 
-class MyBirdWing extends CGFobject {
+class MyBirdWing {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.wingBody = new MyWingBody(scene, 60);
         this.wingTip = new MyWingTip(scene, 60);
         this.elapsedTime = 0;

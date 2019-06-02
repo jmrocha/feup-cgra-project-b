@@ -2,9 +2,9 @@ import MyCylinder from "../MyCylinder.js";
 import Utils from "../../Utils.js";
 import {IMAGE_PATH} from "../../Configuration.js";
 
-class MyBirdBody extends CGFobject {
+class MyBirdBody {
     constructor(scene) {
-        super(scene);
+        this.scene = scene;
         this.body = new MyCylinder(scene, 5);
         this.material = new CGFappearance(scene);
         this.material.setDiffuse(0.3, 0.3, 0.3, 1);
