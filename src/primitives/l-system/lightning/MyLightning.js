@@ -15,19 +15,18 @@ class MyLightning extends MyLSystem {
         this.scaleFactor = 0.5;
         this.position = position;
         this.orientation = Utils.degToRad(orientation);
-
+        this.prods = {
+            "F": ["FF"],
+            "X": ["F[-X][X]F[-X]+FX", "F[+X][X]F[-X]-FX", "[+X]F[-X][+X]+XF[-X]", "XF[-X]F[+X][X]F[-X]"]
+        };
 
         super.generate(
             this.axiom,
-            {
-                "F": ["FF"],
-                "X": ["F[-X][X]F[-X]+FX"]
-            },
+            this.prods,
             this.angle,
             this.iterations,
             this.scaleFactor
         );
-
 
         this.isBeingAnimated = false;
     }
