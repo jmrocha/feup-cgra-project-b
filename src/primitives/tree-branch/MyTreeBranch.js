@@ -1,6 +1,6 @@
-import MyCylinder from "../primitives/MyCylinder.js";
-import Utils from "../Utils.js";
-import {IMAGE_PATH} from "../Configuration.js";
+import MyCylinder from "../MyCylinder.js";
+import Utils from "../../Utils.js";
+import {IMAGE_PATH} from "../../Configuration.js";
 
 const BRANCH_SLICES = 50;
 

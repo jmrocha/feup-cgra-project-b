@@ -1,8 +1,8 @@
-import Plane from "../Plane.js";
+import Plane from "./Plane.js";
 import Utils from "../Utils.js";
 import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
-import MyTreeBranch from "./MyTreeBranch";
-import {IMAGE_PATH} from "../Configuration";
+import MyTreeBranch from "./tree-branch/MyTreeBranch.js";
+import {IMAGE_PATH} from "../Configuration.js";
 
 class MyNest extends CGFobject {
     constructor(scene, position = [0, 0, 0], size = 1) {

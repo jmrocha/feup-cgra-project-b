@@ -1,6 +1,6 @@
-import Utils from "../Utils.js";
+import Utils from "../../Utils.js";
 import MyHouseRoof from "./MyHouseRoof.js";
-import config from "../Configuration.js";
+import config from "../../Configuration.js";
 import MyHouseWall from "./MyHouseWall.js";
 import MyHousePillar from "./MyHousePillar.js";
 

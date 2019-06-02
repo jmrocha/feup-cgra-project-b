@@ -1,4 +1,4 @@
-import Utils from "../Utils.js";
+import Utils from "../../Utils.js";
 import MyTreeBranch from "./MyTreeBranch.js";
 
 class MyRandomTreeBranch extends MyTreeBranch {

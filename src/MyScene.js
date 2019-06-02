@@ -3,21 +3,21 @@
  * @constructor
  */
 
-import MyCubeMap from "./compound-objects/MyCubeMap.js";
-import MyHouse from "./compound-objects/MyHouse.js";
-import MyBird from "./compound-objects/MyBird.js";
-import MyLightning from "./compound-objects/MyLightning.js";
-import Plane from "./Plane";
+import MyCubeMap from "./primitives/MyCubeMap.js";
+import MyHouse from "./primitives/house/MyHouse.js";
+import MyBird from "./primitives/bird/MyBird.js";
+import MyLightning from "./primitives/l-system/lightning/MyLightning.js";
+import Plane from "./primitives/Plane.js";
 import config, {IMAGE_PATH} from './Configuration.js';
-import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
-import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
-import MyNest from "./compound-objects/MyNest.js";
+import MyTreeBranch from "./primitives/tree-branch/MyTreeBranch.js";
+import MyRandomTreeBranch from "./primitives/tree-branch/MyRandomTreeBranch.js";
+import MyNest from "./primitives/MyNest.js";
 import Utils from "./Utils.js";
-import MyWing from "./compound-objects/MyWing.js";
-import MyBirdTail from "./compound-objects/MyBirdTail.js";
-import MyTerrain from "./compound-objects/MyTerrain.js";
-import MyTreePatch from "./compound-objects/MyTreePatch.js";
-import MyRandomTreePatch from "./compound-objects/MyRandomTreePatch.js";
+import MyBirdWing from "./primitives/bird/MyBirdWing.js";
+import MyBirdTail from "./primitives/bird/MyBirdTail.js";
+import MyTerrain from "./primitives/MyTerrain.js";
+import MyTreePatch from "./primitives/tree/MyTreePatch.js";
+import MyRandomTreePatch from "./primitives/tree/MyRandomTreePatch.js";
 
 const NUMBER_OF_TREE_BRANCHES = 50;
 const NUMBER_OF_TREES = 1;
@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
         this.nest = new MyNest(this, [-5, 0.1, 9], 1);
-        this.wing = new MyWing(this);
+        this.wing = new MyBirdWing(this);
         this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);

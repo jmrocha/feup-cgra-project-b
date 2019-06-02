@@ -1,7 +1,7 @@
 import MyLSystem from "./MyLSystem.js";
-import MyBranch from "./MyBranch";
-import MyLeaf from "./MyLeaf";
-import Utils from "../Utils.js";
+import MyBranch from "../tree/MyBranch.js";
+import MyLeaf from "../tree/MyLeaf.js";
+import Utils from "../../Utils.js";
 
 
 class MyLSPlant extends MyLSystem {

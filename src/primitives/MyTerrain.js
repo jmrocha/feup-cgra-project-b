@@ -1,4 +1,4 @@
-import Plane from "../Plane.js";
+import Plane from "./Plane.js";
 import config from "../Configuration.js";
 import Utils from "../Utils.js";
 

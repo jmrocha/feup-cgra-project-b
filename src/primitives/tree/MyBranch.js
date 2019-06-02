@@ -1,4 +1,4 @@
-import MyCylinder from "../primitives/MyCylinder";
+import MyCylinder from "../MyCylinder.js";
 
 class MyBranch extends MyCylinder {
     constructor(scene) {

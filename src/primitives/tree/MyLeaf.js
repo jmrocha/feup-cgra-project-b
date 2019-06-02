@@ -1,4 +1,4 @@
-import MyDiamond from "../primitives/MyDiamond";
+import MyDiamond from "../MyDiamond.js";
 
 class MyLeaf extends MyDiamond {
     constructor(scene) {

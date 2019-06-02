@@ -3,7 +3,7 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-import MyQuad from "../primitives/MyQuad.js";
+import MyQuad from "./MyQuad.js";
 import Utils from "../Utils.js";
 
 class MyUnitCubeQuad extends CGFobject {

@@ -1,4 +1,4 @@
-import MyPyramid from "../primitives/MyPyramid.js";
+import MyPyramid from "../MyPyramid.js";
 
 class MyHouseRoof {
     constructor(scene, texture) {

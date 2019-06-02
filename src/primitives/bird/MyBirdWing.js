@@ -1,12 +1,12 @@
-import MyQuad from "../primitives/MyQuad.js";
-import Utils from "../Utils.js";
-import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
-import {IMAGE_PATH} from "../Configuration.js";
+import MyQuad from "../MyQuad.js";
+import Utils from "../../Utils.js";
+import MyTriangleSmall from "../MyTriangleSmall.js";
+import {IMAGE_PATH} from "../../Configuration.js";
 
 const MAX_ORIENTATION = 45.0; // degrees
 const PERIOD = 1000;
 
-class MyWing extends CGFobject {
+class MyBirdWing extends CGFobject {
     constructor(scene) {
         super(scene);
         this.wingBody = new MyWingBody(scene, 60);
@@ -171,4 +171,4 @@ class MyWingTip extends CGFobject {
     }
 }
 
-export default MyWing;
+export default MyBirdWing;

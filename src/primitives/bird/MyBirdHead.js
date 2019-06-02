@@ -1,6 +1,6 @@
-import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
-import MyCylinder from "../primitives/MyCylinder.js";
-import {IMAGE_PATH} from "../Configuration.js";
+import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
+import MyCylinder from "../MyCylinder.js";
+import {IMAGE_PATH} from "../../Configuration.js";
 
 class MyBirdHead extends CGFobject {
     constructor(scene) {

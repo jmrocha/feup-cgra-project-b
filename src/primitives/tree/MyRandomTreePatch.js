@@ -1,5 +1,5 @@
 import MyTreePatch from "./MyTreePatch.js";
-import Utils from "../Utils.js";
+import Utils from "../../Utils.js";
 
 class MyRandomTreePatch extends MyTreePatch {
     constructor(scene) {

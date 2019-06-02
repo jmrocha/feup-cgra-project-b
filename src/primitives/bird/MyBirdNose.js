@@ -1,5 +1,5 @@
-import MyPyramid from "../primitives/MyPyramid.js";
-import {IMAGE_PATH} from "../Configuration.js";
+import MyPyramid from "../MyPyramid.js";
+import {IMAGE_PATH} from "../../Configuration.js";
 
 class MyBirdNose extends CGFobject {
     constructor(scene) {

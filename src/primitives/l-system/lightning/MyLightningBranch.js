@@ -1,5 +1,5 @@
 
-import MyQuad from "../primitives/MyQuad";
+import MyQuad from "../../MyQuad.js";
 
 class MyLightningBranch extends MyQuad {
     constructor(scene) {

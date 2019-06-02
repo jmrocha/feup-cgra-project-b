@@ -5,7 +5,7 @@
  */
 
 import Utils from "../Utils.js";
-import MyQuad from "../primitives/MyQuad.js";
+import MyQuad from "./MyQuad.js";
 import config from "../Configuration.js";
 
 const TEXTURE_WRAP = 'CLAMP_TO_EDGE';

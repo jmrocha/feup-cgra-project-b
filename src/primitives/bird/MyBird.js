@@ -1,9 +1,9 @@
-import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
-import MyTriangleSmall from "../primitives/MyTriangleSmall.js";
-import Utils from "../Utils.js";
-import MyPyramid from "../primitives/MyPyramid.js";
-import MyTreeBranch from "./MyTreeBranch.js";
-import MyWing from "./MyWing.js";
+import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
+import MyTriangleSmall from "../MyTriangleSmall.js";
+import Utils from "../../Utils.js";
+import MyPyramid from "../MyPyramid.js";
+import MyTreeBranch from "../tree-branch/MyTreeBranch.js";
+import MyBirdWing from "./MyBirdWing.js";
 import MyBirdEye from "./MyBirdEye.js";
 import MyBirdNose from "./MyBirdNose.js";
 import MyBirdTail from "./MyBirdTail.js";
@@ -30,7 +30,7 @@ class MyBird extends CGFobject {
         this.state = 'flying';
         this.head = new MyBirdHead(scene);
         this.body = new MyBirdBody(scene);
-        this.wing = new MyWing(scene);
+        this.wing = new MyBirdWing(scene);
         this.nose = new MyBirdNose(scene);
         this.tail = new MyBirdTail(scene);
         this.bough = null;

@@ -1,6 +1,6 @@
-import MyLSystem from "./MyLSystem.js";
-import MyLightningBranch from "./MyLightningBranch";
-import Utils from "../Utils.js";
+import MyLSystem from "../MyLSystem.js";
+import MyLightningBranch from "./MyLightningBranch.js";
+import Utils from "../../../Utils.js";
 
 const ANIMATION_DURATION = 1000; // in ms
 

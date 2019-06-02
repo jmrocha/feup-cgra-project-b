@@ -1,5 +1,5 @@
-import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
-import {IMAGE_PATH} from "../Configuration.js";
+import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
+import {IMAGE_PATH} from "../../Configuration.js";
 
 class MyBirdEye extends CGFobject {
     constructor(scene) {

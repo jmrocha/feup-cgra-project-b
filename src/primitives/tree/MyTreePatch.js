@@ -1,5 +1,5 @@
-import MyLSPlant from "./MyLSPlant";
-import Utils from "../Utils.js";
+import MyLSPlant from "../l-system/MyLSPlant.js";
+import Utils from "../../Utils.js";
 
 class MyTreePatch {
     constructor(scene, position = [0, 0, 0], numberOfTrees = 10) {

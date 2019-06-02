@@ -1,4 +1,4 @@
-import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
+import MyUnitCubeQuad from "../MyUnitCubeQuad.js";
 
 class MyHouseWall {
     constructor(scene, texture) {
