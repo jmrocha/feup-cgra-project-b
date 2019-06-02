@@ -15,6 +15,7 @@ class MyLeaf extends MyDiamond {
         this.leafMaterial.apply();
         this.scene.pushMatrix();
         {
+            this.scene.scale(0.5, 0.5, 0.5);
             super.display();
         }
         this.scene.popMatrix();
