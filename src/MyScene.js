@@ -7,19 +7,12 @@ import MyCubeMap from "./primitives/MyCubeMap.js";
 import MyHouse from "./primitives/house/MyHouse.js";
 import MyBird from "./primitives/bird/MyBird.js";
 import MyLightning from "./primitives/l-system/lightning/MyLightning.js";
-import config from './Configuration.js';
-import MyTreeBranch from "./primitives/tree-branch/MyTreeBranch.js";
+import config, {COLLISION_ERROR, NUMBER_OF_TREE_BRANCHES} from './Configuration.js';
 import MyRandomTreeBranch from "./primitives/tree-branch/MyRandomTreeBranch.js";
 import MyNest from "./primitives/MyNest.js";
 import Utils from "./Utils.js";
-import MyBirdWing from "./primitives/bird/MyBirdWing.js";
-import MyBirdTail from "./primitives/bird/MyBirdTail.js";
 import MyTerrain from "./primitives/MyTerrain.js";
 import MyTreePatch from "./primitives/tree/MyTreePatch.js";
-
-const NUMBER_OF_TREE_BRANCHES = 50;
-const NUMBER_OF_TREES = 1;
-const COLLISION_ERROR = 2.5;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -63,6 +56,7 @@ class MyScene extends CGFscene {
             new MyTreePatch(this, [0, 2, -12], 10),
             new MyTreePatch(this, [5, 2, -13], 10),
         ];
+        this.lig = new MyLightning(this, [0, 0, 0], 45);
 
         this.setUpdatePeriod(20);
     }
@@ -247,7 +241,7 @@ class MyScene extends CGFscene {
     }
 
     displayDev() {
-        this.bird.display();
+        this.lig.display();
     }
 
     displayScene() {

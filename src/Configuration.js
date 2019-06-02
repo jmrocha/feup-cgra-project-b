@@ -1,6 +1,7 @@
 export const IMAGE_PATH = 'img';
 export const SHADER_PATH = 'glsl';
-const OBJECTS_SCENE_SIZE_RATIO = 0.07;
+export const NUMBER_OF_TREE_BRANCHES = 50;
+export const COLLISION_ERROR = 2.5;
 
 let config = {
     cameras: {
