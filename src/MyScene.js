@@ -250,27 +250,15 @@ class MyScene extends CGFscene {
         this.bird.display();
     }
 
-    displayBranches() {
-        this.treeBranches.forEach(b => b.display());
-    }
-
     displayScene() {
         this.bird.display();
         this.terrain.display();
-        this.displayBranches();
+        this.treeBranches.forEach(b => b.display());
         this.nest.display();
         this.skybox.display();
         this.house.display();
         this.lightning.display();
         this.trees.forEach(t => t.display());
-    }
-
-    translate2(x, y, z) {
-        let scale = config['skybox']['scale'];
-        super.translate(
-            x * scale,
-            y * scale,
-            z * scale);
     }
 
     enableDev(enable) {
@@ -323,10 +311,6 @@ class MyScene extends CGFscene {
     handleKeyPDown() {
         this.collisionDetection = true;
         this.bird.takeBough();
-    }
-
-    handleKeyLUp() {
-        this.lightning.stopFlash();
     }
 
     handleKeyLDown() {
