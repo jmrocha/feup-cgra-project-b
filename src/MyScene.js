@@ -40,7 +40,7 @@ class MyScene extends CGFscene {
 
         this.thunderSound = new Audio('music/thunder-sound.mp3');
         this.dropBoughSound = new Audio('music/drop-bough-sound.wav');
-        //this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
+        this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
         this.backgroundSound = new Audio('music/background-sound.mp3');
         this.backgroundSound.autoplay = true;
         this.backgroundSound.loop = true;
@@ -277,7 +277,7 @@ class MyScene extends CGFscene {
         this.disableCollisionDetection();
         this.updateBoughStatus(WITH_BOUGH_STATUS);
         this.score += this.bird.velocity * SCORE_MULTIPLIER;
-        //this.pickBoughSound.play();
+        this.pickBoughSound.play();
     }
 
     collide(obj1, obj2) {
