@@ -89,6 +89,11 @@ let config = {
         trunk_texture: IMAGE_PATH + '/unit-cube/bottom.png',
         tree_top_texture: IMAGE_PATH + '/unit-cube/top.png'
     },
+    house: {
+        roof_texture: IMAGE_PATH + '/house-roof-texture.png',
+        wall_texture: IMAGE_PATH + '/house-wall-texture.png',
+        pillar_texture: IMAGE_PATH + '/house-pillar-texture.png'
+    },
     enable_dev_objects: false,
     axis_enabled: false,
     default_appearance: {

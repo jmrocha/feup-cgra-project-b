@@ -1,7 +1,8 @@
-import MyUnitCubeQuad from "./MyUnitCubeQuad.js";
-import MyPrism from "../primitives/MyPrism.js";
-import MyPyramid from "../primitives/MyPyramid.js";
 import Utils from "../Utils.js";
+import MyHouseRoof from "./MyHouseRoof.js";
+import config from "../Configuration.js";
+import MyHouseWall from "./MyHouseWall.js";
+import MyHousePillar from "./MyHousePillar.js";
 
 const PILLAR_POS = 0.75;
 const PILLAR_SCALE = [0.1, 1, 0.1];
@@ -9,9 +10,9 @@ const PILLAR_SCALE = [0.1, 1, 0.1];
 class MyHouse {
     constructor(scene, position = [0, 0, 0]) {
         this.scene = scene;
-        this.walls = new MyUnitCubeQuad(scene);
-        this.roof = new MyPyramid(scene, 4, 1);
-        this.pillar = new MyPrism(scene);
+        this.walls = new MyHouseWall(scene, config['house']['wall_texture']);
+        this.roof = new MyHouseRoof(scene, config['house']['roof_texture']);
+        this.pillar = new MyHousePillar(scene, config['house']['pillar_texture']);
         this.roofMaterial = new CGFappearance(scene);
         this.roofMaterial.setAmbient(178 / 255, 34 / 255, 34 / 255, 1);
         this.roofMaterial.setSpecular(178 / 255, 34 / 255, 34 / 255, 1);

@@ -55,17 +55,17 @@ class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this, config['terrain']['texture']['terrain'], config['skybox']['scale']);
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
-        this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, [0, 5, 0]);
         this.lightning = new MyLightning(this, [-10, 11, -10], 90);
         this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
         this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
-        this.nest = new MyNest(this, [-5, 0.1, 0], 1);
+        this.nest = new MyNest(this, [-5, 0.1, 9], 1);
         this.wing = new MyWing(this);
         this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
+        //this.house = new MyHouse(this);
         this.trees = [new MyTreePatch(this, [-10, 2, -12], 5)];
 
         //this.setLSystems();
@@ -261,7 +261,8 @@ class MyScene extends CGFscene {
         //this.terrain.display();
         ////this.tail.display();
         //this.displayTerrain();
-        this.trees.display();
+        //this.trees.display();
+        this.house.display();
     }
 
     displayBranches() {
