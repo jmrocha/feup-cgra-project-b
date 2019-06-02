@@ -72,11 +72,6 @@ class MyLightning extends MyLSystem {
         this.depth = 0;
     }
 
-    stopAnimation() {
-        this.depth = 0;
-        this.elapsedTime = 0;
-    }
-
     display() {
         this.scene.pushMatrix();
         this.scene.rotate(this.orientation, 0, 1, 0);
