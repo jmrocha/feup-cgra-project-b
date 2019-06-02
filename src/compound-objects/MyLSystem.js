@@ -19,14 +19,11 @@ class MyLSystem extends CGFobject {
 
     // cria o lexico da gramática
     initGrammar() {
-        this.grammar = {
-            "F": new MyRectangle(this.scene, 0.2, 1),
-            "X": new MyRectangle(this.scene, 0.5, 0.5)
-        };
+        this.grammar = {};
     }
 
 
-    // gera o sistema L com os par�metros atuais da cena
+    // gera o sistema L com os parâmetros atuais da cena
     generate(_axiom, _productions, _angle, _iterations, _scale) {
         // copia o axioma da cena para iniciar a sequência de desenvolvimento
         this.axiom = _axiom;
@@ -60,7 +57,7 @@ class MyLSystem extends CGFobject {
                 if (axiomProductions === undefined) {
                     // caso nao se aplique nenhuma producao deixa estar o caracter original
                     newString += this.axiom[j];
-                } else if (axiomProductions.length == 1) {
+                } else if (axiomProductions.length === 1) {
                     // caso apenas exista uma producao, aplica-a
                     newString += axiomProductions[0];
                 } else {
@@ -71,8 +68,6 @@ class MyLSystem extends CGFobject {
 
             this.axiom = newString;
         }
-        console.log("Final: " + this.axiom);
-        console.log("(length: " + this.axiom.length + ")");
     }
 
     display() {

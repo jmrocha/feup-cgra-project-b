@@ -16,8 +16,11 @@ import Utils from "./Utils.js";
 import MyWing from "./compound-objects/MyWing.js";
 import MyBirdTail from "./compound-objects/MyBirdTail.js";
 import MyTerrain from "./compound-objects/MyTerrain.js";
+import MyTreePatch from "./compound-objects/MyTreePatch.js";
+import MyRandomTreePatch from "./compound-objects/MyRandomTreePatch.js";
 
 const NUMBER_OF_TREE_BRANCHES = 50;
+const NUMBER_OF_TREES = 1;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -62,9 +65,9 @@ class MyScene extends CGFscene {
         this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
+        this.trees = [new MyTreePatch(this, [2, 2, -10], 3)];
 
         //this.setLSystems();
-
 
         this.setUpdatePeriod(20);
     }
@@ -251,12 +254,13 @@ class MyScene extends CGFscene {
     displayDev() {
         //this.setMaxAmbientLight();
         ////this.wing.display();
-        this.bird.display();
-        this.displayBranches();
-        this.nest.display();
+        //this.bird.display();
+        //this.displayBranches();
+        //this.nest.display();
         //this.terrain.display();
         ////this.tail.display();
         //this.displayTerrain();
+        this.trees.display();
     }
 
     displayBranches() {
@@ -271,6 +275,7 @@ class MyScene extends CGFscene {
         this.skybox.display();
         this.house.display();
         this.lightning.display();
+        this.trees.forEach(t => t.display());
     }
 
     translate2(x, y, z) {

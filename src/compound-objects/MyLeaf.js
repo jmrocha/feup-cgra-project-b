@@ -1,3 +1,5 @@
+import MyDiamond from "../primitives/MyDiamond";
+
 class MyLeaf extends MyDiamond {
     constructor(scene) {
         super(scene);
@@ -18,3 +20,5 @@ class MyLeaf extends MyDiamond {
         this.scene.popMatrix();
     }
 }
+
+export default MyLeaf;

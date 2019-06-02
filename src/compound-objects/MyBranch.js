@@ -1,3 +1,5 @@
+import MyCylinder from "../primitives/MyCylinder";
+
 class MyBranch extends MyCylinder {
     constructor(scene) {
         super(scene, 3, null);
@@ -19,3 +21,5 @@ class MyBranch extends MyCylinder {
         this.scene.popMatrix();
     }
 }
+
+export default MyBranch;
