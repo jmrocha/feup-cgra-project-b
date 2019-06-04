@@ -1,5 +1,7 @@
 # Project B
 
+![Demo](https://media.giphy.com/media/523u6qcA3hyG3Lzre9/giphy.gif)
+
 ## Requirements
 - nodejs
 
