@@ -2,7 +2,6 @@
  * MyPyramid
  * @constructor
  */
-import {IMAGE_PATH} from "../Configuration.js";
 
 class MyPyramid extends CGFobject {
     constructor(scene, slices = 6) {

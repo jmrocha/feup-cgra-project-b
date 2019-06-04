@@ -84,14 +84,6 @@ class MyInterface extends CGFinterface {
     }
 
     handleDevOnChange(enable) {
-        /*if (enable) {
-            //this.camera.setValue('Primitive Camera');
-            this.setCamera('Primitive Camera');
-        } else {
-            //this.camera.setValue('Skybox Camera');
-            this.setCamera('Skybox Camera');
-        }*/
-
         this.scene.enableDev(enable);
     }
 
@@ -117,6 +109,8 @@ class MyInterface extends CGFinterface {
             this.scene.handleKeyPDown();
         else if (event.code === 'KeyL') {
             this.scene.handleKeyLDown();
+        } else if (event.code === 'KeyJ') {
+            this.scene.handleKeyJDown();
         }
         // called when a key is pressed down
         // mark it as active in the array
@@ -124,9 +118,6 @@ class MyInterface extends CGFinterface {
     };
 
     processKeyUp(event) {
-        if (event.code === 'KeyL') {
-            this.scene.handleKeyLUp();
-        }
         // called when a key is released, mark it as inactive in the array
         this.activeKeys[event.code] = false;
     };

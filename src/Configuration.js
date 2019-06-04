@@ -1,6 +1,7 @@
 export const IMAGE_PATH = 'img';
 export const SHADER_PATH = 'glsl';
-const OBJECTS_SCENE_SIZE_RATIO = 0.07;
+export const NUMBER_OF_TREE_BRANCHES = 50;
+export const COLLISION_ERROR = 2.5;
 
 let config = {
     cameras: {
@@ -58,12 +59,12 @@ let config = {
             }
         ]
     },
-    shader:{
-       vert: SHADER_PATH + '/terrain.vert',
-       frag: SHADER_PATH + '/terrain.frag'
+    shader: {
+        vert: SHADER_PATH + '/terrain.vert',
+        frag: SHADER_PATH + '/terrain.frag'
     },
-    terrain:{
-        texture:{
+    terrain: {
+        texture: {
             terrain: IMAGE_PATH + '/terrain.jpg',
             height_map: IMAGE_PATH + '/heightmap2.jpg',
             altimetry: IMAGE_PATH + '/altimetry2.png'

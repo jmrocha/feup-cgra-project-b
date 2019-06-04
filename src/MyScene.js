@@ -3,25 +3,20 @@
  * @constructor
  */
 
-import MyCubeMap from "./compound-objects/MyCubeMap.js";
-import MyHouse from "./compound-objects/MyHouse.js";
-import MyBird from "./compound-objects/MyBird.js";
-import MyLightning from "./compound-objects/MyLightning.js";
-import Plane from "./Plane";
-import config, {IMAGE_PATH} from './Configuration.js';
-import MyTreeBranch from "./compound-objects/MyTreeBranch.js";
-import MyRandomTreeBranch from "./compound-objects/MyRandomTreeBranch.js";
-import MyNest from "./compound-objects/MyNest.js";
+import MyCubeMap from "./primitives/MyCubeMap.js";
+import MyHouse from "./primitives/house/MyHouse.js";
+import MyBird from "./primitives/bird/MyBird.js";
+import MyLightning from "./primitives/l-system/lightning/MyLightning.js";
+import config, {COLLISION_ERROR, NUMBER_OF_TREE_BRANCHES} from './Configuration.js';
+import MyRandomTreeBranch from "./primitives/tree-branch/MyRandomTreeBranch.js";
+import MyNest from "./primitives/MyNest.js";
 import Utils from "./Utils.js";
-import MyWing from "./compound-objects/MyWing.js";
-import MyBirdTail from "./compound-objects/MyBirdTail.js";
-import MyTerrain from "./compound-objects/MyTerrain.js";
-import MyTreePatch from "./compound-objects/MyTreePatch.js";
-import MyRandomTreePatch from "./compound-objects/MyRandomTreePatch.js";
+import MyTerrain from "./primitives/MyTerrain.js";
+import MyTreePatch from "./primitives/tree/MyTreePatch.js";
 
-const NUMBER_OF_TREE_BRANCHES = 50;
-const NUMBER_OF_TREES = 1;
-const COLLISION_ERROR = 2.5;
+const WITHOUT_BOUGH_STATUS = 0;
+const WITH_BOUGH_STATUS = 1;
+const SCORE_MULTIPLIER = 1000;
 
 class MyScene extends CGFscene {
     constructor() {
@@ -29,12 +24,28 @@ class MyScene extends CGFscene {
         this.updateObservers = [];
         this.isDevEnabled = config['enable_dev_objects'];
         this.displayAxis = config['axis_enabled'];
-        this.flutterVelocity = config['bird']['flutter_velocity'];
         this.birdVelocity = config['bird']['velocity'];
         this.birdRotation = config['bird']['rotation'];
-        this.speedFactor = 1;
         this.state = 'no-bough';
         this.collisionDetection = false;
+        this.treeBranchesLeft = NUMBER_OF_TREE_BRANCHES;
+        this.score = 0;
+        this.scoreElement = document.getElementById('score');
+        this.boughStatusElement = document.getElementById('bough-status');
+        this.boughsLeftElement = document.getElementById('boughs-left');
+
+        this.updateScore(0);
+        this.updateBoughsLeft(NUMBER_OF_TREE_BRANCHES);
+        this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
+
+        this.thunderSound = new Audio('music/thunder-sound.mp3');
+        this.dropBoughSound = new Audio('music/drop-bough-sound.wav');
+        this.pickBoughSound = new Audio('music/pick-bough-sound.wav');
+        this.backgroundSound = new Audio('music/background-sound.mp3');
+        this.backgroundSound.autoplay = true;
+        this.backgroundSound.loop = true;
+        this.backgroundSound.playbackRate = 1;
+        this.backgroundSound.volume = 0.5;
     }
 
     init(application) {
@@ -57,15 +68,10 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this);
         this.bird = new MyBird(this, 0, 0, [0, 5, 0]);
         this.lightning = new MyLightning(this, [-10, 11, -10], 90);
-        this.branch = new MyTreeBranch(this, [0, 0, 0], 0);
-        this.devObj = this.branch;
         this.treeBranches = this.getRandomTreeBranches();
         this.nest = new MyNest(this, [-5, 0.1, 9], 1);
-        this.wing = new MyWing(this);
-        this.tail = new MyBirdTail(this);
         this.material = new CGFappearance(this);
         this.house = new MyHouse(this, [5, 2, -10]);
-        //this.house = new MyHouse(this);
         this.trees = [
             new MyTreePatch(this, [-10, 2, -12], 25),
             new MyTreePatch(this, [-5, 2, -12], 25),
@@ -73,9 +79,32 @@ class MyScene extends CGFscene {
             new MyTreePatch(this, [5, 2, -13], 10),
         ];
 
-        //this.setLSystems();
-
         this.setUpdatePeriod(20);
+    }
+
+    updateScore(value) {
+        value = Math.ceil(value);
+        this.scoreElement.innerHTML = `Score: ${value}`;
+    }
+
+    updateBoughStatus(value) {
+        let attribute;
+        let message;
+
+        if (value === WITH_BOUGH_STATUS) {
+            attribute = 'with-bough';
+            message = 'with tree branch';
+        } else {
+            attribute = 'without-bough';
+            message = 'without tree branch'
+        }
+
+        this.boughStatusElement.innerHTML = `Bird: ${message}`;
+        this.boughStatusElement.setAttribute("class", attribute);
+    }
+
+    updateBoughsLeft(value) {
+        this.boughsLeftElement.innerHTML = `Tree branches left: ${value}`;
     }
 
     getRandomTreeBranches() {
@@ -228,6 +257,11 @@ class MyScene extends CGFscene {
     dropBough() {
         this.bird.dropBough();
         this.state = 'no-bough';
+        this.updateBoughStatus(WITHOUT_BOUGH_STATUS);
+        this.updateBoughsLeft(--this.treeBranchesLeft);
+        this.score += this.bird.velocity * SCORE_MULTIPLIER;
+        this.updateScore(this.score);
+        this.dropBoughSound.play();
     }
 
     detectNestCollision() {
@@ -242,6 +276,9 @@ class MyScene extends CGFscene {
         this.state = 'bough';
         // if bough is near the nest, avoid instantaneous collision between bough and nest
         this.disableCollisionDetection();
+        this.updateBoughStatus(WITH_BOUGH_STATUS);
+        this.score += this.bird.velocity * SCORE_MULTIPLIER;
+        this.pickBoughSound.play();
     }
 
     collide(obj1, obj2) {
@@ -257,40 +294,17 @@ class MyScene extends CGFscene {
         this.axis.display();
     }
 
-    displayDev() {
-        //this.setMaxAmbientLight();
-        ////this.wing.display();
-        //this.bird.display();
-        //this.displayBranches();
-        //this.nest.display();
-        //this.terrain.display();
-        ////this.tail.display();
-        //this.displayTerrain();
-        //this.trees.display();
-        this.house.display();
-    }
-
-    displayBranches() {
-        this.treeBranches.forEach(b => b.display());
-    }
+    displayDev() {}
 
     displayScene() {
         this.bird.display();
         this.terrain.display();
-        this.displayBranches();
+        this.treeBranches.forEach(b => b.display());
         this.nest.display();
         this.skybox.display();
         this.house.display();
         this.lightning.display();
         this.trees.forEach(t => t.display());
-    }
-
-    translate2(x, y, z) {
-        let scale = config['skybox']['scale'];
-        super.translate(
-            x * scale,
-            y * scale,
-            z * scale);
     }
 
     enableDev(enable) {
@@ -322,10 +336,13 @@ class MyScene extends CGFscene {
 
     handleKeyWDown() {
         this.bird.accelerate(this.birdVelocity);
+        this.backgroundSound.playbackRate += this.birdVelocity * 10;
     }
 
     handleKeySDown() {
         this.bird.accelerate(-this.birdVelocity);
+        this.backgroundSound.playbackRate -= this.birdVelocity * 10;
+        if (this.backgroundSound.playbackRate <= 1) this.backgroundSound.playbackRate = 1;
     }
 
     handleKeyADown() {
@@ -345,12 +362,16 @@ class MyScene extends CGFscene {
         this.bird.takeBough();
     }
 
-    handleKeyLUp() {
-        this.lightning.stopFlash();
-    }
-
     handleKeyLDown() {
         this.lightning.flash();
+        this.playThunder();
+    }
+
+    handleKeyJDown() {
+        if (this.backgroundSound.paused)
+            this.backgroundSound.play();
+        else
+            this.backgroundSound.pause();
     }
 
     handleSpeedOnChange(value) {
@@ -406,6 +427,26 @@ class MyScene extends CGFscene {
 
     disableCollisionDetection() {
         this.collisionDetection = false;
+    }
+
+    playThunder() {
+        this.thunderSound.play();
+    }
+
+    playBird() {
+        this.dropBoughSound.play();
+    }
+
+    playBackgroundMusic() {
+        this.backgroundSound.play();
+    }
+
+    speedUpBackgroundMusic() {
+
+    }
+
+    slowBackgroundMusic() {
+
     }
 }
 
