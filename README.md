@@ -1,7 +1,7 @@
 # Project B
 
 ## Requirements
-- nodejs 
+- nodejs
 
 ## Getting Started
 
@@ -10,7 +10,16 @@ Install dependencies:
 npm install
 ```
 
-Start development server:
+Run:
+```bash
+npm start 
+```
+
+Now open http://localhost:8080
+
+## Development
+
+Having the dependencies installed, run:
 ```bash
 npm run dev
 ```

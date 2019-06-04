@@ -12,3 +12,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port);
+
+console.log('Server now listening in port ' + port);
