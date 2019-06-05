@@ -1,7 +1,9 @@
 # Project B
 🦉 Help the owl to build its nest by catching the tree branches!
 
-![Demo](https://media.giphy.com/media/523u6qcA3hyG3Lzre9/giphy.gif)
+<p align="center">
+  <img src="https://media.giphy.com/media/523u6qcA3hyG3Lzre9/giphy.gif">
+</p>
 
 ## Requirements
 - nodejs
